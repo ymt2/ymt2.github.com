@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>ymt2log</title>
+        <link>http://ymt2.github.io/pages/blog/html/</link>
+        <description>Pythonista</description>
+        <language>en-us</language>
+        <pubDate>Tue, 06 Aug 2013 00:00:00 +0900</pubDate>
+        
+        <item>
+            <link>http://ymt2.github.io/pages/blog/html/2013/08/06/enable_google_analytics.html</link>
+            <guid>http://ymt2.github.io/pages/blog/html/2013/08/06/enable_google_analytics.html</guid>
+            <title><![CDATA[tinkerer で Google Analytics を有効化する]]></title>
+            <description><![CDATA[<div class="section" id="tinkerer-google-analytics">
+<h1>tinkerer で Google Analytics を有効化する</h1>
+<p>折角公開したので、 <a class="reference external" href="http://www.google.co.jp/intl/ja/analytics">Google Analytics</a> をのせてみました。</p>
+<p>まぁ、Tinkerer の <a class="reference external" href="http://tinkerer.me/doc/more_tinkering.html">ドキュメント</a> を読めば書いてあることです。</p>
+<div class="section" id="id1">
+<h2>トラッキングコードを保存して</h2>
+<p><span class="docutils literal"><span class="pre">_static/google_analytics.js</span></span> にトラッキングコードをコピペ</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>Tinkerer のルートディレクトリ<span class="o">}</span>
+<span class="nv">$ </span>mkdir _static
+<span class="nv">$ </span>touch _static/google_analytics.js
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>テンプレートを作り</h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>touch _templates/page.html
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>テンプレートからトラッキングコードを読み込んで</h2>
+<p><span class="docutils literal"><span class="pre">_templates/page.html</span></span> を編集</p>
+<div class="highlight-html"><div class="highlight"><pre>{% extends &quot;!page.html&quot; %}
+
+{% set script_files = script_files + [&quot;_static/google_analytics.js&quot;] %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ビルドしておわり</h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -b
+</pre></div>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ sphinx ]]></category>
+             <pubDate>Tue, 06 Aug 2013 00:00:00 +0900</pubDate>
+        </item>
+    
+        <item>
+            <link>http://ymt2.github.io/pages/blog/html/2013/08/02/blogging_with_sphinx.html</link>
+            <guid>http://ymt2.github.io/pages/blog/html/2013/08/02/blogging_with_sphinx.html</guid>
+            <title><![CDATA[Tinkerer でブログをはじめてみました]]></title>
+            <description><![CDATA[<div class="section" id="tinkerer">
+<h1>Tinkerer でブログをはじめてみました</h1>
+<p><a class="reference external" href="http://sphinx-doc.org">Sphinx</a> を使ってブログが書ける <a class="reference external" href="http://tinkerer.me">Tinkerer</a> を発見したのではじめてみました。
+ホスティングは <a class="reference external" href="https://github.com">GitHub</a> を利用しています。</p>
+<div class="section" id="github">
+<h2>GitHub でブログを公開するまでにやったこと</h2>
+<div class="section" id="virtualenv">
+<h3>virtualenv で仮想環境を作る</h3>
+<p>Sphinx の拡張機能をいろいろ試したかったので仮想環境を用意しました。Github Pages に公開したかったので Git リポジトリも同時に作成。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>
+<span class="nv">$ </span>git init hoge
+<span class="nv">$ </span><span class="nb">cd </span>hoge
+<span class="nv">$ </span>mkvirtualenv hoge
+</pre></div>
+</div>
+<p>あと、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">workon</span> <span class="pre">hoge</span></span> とかやってすぐに書きはじめられるといいなーと思ったので <span class="docutils literal"><span class="pre">$VIRTUAL_ENV/bin/.postactivate</span></span> を以下のように編集。これで <span class="docutils literal"><span class="pre">workon</span></span> したときに Git リポジトリのあるディレクトリに移動してくれます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/opt/local/bin/zsh</span>
+<span class="c"># This hook is run after this virtualenv is activated.</span>
+
+<span class="nv">proj_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>|awk -F<span class="s1">'/'</span> <span class="s1">'{print $NF}'</span><span class="k">)</span>
+<span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>/hoge
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Tinkerer のインストールから記事を書くまで</h3>
+<div class="section" id="id2">
+<h4>Tinkerer インストール</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>pip install tinkerer
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>ブログを作る</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -s
+</pre></div>
+</div>
+<p>カレントディレクトリに Sphinx のプロジェクトが展開されます。まずは <span class="docutils literal"><span class="pre">conf.py</span></span> をいじってブログタイトルなどを設定しましょう。 <span class="docutils literal"><span class="pre">TODO:</span></span> から始まるセクションを編集します。</p>
+</div>
+<div class="section" id="id4">
+<h4>記事を書く</h4>
+<p>以下のコマンドで rst ファイルが生成されるので編集しましょう。 <span class="docutils literal"><span class="pre">blog</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -p title
+</pre></div>
+</div>
+<p>ちなみに、以下のコマンドで単一のページを作成することも可能です。こちらは <span class="docutils literal"><span class="pre">pages</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker --page title
+</pre></div>
+</div>
+<p>記事が書けたら、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">tinker</span> <span class="pre">-b</span></span> とするとビルドが実行されます。 <span class="docutils literal"><span class="pre">index.html</span></span> が生成されるのでブラウザで開いて出来ばえを確認できます。</p>
+</div>
+</div>
+<div class="section" id="github-pages">
+<h3>GitHub Pages で公開</h3>
+<p><a class="reference external" href="http://tinkerer.me/doc/deploying.html#hosting-on-github">Hosting on GitHub</a> とか <a class="reference external" href="https://help.github.com/categories/20/articles">GitHub Help</a> を参考に設定。注意点としては、リポジトリのルートに <span class="docutils literal"><span class="pre">.nojekyll</span></span> ファイルを作っておくことと、ブログのデータをコミットするブランチを <span class="docutils literal"><span class="pre">gh-pages</span></span> としておくことが必要です。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>思ったこと</h2>
+<p>Sphinx で書けるので、当然 <a class="reference external" href="http://blockdiag.com/ja/blockdiag">Blockdiag</a> なんかも使えます。
+うまいことテーマをいじって wiki とブログを組み合わせたような使い方ができないか考え中。</p>
+</div>
+</div>]]></description>
+            <category><![CDATA[ sphinx ]]></category>
+             <pubDate>Fri, 02 Aug 2013 00:00:00 +0900</pubDate>
+        </item>
+    
+        <item>
+            <link>http://ymt2.github.io/pages/blog/html/2013/07/31/first_post.html</link>
+            <guid>http://ymt2.github.io/pages/blog/html/2013/07/31/first_post.html</guid>
+            <title><![CDATA[first post]]></title>
+            <description><![CDATA[<div class="section" id="first-post">
+<h1>first post</h1>
+<p>This is my first post.</p>
+</div>]]></description>
+             <pubDate>Wed, 31 Jul 2013 00:00:00 +0900</pubDate>
+        </item>
+    
+    </channel>
+</rss>
