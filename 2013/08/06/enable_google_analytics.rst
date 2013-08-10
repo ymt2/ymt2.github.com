@@ -1,5 +1,5 @@
 ===========================================
- tinkerer で Google Analytics を有効化する
+ Tinkerer で Google Analytics を有効化する
 ===========================================
 
 折角公開したので、 `Google Analytics`_ をのせてみました。
