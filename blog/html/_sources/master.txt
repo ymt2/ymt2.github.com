@@ -9,4 +9,5 @@ Sitemap
    2013/08/02/blogging_with_sphinx
    2013/07/31/first_post
    pages/first_page
+   pages/natural_language_processing
 
