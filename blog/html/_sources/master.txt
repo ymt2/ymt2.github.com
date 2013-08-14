@@ -10,4 +10,5 @@ Sitemap
    2013/07/31/first_post
    pages/first_page
    pages/natural_language_processing
+   pages/notes
 
