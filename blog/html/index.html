@@ -77,6 +77,80 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>August 23, 2013</span>
+        </div>
+        <div class="section" id="migemo-emacs-24-3-1-mac-os-x">
+<h1><a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a></h1>
+<div class="section" id="migemo">
+<h2>migemo とは</h2>
+<p><a class="reference external" href="http://0xcc.net/migemo">migemo</a> とは、ローマ字を入力することで日本語文章をインクリメンタルサーチするためのソフトウェアです。emacs 拡張を利用すると、いつもの <cite>C-s</cite> がそのまま日本語に対応します。</p>
+<p>今回はC言語で実装された <cite>cmigemo</cite> をインストールします。</p>
+</div>
+<div class="section" id="cmigemo">
+<h2>cmigemo のインストール</h2>
+<p>github から <a class="reference external" href="https://github.com/koron/cmigemo">cmigemo</a> を入手してインストールします。オプションはデフォルトのままにしておきました。デフォルトでは <cite>/usr/local/</cite> 以下にインストールされます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/koron/cmigemo.git cmigemo
+<span class="nv">$ </span><span class="nb">cd </span>cmigemo
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make osx
+<span class="nv">$ </span>make osx-dict
+<span class="nv">$ </span>sudo make osx-install
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>cmigemo を試してみる</h2>
+<p>下記のコマンドを実行するとプロンプトが表示され、入力待ちの状態になります。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cmigemo -d /usr/local/share/migemo/utf-8/migemo-dict
+migemo_open<span class="o">(</span><span class="s2">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="o">)=</span>0x7fb552c03990
+clock<span class="o">()=</span>0.120343
+QUERY:
+</pre></div>
+</div>
+<p><cite>QUERY</cite> 適当なローマ字を入力してみると、正規表現が生成されることがわかります。正規表現を入力の度に生成し、それを検索クエリとすることでインクリメンタルサーチを可能にするわけですね。</p>
+<div class="highlight-sh"><div class="highlight"><pre>QUERY: paison
+PATTERN: <span class="o">(</span>ﾊﾟｲｿ<span class="o">[</span>ﾝﾉﾈﾇﾆﾅ<span class="o">]</span>|パイソ<span class="o">[</span>ンノネヌニナ<span class="o">]</span>|ぱいそ<span class="o">[</span>んのねぬにな<span class="o">]</span>|ｐａｉｓｏｎ|paison<span class="o">)</span>
+QUERY: toukyo
+PATTERN: <span class="o">(</span>ﾄｳｷｮ|トウキョ|等距離|登極|当<span class="o">(</span>局|協会<span class="o">)</span>|東<span class="o">[</span>教京<span class="o">]</span>|とうきょ|ｔｏｕｋｙｏ|toukyo<span class="o">)</span>
+QUERY:
+</pre></div>
+</div>
+</div>
+<div class="section" id="migemo-el">
+<h2>migemo.el のインストール</h2>
+<p><cite>emacs</cite> 拡張の <cite>migemo.el</cite> は <cite>package.el</cite> を使うと簡単にインストールできます。 <cite>*scratch*</cite> バッファで <cite>(package-install ‘migemo)</cite> を評価でもしてやると入ります。</p>
+</div>
+<div class="section" id="id2">
+<h2>migemo.el の設定</h2>
+<p><cite>init.el</cite> にこんな感じの設定を追記。 <cite>C-s</cite> してミニバッファに <cite>[MIGEMO] I-search</cite>  と表示されれば日本語インクリメンタルサーチが可能になっているはずです。</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'migemo</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-command</span> <span class="s">&quot;/usr/local/bin/cmigemo&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-options</span> <span class="o">'</span><span class="p">(</span><span class="s">&quot;-q&quot;</span> <span class="s">&quot;--emacs&quot;</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-dictionary</span> <span class="s">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-user-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-coding-system</span> <span class="ss">'utf-8-unix</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-regex-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">load-library</span> <span class="s">&quot;migemo&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">migemo-init</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/emacs.html">emacs</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/migemo.html">migemo</a>, <a href="tags/emacs.html">emacs</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
+        </div>
+        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>December 13, 2012</span>
         </div>
         <div class="section" id="chatwork-fluid">
@@ -273,6 +347,8 @@
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
+        </li><li>
             <a href="2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
         </li><li>
             <a href="2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>

@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>Tinkerer で Google Analytics を有効化する &mdash; ymt2log</title>
+        <title>migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X &mdash; ymt2log</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -28,7 +28,7 @@
         <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
-        <link rel="next" title="Tinkerer でブログをはじめてみました" href="../02/blogging_with_sphinx.html" /><link rel="prev" title="Google Playストアに接続できなくなったときの対処法" href="../../../2012/12/27/cannot_connect_to_google_play_store.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+        <link rel="next" title="ChatWork + Fluidで未読件数の表示をする" href="../../../2012/12/13/chatwork_meets_fluid.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.2.1',
@@ -77,42 +77,64 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../../2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a></li>
-            <li class="right"><a href="../02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a> &raquo; </li>
+            <li class="left"></li>
+            <li class="right"><a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
-            <span>August 06, 2013</span>
+            <span>August 23, 2013</span>
         </div>
-    <div class="section" id="tinkerer-google-analytics">
-<h1>Tinkerer で Google Analytics を有効化する</h1>
-<p>折角公開したので、 <a class="reference external" href="http://www.google.co.jp/intl/ja/analytics/">Google Analytics</a> をのせてみました。</p>
-<p>まぁ、Tinkerer の <a class="reference external" href="http://tinkerer.me/doc/more_tinkering.html">ドキュメント</a> を読めば書いてあることです。</p>
-<div class="section" id="id1">
-<h2>トラッキングコードを保存して</h2>
-<p><span class="docutils literal"><span class="pre">_static/google_analytics.js</span></span> にトラッキングコードをコピペ</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>Tinkerer のルートディレクトリ<span class="o">}</span>
-<span class="nv">$ </span>mkdir _static
-<span class="nv">$ </span>touch _static/google_analytics.js
+    <div class="section" id="migemo-emacs-24-3-1-mac-os-x">
+<h1>migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</h1>
+<div class="section" id="migemo">
+<h2>migemo とは</h2>
+<p><a class="reference external" href="http://0xcc.net/migemo/">migemo</a> とは、ローマ字を入力することで日本語文章をインクリメンタルサーチするためのソフトウェアです。emacs 拡張を利用すると、いつもの <cite>C-s</cite> がそのまま日本語に対応します。</p>
+<p>今回はC言語で実装された <cite>cmigemo</cite> をインストールします。</p>
+</div>
+<div class="section" id="cmigemo">
+<h2>cmigemo のインストール</h2>
+<p>github から <a class="reference external" href="https://github.com/koron/cmigemo">cmigemo</a> を入手してインストールします。オプションはデフォルトのままにしておきました。デフォルトでは <cite>/usr/local/</cite> 以下にインストールされます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/koron/cmigemo.git cmigemo
+<span class="nv">$ </span><span class="nb">cd </span>cmigemo
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make osx
+<span class="nv">$ </span>make osx-dict
+<span class="nv">$ </span>sudo make osx-install
 </pre></div>
 </div>
+</div>
+<div class="section" id="id1">
+<h2>cmigemo を試してみる</h2>
+<p>下記のコマンドを実行するとプロンプトが表示され、入力待ちの状態になります。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cmigemo -d /usr/local/share/migemo/utf-8/migemo-dict
+migemo_open<span class="o">(</span><span class="s2">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="o">)=</span>0x7fb552c03990
+clock<span class="o">()=</span>0.120343
+QUERY:
+</pre></div>
+</div>
+<p><cite>QUERY</cite> 適当なローマ字を入力してみると、正規表現が生成されることがわかります。正規表現を入力の度に生成し、それを検索クエリとすることでインクリメンタルサーチを可能にするわけですね。</p>
+<div class="highlight-sh"><div class="highlight"><pre>QUERY: paison
+PATTERN: <span class="o">(</span>ﾊﾟｲｿ<span class="o">[</span>ﾝﾉﾈﾇﾆﾅ<span class="o">]</span>|パイソ<span class="o">[</span>ンノネヌニナ<span class="o">]</span>|ぱいそ<span class="o">[</span>んのねぬにな<span class="o">]</span>|ｐａｉｓｏｎ|paison<span class="o">)</span>
+QUERY: toukyo
+PATTERN: <span class="o">(</span>ﾄｳｷｮ|トウキョ|等距離|登極|当<span class="o">(</span>局|協会<span class="o">)</span>|東<span class="o">[</span>教京<span class="o">]</span>|とうきょ|ｔｏｕｋｙｏ|toukyo<span class="o">)</span>
+QUERY:
+</pre></div>
+</div>
+</div>
+<div class="section" id="migemo-el">
+<h2>migemo.el のインストール</h2>
+<p><cite>emacs</cite> 拡張の <cite>migemo.el</cite> は <cite>package.el</cite> を使うと簡単にインストールできます。 <cite>*scratch*</cite> バッファで <cite>(package-install &#8216;migemo)</cite> を評価でもしてやると入ります。</p>
 </div>
 <div class="section" id="id2">
-<h2>テンプレートを作り</h2>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>touch _templates/page.html
-</pre></div>
-</div>
-</div>
-<div class="section" id="id3">
-<h2>テンプレートからトラッキングコードを読み込んで</h2>
-<p><span class="docutils literal"><span class="pre">_templates/page.html</span></span> を編集</p>
-<div class="highlight-html"><div class="highlight"><pre>{% extends &quot;!page.html&quot; %}
-
-{% set script_files = script_files + [&quot;_static/google_analytics.js&quot;] %}
-</pre></div>
-</div>
-</div>
-<div class="section" id="id4">
-<h2>ビルドしておわり</h2>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -b
+<h2>migemo.el の設定</h2>
+<p><cite>init.el</cite> にこんな感じの設定を追記。 <cite>C-s</cite> してミニバッファに <cite>[MIGEMO] I-search</cite>  と表示されれば日本語インクリメンタルサーチが可能になっているはずです。</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;migemo</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-command</span> <span class="s">&quot;/usr/local/bin/cmigemo&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-options</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;-q&quot;</span> <span class="s">&quot;--emacs&quot;</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-dictionary</span> <span class="s">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-user-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-coding-system</span> <span class="ss">&#39;utf-8-unix</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-regex-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">load-library</span> <span class="s">&quot;migemo&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">migemo-init</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -125,27 +147,27 @@
         <div class="categories">
             <span>
                 Filed under:
-                <a href="../../../categories/sphinx.html">sphinx</a></span>
+                <a href="../../../categories/emacs.html">emacs</a></span>
         </div>
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/tinkerer.html">tinkerer</a>, <a href="../../../tags/google_analytics.html">google analytics</a>, <a href="../../../tags/sphinx.html">sphinx</a></span>
+                <a href="../../../tags/migemo.html">migemo</a>, <a href="../../../tags/emacs.html">emacs</a>, <a href="../../../tags/mac_os_x.html">mac os x</a></span>
         </div>
         </div>
     <ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../../2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a></li>
-            <li class="right"><a href="../02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a> &raquo; </li>
+            <li class="left"></li>
+            <li class="right"><a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
+            <a href="#">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
         </li><li>
             <a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
         </li><li>
             <a href="../../../2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>
         </li><li>
-            <a href="#">Tinkerer で Google Analytics を有効化する</a>
+            <a href="../06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a>
         </li><li>
             <a href="../02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a>
         </li></ul>
