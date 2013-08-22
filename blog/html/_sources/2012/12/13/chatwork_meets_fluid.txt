@@ -27,6 +27,6 @@ WebアプリのURLを食べさせるとMacOSのhoge.appを吐き出してくれ�
 .. tags:: fluid,chatwork,javascript,mac os x
 .. comments::
 
-_`Fluidで作ったchatwork.comアプリで未読表示`: http://www.simplegimmick.com/2012/02/fluidchatworkcom.html
-_`Fluid`: http://fluidapp.com/
-_`Fluid Developer`: http://fluidapp.com/developer/
+.. _`Fluidで作ったchatwork.comアプリで未読表示`: http://www.simplegimmick.com/2012/02/fluidchatworkcom.html
+.. _`Fluid`: http://fluidapp.com/
+.. _`Fluid Developer`: http://fluidapp.com/developer/
