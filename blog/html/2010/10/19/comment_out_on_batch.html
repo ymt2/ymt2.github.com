@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>Google Playストアに接続できなくなったときの対処法 &mdash; ymt2log</title>
+        <title>[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う &mdash; ymt2log</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -28,7 +28,7 @@
         <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
-        <link rel="next" title="Tinkerer で Google Analytics を有効化する" href="../../../2013/08/06/enable_google_analytics.html" /><link rel="prev" title="ChatWork + Fluidで未読件数の表示をする" href="../13/chatwork_meets_fluid.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
+        <link rel="next" title="Facebook の Events を iCal に同期する" href="../../../2011/04/09/sync_facebook_events_to_ical.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.2.1',
@@ -77,22 +77,54 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a></li>
-            <li class="right"><a href="../../../2013/08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a> &raquo; </li>
+            <li class="left"></li>
+            <li class="right"><a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
-            <span>December 27, 2012</span>
+            <span>October 19, 2010</span>
         </div>
-    <div class="section" id="google-play">
-<h1>Google Playストアに接続できなくなったときの対処法</h1>
-<p>Xperia S LT26iでいきなりGoogle Playストアが使えなくなって困ったので対処法をメモ。</p>
-<div class="section" id="id1">
-<h2>事象</h2>
-<p>充電が完全に切れた状態で放置していたXperia S LT26i（OSのバージョンは 2.3.7）を久々に起動し、Google Playストアを立ち上げたところ、真っ白な画面に「接続できません」の文字が。「再接続」ボタンを押しても一向に正常に動作する気配もなし。特に原因を示唆する文言もないためかなり困る。</p>
-</div>
-<div class="section" id="id2">
-<h2>対処法</h2>
-<p>内蔵時計がリセットされていたのが原因でした。設定から日付・時刻をしっかり合わせてからGoogle Playストアを立ち上げるとそこには元気なマーケットプレイスの姿が。</p>
-</div>
+    <div class="section" id="windows">
+<h1>[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</h1>
+<p>仕事で必要になったのでメモします。
+利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
+<p>手順としては単純です。</p>
+<ul class="simple">
+<li>FINDSTRで正規表現を用いて任意のパターンを含む行を無視してリダイレクト</li>
+<li>リダイレクトして作った中間ファイルを任意のコマンドに入力</li>
+</ul>
+<p>以上です。</p>
+<div class="highlight-bat"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
+
+<span class="k">if</span> <span class="s2">&quot;%‾1&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">goto</span> <span class="nl">usage</span>
+
+<span class="k">SET</span> <span class="nv">VALUE</span><span class="o">=</span><span class="nv">%1</span>
+
+<span class="c">rem &quot;^#&quot;とマッチする行を無視して中間ファイルを作成</span>
+type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">&quot;^#&quot;</span> &amp;gt; tmp.dat
+hoge.exe tmp.dat
+
+<span class="k">pause</span>
+<span class="k">goto</span> <span class="nl">:eof</span>
+
+<span class="nl">:usage</span>
+<span class="k">echo</span> Usage: fuga.bat piyo
+</pre></div>
+</td></tr></table></div>
+<p>おまけに引数チェックも。</p>
+<p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
 </div>
 
     <div class="postmeta">
@@ -102,29 +134,29 @@
         <div class="categories">
             <span>
                 Filed under:
-                <a href="../../../categories/android.html">android</a></span>
+                <a href="../../../categories/tips.html">tips</a></span>
         </div>
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/android.html">android</a>, <a href="../../../tags/google_play_store.html">google play store</a></span>
+                <a href="../../../tags/windows.html">windows</a>, <a href="../../../tags/batch.html">batch</a></span>
         </div>
         </div>
-    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2012/12/27/cannot_connect_to_google_play_store";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a></li>
-            <li class="right"><a href="../../../2013/08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a> &raquo; </li>
+    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2010/10/19/comment_out_on_batch";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../../../2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a>
+            <a href="#">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a>
         </li><li>
             <a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li><li>
             <a href="../../../2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
         </li><li>
-            <a href="../13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
+            <a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
         </li><li>
-            <a href="#">Google Playストアに接続できなくなったときの対処法</a>
+            <a href="../../../2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>
         </li><li>
             <a href="../../../2013/08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a>
         </li><li>

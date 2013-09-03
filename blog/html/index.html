@@ -36,7 +36,7 @@
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script>
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -77,6 +77,69 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>October 19, 2010</span>
+        </div>
+        <div class="section" id="windows">
+<h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
+<p>仕事で必要になったのでメモします。
+利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
+<p>手順としては単純です。</p>
+<ul class="simple">
+<li>FINDSTRで正規表現を用いて任意のパターンを含む行を無視してリダイレクト</li>
+<li>リダイレクトして作った中間ファイルを任意のコマンドに入力</li>
+</ul>
+<p>以上です。</p>
+<div class="highlight-bat"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
+
+<span class="k">if</span> <span class="s2">&quot;%‾1&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">goto</span> <span class="nl">usage</span>
+
+<span class="k">SET</span> <span class="nv">VALUE</span><span class="o">=</span><span class="nv">%1</span>
+
+<span class="c">rem &quot;^#&quot;とマッチする行を無視して中間ファイルを作成</span>
+type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">&quot;^#&quot;</span> &amp;gt; tmp.dat
+hoge.exe tmp.dat
+
+<span class="k">pause</span>
+<span class="k">goto</span> <span class="nl">:eof</span>
+
+<span class="nl">:usage</span>
+<span class="k">echo</span> Usage: fuga.bat piyo
+</pre></div>
+</td></tr></table></div>
+<p>おまけに引数チェックも。</p>
+<p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/windows.html">windows</a>, <a href="tags/batch.html">batch</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2010/10/19/comment_out_on_batch.html#disqus_thread" data-disqus-identifier="2010/10/19/comment_out_on_batch">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>April 09, 2011</span>
         </div>
         <div class="section" id="facebook-events-ical">
@@ -102,7 +165,9 @@
                 Tags:
                 <a href="tags/facebook.html">Facebook</a>, <a href="tags/ical.html">iCal</a></span>
         </div>
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2011/04/09/sync_facebook_events_to_ical.html#disqus_thread" data-disqus-identifier="2011/04/09/sync_facebook_events_to_ical">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>August 23, 2013</span>
         </div>
         <div class="section" id="migemo-emacs-24-3-1-mac-os-x">
@@ -176,7 +241,9 @@ QUERY:
                 Tags:
                 <a href="tags/migemo.html">migemo</a>, <a href="tags/emacs.html">emacs</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
         </div>
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html#disqus_thread" data-disqus-identifier="2013/08/23/install_migemo_to_emacs_24_3_1">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>December 13, 2012</span>
         </div>
         <div class="section" id="chatwork-fluid">
@@ -207,7 +274,9 @@ QUERY:
                 Tags:
                 <a href="tags/fluid.html">fluid</a>, <a href="tags/chatwork.html">chatwork</a>, <a href="tags/javascript.html">javascript</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
         </div>
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2012/12/13/chatwork_meets_fluid.html#disqus_thread" data-disqus-identifier="2012/12/13/chatwork_meets_fluid">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>December 27, 2012</span>
         </div>
         <div class="section" id="google-play">
@@ -236,7 +305,9 @@ QUERY:
                 Tags:
                 <a href="tags/android.html">android</a>, <a href="tags/google_play_store.html">google play store</a></span>
         </div>
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2012/12/27/cannot_connect_to_google_play_store.html#disqus_thread" data-disqus-identifier="2012/12/27/cannot_connect_to_google_play_store">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>August 06, 2013</span>
         </div>
         <div class="section" id="tinkerer-google-analytics">
@@ -288,7 +359,9 @@ QUERY:
                 Tags:
                 <a href="tags/tinkerer.html">tinkerer</a>, <a href="tags/google_analytics.html">google analytics</a>, <a href="tags/sphinx.html">sphinx</a></span>
         </div>
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/08/06/enable_google_analytics.html#disqus_thread" data-disqus-identifier="2013/08/06/enable_google_analytics">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>August 02, 2013</span>
         </div>
         <div class="section" id="tinkerer">
@@ -368,11 +441,15 @@ QUERY:
                 Tags:
                 <a href="tags/sphinx.html">sphinx</a>, <a href="tags/python.html">python</a>, <a href="tags/tinkerer.html">tinkerer</a></span>
         </div>
-        </div><div class="archive_link">
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/08/02/blogging_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/08/02/blogging_with_sphinx">Leave a comment</a>
+        </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a>
+        </li><li>
             <a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li><li>
             <a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
@@ -396,7 +473,7 @@ QUERY:
 
         <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
-      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+      </div> <!--! end of #container --><script type="text/javascript">    var disqus_shortname = "ymt2log";    disqus_count();</script><!--[if lt IE 7 ]>
           <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
           <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
         <![endif]-->

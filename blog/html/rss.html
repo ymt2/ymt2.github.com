@@ -5,8 +5,60 @@
         <link>http://ymt2.github.io/pages/blog/html/</link>
         <description>Pythonista</description>
         <language>en-us</language>
-        <pubDate>Sat, 09 Apr 2011 00:00:00 +0900</pubDate>
+        <pubDate>Tue, 19 Oct 2010 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://ymt2.github.io/pages/blog/html/2010/10/19/comment_out_on_batch.html</link>
+            <guid>http://ymt2.github.io/pages/blog/html/2010/10/19/comment_out_on_batch.html</guid>
+            <title><![CDATA[[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う]]></title>
+            <description><![CDATA[<div class="section" id="windows">
+<h1>[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</h1>
+<p>仕事で必要になったのでメモします。
+利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
+<p>手順としては単純です。</p>
+<ul class="simple">
+<li>FINDSTRで正規表現を用いて任意のパターンを含む行を無視してリダイレクト</li>
+<li>リダイレクトして作った中間ファイルを任意のコマンドに入力</li>
+</ul>
+<p>以上です。</p>
+<div class="highlight-bat"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
+
+<span class="k">if</span> <span class="s2">&quot;%‾1&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">goto</span> <span class="nl">usage</span>
+
+<span class="k">SET</span> <span class="nv">VALUE</span><span class="o">=</span><span class="nv">%1</span>
+
+<span class="c">rem &quot;^#&quot;とマッチする行を無視して中間ファイルを作成</span>
+type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">&quot;^#&quot;</span> &amp;gt; tmp.dat
+hoge.exe tmp.dat
+
+<span class="k">pause</span>
+<span class="k">goto</span> <span class="nl">:eof</span>
+
+<span class="nl">:usage</span>
+<span class="k">echo</span> Usage: fuga.bat piyo
+</pre></div>
+</td></tr></table></div>
+<p>おまけに引数チェックも。</p>
+<p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Tue, 19 Oct 2010 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://ymt2.github.io/pages/blog/html/2011/04/09/sync_facebook_events_to_ical.html</link>
             <guid>http://ymt2.github.io/pages/blog/html/2011/04/09/sync_facebook_events_to_ical.html</guid>
