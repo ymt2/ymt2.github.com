@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2013/09/05/fail_migrate_on_flyway
    2010/10/19/comment_out_on_batch
    2011/04/09/sync_facebook_events_to_ical
    2013/08/23/install_migemo_to_emacs_24_3_1

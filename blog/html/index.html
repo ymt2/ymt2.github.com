@@ -77,6 +77,80 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>September 05, 2013</span>
+        </div>
+        <div class="section" id="db-flyway-fail">
+<h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
+<p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org">flyway</a> を導入しました。</p>
+<p>SQL ベースで DB の状態を管理していくので、特定の O/R マッパーに依存することもなく、プロジェクトが走り出してからさくっと導入するぶんには特に問題も起こりませんでした。</p>
+<p>そんななか <cite>migrate</cite> が <cite>fail</cite> したときに少々困ったのでメモ。</p>
+<div class="section" id="fail">
+<h2><cite>fail</cite> するとどうなるか</h2>
+<p><cite>fail</cite> するとこんな感じでエラーメッセージが表示されて処理が停止します。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.1
+Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.2
+ERROR: com.googlecode.flyway.core.api.FlywayException: Migration of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5 failed! Please restore backups and roll back database and code!
+以下エラー文
+</pre></div>
+</td></tr></table></div>
+<p><cite>schema_version</cite> テーブルを見てみると、 <cite>version</cite> が <cite>0</cite> になっているレコードが挿入されていました。この状態ではいくら <cite>migrate</cite> コマンドを実行してもマイグレーションは行なわれません。</p>
+</div>
+<div class="section" id="repair">
+<h2><cite>repair</cite> してあげよう</h2>
+<p>以下のように <cite>repair</cite> コマンドを実行することで、 <cite>success</cite> が <cite>0</cite> なレコードが取り除かれ、 <cite>migrate</cite> コマンドを実行できるようになります。もちろん <cite>migrate</cite> コマンドを実行する前に DB や SQL に起こっている問題は解消しておきましょう。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh repair
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Metadata table <span class="sb">`</span>HOGEDB<span class="sb">`</span>.<span class="sb">`</span>schema_version<span class="sb">`</span> successfully repaired <span class="o">(</span>execution <span class="nb">time </span>00:00.001s<span class="o">)</span>.
+Manual cleanup of the remaining effects the failed migration may still be required.
+</pre></div>
+</td></tr></table></div>
+<p><cite>migrate</cite> できた。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.4
+Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5
+Successfully applied 1 migration to schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> <span class="o">(</span>execution <span class="nb">time </span>00:00.102s<span class="o">)</span>.
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/flyway.html">flyway</a>, <a href="tags/migration.html">migration</a>, <a href="tags/sql.html">sql</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/09/05/fail_migrate_on_flyway.html#disqus_thread" data-disqus-identifier="2013/09/05/fail_migrate_on_flyway">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>October 19, 2010</span>
         </div>
         <div class="section" id="windows">
@@ -448,6 +522,8 @@ QUERY:
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a>
+        </li><li>
             <a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a>
         </li><li>
             <a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
