@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>[MySQL][マーケティング] *n 層の分類をする SQL &mdash; ymt2log</title>
+        <title>[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った &mdash; ymt2log</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -79,127 +79,19 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></li>
-            <li class="right"><a href="../05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a> &raquo; </li>
+            <li class="left"></li>
+            <li class="right"><a href="../11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
-            <span>September 11, 2013</span>
+            <span>September 21, 2013</span>
         </div>
-    <div class="section" id="mysql-n-sql">
-<h1>[MySQL][マーケティング] <a href="#id1"><span class="problematic" id="id2">*</span></a>n 層の分類をする SQL</h1>
-<p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
-<p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
-<p>テーブルはこんな感じでした。</p>
-<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="k">user</span><span class="o">`</span> <span class="p">(</span>
-   <span class="o">`</span><span class="n">gender</span><span class="o">`</span> <span class="n">TINYINT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="c1">-- 0が男性, 1が女性</span>
-   <span class="o">`</span><span class="n">birthday</span><span class="o">`</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
-<span class="p">);</span>
-</pre></div>
-</td></tr></table></div>
-<p>で、分類する SQL は以下。もうちょいマシにならないものか。今回、子供を正確に分類する必要がなかったため [MF]0 層として計上しています。</p>
-<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">SELECT</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
-<span class="k">FROM</span> <span class="p">(</span>
-  <span class="k">SELECT</span> <span class="n">CONCAT</span><span class="p">(</span>
-    <span class="k">CASE</span> <span class="n">gender</span> <span class="k">WHEN</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="s1">&#39;M&#39;</span> <span class="k">ELSE</span> <span class="s1">&#39;F&#39;</span> <span class="k">END</span><span class="p">,</span>
-    <span class="k">CASE</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">THEN</span> <span class="s1">&#39;0&#39;</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">25</span>  <span class="k">THEN</span> <span class="s1">&#39;1&#39;</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">35</span> <span class="k">THEN</span> <span class="s1">&#39;2&#39;</span>
-      <span class="k">ELSE</span> <span class="s1">&#39;3&#39;</span> <span class="k">END</span>
-    <span class="p">)</span> <span class="k">AS</span> <span class="k">class</span>
-  <span class="k">FROM</span> <span class="p">(</span>
-    <span class="k">SELECT</span>
-      <span class="p">(</span><span class="k">YEAR</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">&#39;%Y-%m-%d&#39;</span><span class="p">)))</span>
-      <span class="o">-</span> <span class="p">(</span><span class="k">RIGHT</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="k">RIGHT</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">&#39;%Y-%m-%d&#39;</span><span class="p">),</span><span class="mi">5</span><span class="p">))</span> <span class="k">AS</span> <span class="n">age</span>
-    <span class="k">FROM</span> <span class="k">user</span>
-  <span class="p">)</span> <span class="n">a</span>
-<span class="p">)</span> <span class="n">b</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span>
-</pre></div>
-</td></tr></table></div>
-<p>こんな感じの結果が返ってきます。</p>
-<div class="highlight-sh"><div class="highlight"><pre>+-------+-------+
-| class | count |
-+-------+-------+
-| F0    |   100 |
-| F1    |   200 |
-| F2    |   300 |
-| F3    |   400 |
-| M0    |   100 |
-| M1    |   200 |
-| M2    |   300 |
-| M3    |   400 |
-+-------+-------+
-</pre></div>
+    <div class="section" id="xcode5-0">
+<h1>[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</h1>
+<div class="section" id="id1">
+<h2>ここにあります</h2>
+<p>Xcode を 5.0 にアップデートして一番困ったのがプロビジョニングプロファイルの追加。以前は Organizer を開いてすぐに見付かるばしょにあったのが、メニューの中に移動されてしまったようです。</p>
+<p><em>Organizer を開いた状態で</em> メニューバーの <em>Editor -&gt; Provisioning Profiles -&gt; Import Profile...</em> でファイル選択ダイアログが開きます。</p>
+<a class="reference internal image-reference" href="../../../_images/menubar.png"><img alt="../../../_images/menubar.png" src="../../../_images/menubar.png" style="width: 500px;" /></a>
 </div>
-<p>いちおう分類表も書いておきます(表組みの練習もかねて)。</p>
-<table border="1" class="docutils">
-<caption>ターゲットユーザの分類</caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">表記</th>
-<th class="head">性別</th>
-<th class="head">年齢層</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>M1</td>
-<td>男性</td>
-<td>20 - 34 歳</td>
-</tr>
-<tr class="row-odd"><td>M2</td>
-<td>男性</td>
-<td>35 - 49 歳</td>
-</tr>
-<tr class="row-even"><td>M3</td>
-<td>男性</td>
-<td>50 歳以上</td>
-</tr>
-<tr class="row-odd"><td>F1</td>
-<td>女性</td>
-<td>20 - 34 歳</td>
-</tr>
-<tr class="row-even"><td>F2</td>
-<td>女性</td>
-<td>35 - 49 歳</td>
-</tr>
-<tr class="row-odd"><td>F3</td>
-<td>女性</td>
-<td>50 歳以上</td>
-</tr>
-<tr class="row-even"><td>C</td>
-<td>男女</td>
-<td>4 - 12 歳</td>
-</tr>
-<tr class="row-odd"><td>T</td>
-<td>男女</td>
-<td>13 - 19 歳</td>
-</tr>
-</tbody>
-</table>
 </div>
 
     <div class="postmeta">
@@ -214,18 +106,18 @@
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/marketing.html">marketing</a>, <a href="../../../tags/mysql.html">mysql</a>, <a href="../../../tags/sql.html">sql</a></span>
+                <a href="../../../tags/xcode.html">xcode</a>, <a href="../../../tags/ios_development.html">ios development</a>, <a href="../../../tags/objective_c.html">objective-c</a></span>
         </div>
         </div>
-    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2013/09/11/classification_of_audience_with_mysql";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></li>
-            <li class="right"><a href="../05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a> &raquo; </li>
+    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2013/09/21/where_is_provisioning_profiles_editor";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="../11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
+            <a href="#">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
         </li><li>
-            <a href="#">[MySQL][マーケティング] *n 層の分類をする SQL</a>
+            <a href="../11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a>
         </li><li>
             <a href="../05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a>
         </li><li>

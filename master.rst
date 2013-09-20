@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2013/09/21/where_is_provisioning_profiles_editor
    2013/09/11/classification_of_audience_with_mysql
    2013/09/05/fail_migrate_on_flyway
    2010/10/19/comment_out_on_batch
