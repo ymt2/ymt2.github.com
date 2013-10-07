@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>Search &mdash; ymt2log</title>
+        <title>Page 2 &mdash; ymt2log</title>
             <link rel="stylesheet" href="_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="_static/main.css" type="text/css">
@@ -28,7 +28,9 @@
         <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <script src="_static/plugins.js"></script>
         <script src="_static/main.js"></script>
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" /><script type="text/javascript">
+        
+   <link rel="author" href="https://plus.google.com/100964621288433828323"/>
+<script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '1.2.1',
@@ -36,10 +38,7 @@
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/searchtools.js"></script><script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -79,21 +78,97 @@
                   <a href="pages/notes.html">Notes</a>
                 </li>
               </ul>
-          </nav><div class="main-container"><div class="main wrapper clearfix"><article><h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <script type="text/javascript">$('#fallback').hide();</script>
-  <p>Please activate JavaScript to enable the search
-    functionality.</p>
-  </div>
-  <p>From here you can search these documents. Enter your search
-    words into the box below and click "search". Note that the search
-    function will automatically search for all of the words. Pages
-    containing fewer words won't appear in the result list.</p>
-  <form action="" method="get">
-    <input type="text" name="q" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form><div id="search-results"></div></article><aside class="sidebar"><section><div class="widget">
+          </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="index.html">Newer</a></li>
+            <li class="right"></li>
+        </ul><div class="timestamp postmeta">
+            <span>August 02, 2013</span>
+        </div>
+        <div class="section" id="tinkerer">
+<h1><a href="2013/08/02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a></h1>
+<p><a class="reference external" href="http://sphinx-doc.org">Sphinx</a> を使ってブログが書ける <a class="reference external" href="http://tinkerer.me">Tinkerer</a> を発見したのではじめてみました。
+ホスティングは <a class="reference external" href="https://github.com">GitHub</a> を利用しています。</p>
+<div class="section" id="github">
+<h2>GitHub でブログを公開するまでにやったこと</h2>
+<div class="section" id="virtualenv">
+<h3>virtualenv で仮想環境を作る</h3>
+<p>Sphinx の拡張機能をいろいろ試したかったので仮想環境を用意しました。Github Pages に公開したかったので Git リポジトリも同時に作成。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>
+<span class="nv">$ </span>git init hoge
+<span class="nv">$ </span><span class="nb">cd </span>hoge
+<span class="nv">$ </span>mkvirtualenv hoge
+</pre></div>
+</div>
+<p>あと、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">workon</span> <span class="pre">hoge</span></span> とかやってすぐに書きはじめられるといいなーと思ったので <span class="docutils literal"><span class="pre">$VIRTUAL_ENV/bin/.postactivate</span></span> を以下のように編集。これで <span class="docutils literal"><span class="pre">workon</span></span> したときに Git リポジトリのあるディレクトリに移動してくれます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/opt/local/bin/zsh</span>
+<span class="c"># This hook is run after this virtualenv is activated.</span>
+
+<span class="nv">proj_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>|awk -F<span class="s1">'/'</span> <span class="s1">'{print $NF}'</span><span class="k">)</span>
+<span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>/hoge
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Tinkerer のインストールから記事を書くまで</h3>
+<div class="section" id="id2">
+<h4>Tinkerer インストール</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>pip install tinkerer
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>ブログを作る</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -s
+</pre></div>
+</div>
+<p>カレントディレクトリに Sphinx のプロジェクトが展開されます。まずは <span class="docutils literal"><span class="pre">conf.py</span></span> をいじってブログタイトルなどを設定しましょう。 <span class="docutils literal"><span class="pre">TODO:</span></span> から始まるセクションを編集します。</p>
+</div>
+<div class="section" id="id4">
+<h4>記事を書く</h4>
+<p>以下のコマンドで rst ファイルが生成されるので編集しましょう。 <span class="docutils literal"><span class="pre">blog</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -p title
+</pre></div>
+</div>
+<p>ちなみに、以下のコマンドで単一のページを作成することも可能です。こちらは <span class="docutils literal"><span class="pre">pages</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker --page title
+</pre></div>
+</div>
+<p>記事が書けたら、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">tinker</span> <span class="pre">-b</span></span> とするとビルドが実行されます。 <span class="docutils literal"><span class="pre">index.html</span></span> が生成されるのでブラウザで開いて出来ばえを確認できます。</p>
+</div>
+</div>
+<div class="section" id="github-pages">
+<h3>GitHub Pages で公開</h3>
+<p><a class="reference external" href="http://tinkerer.me/doc/deploying.html#hosting-on-github">Hosting on GitHub</a> とか <a class="reference external" href="https://help.github.com/categories/20/articles">GitHub Help</a> を参考に設定。注意点としては、リポジトリのルートに <span class="docutils literal"><span class="pre">.nojekyll</span></span> ファイルを作っておくことと、ブログのデータをコミットするブランチを <span class="docutils literal"><span class="pre">gh-pages</span></span> としておくことが必要です。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>思ったこと</h2>
+<p>Sphinx で書けるので、当然 <a class="reference external" href="http://blockdiag.com/ja/blockdiag">Blockdiag</a> なんかも使えます。
+うまいことテーマをいじって wiki とブログを組み合わせたような使い方ができないか考え中。</p>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/sphinx.html">sphinx</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/sphinx.html">sphinx</a>, <a href="tags/python.html">python</a>, <a href="tags/tinkerer.html">tinkerer</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/08/02/blogging_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/08/02/blogging_with_sphinx">Leave a comment</a>
+        </div></div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="index.html">Newer</a></li>
+            <li class="right"></li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
@@ -119,7 +194,7 @@
 </div>
 </section><section><div class="widget" id="searchbox">
     <h1>Search</h1>
-    <form action="#" method="get">
+    <form action="search.html" method="get">
         <input type="text" name="q" />
         <button type="submit"><span class="webfont">L</span></button>
     </form>

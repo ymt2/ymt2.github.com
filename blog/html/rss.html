@@ -5,8 +5,66 @@
         <link>http://ymt2.github.io/pages/blog/html/</link>
         <description>Pythonista</description>
         <language>en-us</language>
-        <pubDate>Sat, 21 Sep 2013 00:00:00 +0900</pubDate>
+        <pubDate>Tue, 08 Oct 2013 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://ymt2.github.io/pages/blog/html/2013/10/08/oniguruma_with_emacs_24.html</link>
+            <guid>http://ymt2.github.io/pages/blog/html/2013/10/08/oniguruma_with_emacs_24.html</guid>
+            <title><![CDATA[[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う]]></title>
+            <description><![CDATA[<div class="section" id="emacs-24-foreign-regexp">
+<h1>[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</h1>
+<p><a class="reference external" href="http://www.emacswiki.org/emacs/RegularExpression">Emacs の正規表現</a> はほんとにつらい。 <cite>syntax_classes</cite> のブラケットにもバックスラッシュが必要だったりととにかくバックスラッシュ地獄で、リプレイスするのにわざわざ別のエディタ使うレベル。</p>
+<p><a class="reference external" href="https://github.com/k-talo/foreign-regexp.el">foreign-regexp</a> でラクしましょう。外部コマンドに <cite>Ruby</cite> を指定することで、 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">豊富な表現で再帰まで使える</a> 正規表現ライブラリ <a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">鬼車</a> をインクリメンタルサーチやリプレイスに利用できます。</p>
+<div class="section" id="id1">
+<h2>インストールした環境</h2>
+<ul class="simple">
+<li>Mac OS X 10.8.5</li>
+<li>Emacs 24.3.1</li>
+<li>ruby 1.9.3p392 (rbenv)</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>インストール手順</h2>
+<p><cite>package-install</cite> できます。これを <cite>*scratch*</cite> バッファにでもコピーして <cite>C-x C-e</cite> でおしまい。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">package-install</span> <span class="ss">'foreign-regexp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><cite>.emacs</cite> に追記。 <cite>foreign-regexp/regexp-type</cite> には <cite>perl</cite> / <cite>ruby</cite> / <cite>javascript</cite> が指定できるようです。今回は <cite>鬼車</cite> が使いたいので <cite>ruby</cite> を指定。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">require</span> <span class="ss">'foreign-regexp</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">custom-set-variables</span>
+       <span class="o">'</span><span class="p">(</span><span class="nv">foreign-regexp/regexp-type</span> <span class="ss">'ruby</span><span class="p">)</span>
+       <span class="o">'</span><span class="p">(</span><span class="nv">reb-re-syntax</span> <span class="ss">'foreign-regexp</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>使い方をさっくりと</h2>
+<dl class="docutils">
+<dt>インクリメンタルサーチ</dt>
+<dd>M-s M-s</dd>
+<dt>インクリメンタルサーチ(逆方向)</dt>
+<dd>M-s M-r</dd>
+<dt>リプレイス</dt>
+<dd>M-s M-%</dd>
+</dl>
+<div class="section" id="id4">
+<h3>これでわかりやすい正規表現を使える!!</h3>
+<p>エスケープ地獄から開放される幸せ。</p>
+<dl class="docutils">
+<dt>例：連続したひらがなをインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{Hiragana}+</dd>
+<dt>例：連続したひらがな以外の文字をインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{^Hiragana}+</dd>
+</dl>
+<p>がんばるともっといろいろできます。
+<a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">回文や XML にマッチする鬼車の正規表現 - まめめも</a></p>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Tue, 08 Oct 2013 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://ymt2.github.io/pages/blog/html/2013/09/21/where_is_provisioning_profiles_editor.html</link>
             <guid>http://ymt2.github.io/pages/blog/html/2013/09/21/where_is_provisioning_profiles_editor.html</guid>
@@ -29,7 +87,7 @@
             <guid>http://ymt2.github.io/pages/blog/html/2013/09/11/classification_of_audience_with_mysql.html</guid>
             <title><![CDATA[[MySQL][マーケティング] *n 層の分類をする SQL]]></title>
             <description><![CDATA[<div class="section" id="mysql-n-sql">
-<h1>[MySQL][マーケティング] <a href="#id1"><span class="problematic" id="id2">*</span></a>n 層の分類をする SQL</h1>
+<h1>[MySQL][マーケティング] *n 層の分類をする SQL</h1>
 <p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
 <p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
 <p>テーブルはこんな感じでした。</p>

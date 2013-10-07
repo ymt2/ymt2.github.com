@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X &mdash; ymt2log</title>
+        <title>[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う &mdash; ymt2log</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -79,65 +79,58 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></li>
-            <li class="right"><a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a> &raquo; </li>
+            <li class="left"></li>
+            <li class="right"><a href="../../09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
-            <span>August 23, 2013</span>
+            <span>October 08, 2013</span>
         </div>
-    <div class="section" id="migemo-emacs-24-3-1-mac-os-x">
-<h1>migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</h1>
-<div class="section" id="migemo">
-<h2>migemo とは</h2>
-<p><a class="reference external" href="http://0xcc.net/migemo/">migemo</a> とは、ローマ字を入力することで日本語文章をインクリメンタルサーチするためのソフトウェアです。emacs 拡張を利用すると、いつもの <cite>C-s</cite> がそのまま日本語に対応します。</p>
-<p>今回はC言語で実装された <cite>cmigemo</cite> をインストールします。</p>
-</div>
-<div class="section" id="cmigemo">
-<h2>cmigemo のインストール</h2>
-<p>github から <a class="reference external" href="https://github.com/koron/cmigemo">cmigemo</a> を入手してインストールします。オプションはデフォルトのままにしておきました。デフォルトでは <cite>/usr/local/</cite> 以下にインストールされます。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/koron/cmigemo.git cmigemo
-<span class="nv">$ </span><span class="nb">cd </span>cmigemo
-<span class="nv">$ </span>./configure
-<span class="nv">$ </span>make osx
-<span class="nv">$ </span>make osx-dict
-<span class="nv">$ </span>sudo make osx-install
-</pre></div>
-</div>
-</div>
+    <div class="section" id="emacs-24-foreign-regexp">
+<h1>[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</h1>
+<p><a class="reference external" href="http://www.emacswiki.org/emacs/RegularExpression">Emacs の正規表現</a> はほんとにつらい。 <cite>syntax_classes</cite> のブラケットにもバックスラッシュが必要だったりととにかくバックスラッシュ地獄で、リプレイスするのにわざわざ別のエディタ使うレベル。</p>
+<p><a class="reference external" href="https://github.com/k-talo/foreign-regexp.el">foreign-regexp</a> でラクしましょう。外部コマンドに <cite>Ruby</cite> を指定することで、 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">豊富な表現で再帰まで使える</a> 正規表現ライブラリ <a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">鬼車</a> をインクリメンタルサーチやリプレイスに利用できます。</p>
 <div class="section" id="id1">
-<h2>cmigemo を試してみる</h2>
-<p>下記のコマンドを実行するとプロンプトが表示され、入力待ちの状態になります。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cmigemo -d /usr/local/share/migemo/utf-8/migemo-dict
-migemo_open<span class="o">(</span><span class="s2">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="o">)=</span>0x7fb552c03990
-clock<span class="o">()=</span>0.120343
-QUERY:
-</pre></div>
-</div>
-<p><cite>QUERY</cite> 適当なローマ字を入力してみると、正規表現が生成されることがわかります。正規表現を入力の度に生成し、それを検索クエリとすることでインクリメンタルサーチを可能にするわけですね。</p>
-<div class="highlight-sh"><div class="highlight"><pre>QUERY: paison
-PATTERN: <span class="o">(</span>ﾊﾟｲｿ<span class="o">[</span>ﾝﾉﾈﾇﾆﾅ<span class="o">]</span>|パイソ<span class="o">[</span>ンノネヌニナ<span class="o">]</span>|ぱいそ<span class="o">[</span>んのねぬにな<span class="o">]</span>|ｐａｉｓｏｎ|paison<span class="o">)</span>
-QUERY: toukyo
-PATTERN: <span class="o">(</span>ﾄｳｷｮ|トウキョ|等距離|登極|当<span class="o">(</span>局|協会<span class="o">)</span>|東<span class="o">[</span>教京<span class="o">]</span>|とうきょ|ｔｏｕｋｙｏ|toukyo<span class="o">)</span>
-QUERY:
-</pre></div>
-</div>
-</div>
-<div class="section" id="migemo-el">
-<h2>migemo.el のインストール</h2>
-<p><cite>emacs</cite> 拡張の <cite>migemo.el</cite> は <cite>package.el</cite> を使うと簡単にインストールできます。 <cite>*scratch*</cite> バッファで <cite>(package-install &#8216;migemo)</cite> を評価でもしてやると入ります。</p>
+<h2>インストールした環境</h2>
+<ul class="simple">
+<li>Mac OS X 10.8.5</li>
+<li>Emacs 24.3.1</li>
+<li>ruby 1.9.3p392 (rbenv)</li>
+</ul>
 </div>
 <div class="section" id="id2">
-<h2>migemo.el の設定</h2>
-<p><cite>init.el</cite> にこんな感じの設定を追記。 <cite>C-s</cite> してミニバッファに <cite>[MIGEMO] I-search</cite>  と表示されれば日本語インクリメンタルサーチが可能になっているはずです。</p>
-<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;migemo</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-command</span> <span class="s">&quot;/usr/local/bin/cmigemo&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-options</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;-q&quot;</span> <span class="s">&quot;--emacs&quot;</span><span class="p">))</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-dictionary</span> <span class="s">&quot;/usr/local/share/migemo/utf-8/migemo-dict&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-user-dictionary</span> <span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-coding-system</span> <span class="ss">&#39;utf-8-unix</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-regex-dictionary</span> <span class="no">nil</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">load-library</span> <span class="s">&quot;migemo&quot;</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">migemo-init</span><span class="p">)</span>
+<h2>インストール手順</h2>
+<p><cite>package-install</cite> できます。これを <cite>*scratch*</cite> バッファにでもコピーして <cite>C-x C-e</cite> でおしまい。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">package-install</span> <span class="ss">&#39;foreign-regexp</span><span class="p">)</span>
 </pre></div>
+</div>
+<p><cite>.emacs</cite> に追記。 <cite>foreign-regexp/regexp-type</cite> には <cite>perl</cite> / <cite>ruby</cite> / <cite>javascript</cite> が指定できるようです。今回は <cite>鬼車</cite> が使いたいので <cite>ruby</cite> を指定。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">require</span> <span class="ss">&#39;foreign-regexp</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">custom-set-variables</span>
+       <span class="o">&#39;</span><span class="p">(</span><span class="nv">foreign-regexp/regexp-type</span> <span class="ss">&#39;ruby</span><span class="p">)</span>
+       <span class="o">&#39;</span><span class="p">(</span><span class="nv">reb-re-syntax</span> <span class="ss">&#39;foreign-regexp</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>使い方をさっくりと</h2>
+<dl class="docutils">
+<dt>インクリメンタルサーチ</dt>
+<dd>M-s M-s</dd>
+<dt>インクリメンタルサーチ(逆方向)</dt>
+<dd>M-s M-r</dd>
+<dt>リプレイス</dt>
+<dd>M-s M-%</dd>
+</dl>
+<div class="section" id="id4">
+<h3>これでわかりやすい正規表現を使える!!</h3>
+<p>エスケープ地獄から開放される幸せ。</p>
+<dl class="docutils">
+<dt>例：連続したひらがなをインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{Hiragana}+</dd>
+<dt>例：連続したひらがな以外の文字をインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{^Hiragana}+</dd>
+</dl>
+<p>がんばるともっといろいろできます。
+<a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">回文や XML にマッチする鬼車の正規表現 - まめめも</a></p>
 </div>
 </div>
 </div>
@@ -149,21 +142,21 @@ QUERY:
         <div class="categories">
             <span>
                 Filed under:
-                <a href="../../../categories/emacs.html">emacs</a></span>
+                <a href="../../../categories/tips.html">tips</a></span>
         </div>
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/migemo.html">migemo</a>, <a href="../../../tags/emacs.html">emacs</a>, <a href="../../../tags/mac_os_x.html">mac os x</a></span>
+                <a href="../../../tags/emacs24.html">emacs24</a>, <a href="../../../tags/regexp.html">regexp</a>, <a href="../../../tags/oniguruma.html">oniguruma</a>, <a href="../../../tags/ruby.html">ruby</a></span>
         </div>
         </div>
-    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2013/08/23/install_migemo_to_emacs_24_3_1";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></li>
-            <li class="right"><a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a> &raquo; </li>
+    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2013/10/08/oniguruma_with_emacs_24";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="../../09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../../10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
+            <a href="#">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
         </li><li>
             <a href="../../09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
         </li><li>
@@ -175,13 +168,13 @@ QUERY:
         </li><li>
             <a href="../../../2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li><li>
-            <a href="#">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
+            <a href="../../08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
         </li><li>
             <a href="../../../2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
         </li><li>
             <a href="../../../2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>
         </li><li>
-            <a href="../06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a>
+            <a href="../../08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">

@@ -78,7 +78,79 @@
                   <a href="pages/notes.html">Notes</a>
                 </li>
               </ul>
-          </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+          </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="page2.html">Older</a> &raquo; </li>
+        </ul><div class="timestamp postmeta">
+            <span>October 08, 2013</span>
+        </div>
+        <div class="section" id="emacs-24-foreign-regexp">
+<h1><a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a></h1>
+<p><a class="reference external" href="http://www.emacswiki.org/emacs/RegularExpression">Emacs の正規表現</a> はほんとにつらい。 <cite>syntax_classes</cite> のブラケットにもバックスラッシュが必要だったりととにかくバックスラッシュ地獄で、リプレイスするのにわざわざ別のエディタ使うレベル。</p>
+<p><a class="reference external" href="https://github.com/k-talo/foreign-regexp.el">foreign-regexp</a> でラクしましょう。外部コマンドに <cite>Ruby</cite> を指定することで、 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">豊富な表現で再帰まで使える</a> 正規表現ライブラリ <a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">鬼車</a> をインクリメンタルサーチやリプレイスに利用できます。</p>
+<div class="section" id="id1">
+<h2>インストールした環境</h2>
+<ul class="simple">
+<li>Mac OS X 10.8.5</li>
+<li>Emacs 24.3.1</li>
+<li>ruby 1.9.3p392 (rbenv)</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>インストール手順</h2>
+<p><cite>package-install</cite> できます。これを <cite>*scratch*</cite> バッファにでもコピーして <cite>C-x C-e</cite> でおしまい。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">package-install</span> <span class="ss">'foreign-regexp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><cite>.emacs</cite> に追記。 <cite>foreign-regexp/regexp-type</cite> には <cite>perl</cite> / <cite>ruby</cite> / <cite>javascript</cite> が指定できるようです。今回は <cite>鬼車</cite> が使いたいので <cite>ruby</cite> を指定。</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">require</span> <span class="ss">'foreign-regexp</span> <span class="nv">nil</span> <span class="nv">t</span><span class="p">)</span>
+       <span class="p">(</span><span class="nf">custom-set-variables</span>
+       <span class="o">'</span><span class="p">(</span><span class="nv">foreign-regexp/regexp-type</span> <span class="ss">'ruby</span><span class="p">)</span>
+       <span class="o">'</span><span class="p">(</span><span class="nv">reb-re-syntax</span> <span class="ss">'foreign-regexp</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>使い方をさっくりと</h2>
+<dl class="docutils">
+<dt>インクリメンタルサーチ</dt>
+<dd>M-s M-s</dd>
+<dt>インクリメンタルサーチ(逆方向)</dt>
+<dd>M-s M-r</dd>
+<dt>リプレイス</dt>
+<dd>M-s M-%</dd>
+</dl>
+<div class="section" id="id4">
+<h3>これでわかりやすい正規表現を使える!!</h3>
+<p>エスケープ地獄から開放される幸せ。</p>
+<dl class="docutils">
+<dt>例：連続したひらがなをインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{Hiragana}+</dd>
+<dt>例：連続したひらがな以外の文字をインクリメンタルサーチ</dt>
+<dd>M-s M-s \p{^Hiragana}+</dd>
+</dl>
+<p>がんばるともっといろいろできます。
+<a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">回文や XML にマッチする鬼車の正規表現 - まめめも</a></p>
+</div>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/emacs24.html">emacs24</a>, <a href="tags/regexp.html">regexp</a>, <a href="tags/oniguruma.html">oniguruma</a>, <a href="tags/ruby.html">ruby</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://ymt2.github.io/pages/blog/html/2013/10/08/oniguruma_with_emacs_24.html#disqus_thread" data-disqus-identifier="2013/10/08/oniguruma_with_emacs_24">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 21, 2013</span>
         </div>
         <div class="section" id="xcode5-0">
@@ -110,7 +182,7 @@
             <span>September 11, 2013</span>
         </div>
         <div class="section" id="mysql-n-sql">
-<h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] <a href="#id1"><span class="problematic" id="id2">*</span></a>n 層の分類をする SQL</a></h1>
+<h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
 <p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
 <p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
 <p>テーブルはこんな感じでした。</p>
@@ -601,93 +673,16 @@ QUERY:
         </div>
         <div class="comments">
             <a href="http://ymt2.github.io/pages/blog/html/2013/08/06/enable_google_analytics.html#disqus_thread" data-disqus-identifier="2013/08/06/enable_google_analytics">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>August 02, 2013</span>
-        </div>
-        <div class="section" id="tinkerer">
-<h1><a href="2013/08/02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a></h1>
-<p><a class="reference external" href="http://sphinx-doc.org">Sphinx</a> を使ってブログが書ける <a class="reference external" href="http://tinkerer.me">Tinkerer</a> を発見したのではじめてみました。
-ホスティングは <a class="reference external" href="https://github.com">GitHub</a> を利用しています。</p>
-<div class="section" id="github">
-<h2>GitHub でブログを公開するまでにやったこと</h2>
-<div class="section" id="virtualenv">
-<h3>virtualenv で仮想環境を作る</h3>
-<p>Sphinx の拡張機能をいろいろ試したかったので仮想環境を用意しました。Github Pages に公開したかったので Git リポジトリも同時に作成。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>
-<span class="nv">$ </span>git init hoge
-<span class="nv">$ </span><span class="nb">cd </span>hoge
-<span class="nv">$ </span>mkvirtualenv hoge
-</pre></div>
-</div>
-<p>あと、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">workon</span> <span class="pre">hoge</span></span> とかやってすぐに書きはじめられるといいなーと思ったので <span class="docutils literal"><span class="pre">$VIRTUAL_ENV/bin/.postactivate</span></span> を以下のように編集。これで <span class="docutils literal"><span class="pre">workon</span></span> したときに Git リポジトリのあるディレクトリに移動してくれます。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/opt/local/bin/zsh</span>
-<span class="c"># This hook is run after this virtualenv is activated.</span>
-
-<span class="nv">proj_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span>|awk -F<span class="s1">'/'</span> <span class="s1">'{print $NF}'</span><span class="k">)</span>
-<span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>/hoge
-</pre></div>
-</div>
-</div>
-<div class="section" id="id1">
-<h3>Tinkerer のインストールから記事を書くまで</h3>
-<div class="section" id="id2">
-<h4>Tinkerer インストール</h4>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>pip install tinkerer
-</pre></div>
-</div>
-</div>
-<div class="section" id="id3">
-<h4>ブログを作る</h4>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -s
-</pre></div>
-</div>
-<p>カレントディレクトリに Sphinx のプロジェクトが展開されます。まずは <span class="docutils literal"><span class="pre">conf.py</span></span> をいじってブログタイトルなどを設定しましょう。 <span class="docutils literal"><span class="pre">TODO:</span></span> から始まるセクションを編集します。</p>
-</div>
-<div class="section" id="id4">
-<h4>記事を書く</h4>
-<p>以下のコマンドで rst ファイルが生成されるので編集しましょう。 <span class="docutils literal"><span class="pre">blog</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -p title
-</pre></div>
-</div>
-<p>ちなみに、以下のコマンドで単一のページを作成することも可能です。こちらは <span class="docutils literal"><span class="pre">pages</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker --page title
-</pre></div>
-</div>
-<p>記事が書けたら、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">tinker</span> <span class="pre">-b</span></span> とするとビルドが実行されます。 <span class="docutils literal"><span class="pre">index.html</span></span> が生成されるのでブラウザで開いて出来ばえを確認できます。</p>
-</div>
-</div>
-<div class="section" id="github-pages">
-<h3>GitHub Pages で公開</h3>
-<p><a class="reference external" href="http://tinkerer.me/doc/deploying.html#hosting-on-github">Hosting on GitHub</a> とか <a class="reference external" href="https://help.github.com/categories/20/articles">GitHub Help</a> を参考に設定。注意点としては、リポジトリのルートに <span class="docutils literal"><span class="pre">.nojekyll</span></span> ファイルを作っておくことと、ブログのデータをコミットするブランチを <span class="docutils literal"><span class="pre">gh-pages</span></span> としておくことが必要です。</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2>思ったこと</h2>
-<p>Sphinx で書けるので、当然 <a class="reference external" href="http://blockdiag.com/ja/blockdiag">Blockdiag</a> なんかも使えます。
-うまいことテーマをいじって wiki とブログを組み合わせたような使い方ができないか考え中。</p>
-</div>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/sphinx.html">sphinx</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/sphinx.html">sphinx</a>, <a href="tags/python.html">python</a>, <a href="tags/tinkerer.html">tinkerer</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://ymt2.github.io/pages/blog/html/2013/08/02/blogging_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/08/02/blogging_with_sphinx">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
-    </div></article><aside class="sidebar"><section><div class="widget">
+    </div><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="page2.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
+        </li><li>
             <a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
         </li><li>
             <a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a>
@@ -705,8 +700,6 @@ QUERY:
             <a href="2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>
         </li><li>
             <a href="2013/08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a>
-        </li><li>
-            <a href="2013/08/02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
@@ -717,9 +710,9 @@ QUERY:
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
-    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (6)</li></ul>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (7)</li></ul>
 </div></section><section><div class="widget">
-    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (2), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (2), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
