@@ -21,7 +21,7 @@
 `Japanese-English Parallel Corpus 日英パラレルコーパス`_
 --------------------------------------------------------
 
-対訳コーパス ``Tanaka Corpus`` を全文検索できる。フッタにテキストデータのダウンロードリンクがある。
+  対訳コーパス ``Tanaka Corpus`` を全文検索できる。フッタにテキストデータのダウンロードリンクがある。
 
 
 .. _`日英対訳文対応付けデータ`: http://www2.nict.go.jp/univ-com/multi_trans/member/mutiyama/align/
