@@ -23,7 +23,7 @@ author = 'Tatsuya Yamamoto'
 copyright = '2013, ' + author
 
 # Change this to your blog root URL (required for RSS feed)
-website = 'http://ymt2.github.io/pages/blog/html/'
+website = 'http://weblog.ymt2.net/blog/html/'
 
 # **************************************************************
 # More tweaks you can do
