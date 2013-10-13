@@ -11,7 +11,7 @@ import tinkerer.paths
 project = 'ymt2log'
 
 # Change this to the tagline of your blog
-tagline = 'Pythonista'
+tagline = 'Yuru-fuwa Pythonista'
 
 # Change this to the description of your blog
 description = 'This is an awesome blog'
