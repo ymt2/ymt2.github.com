@@ -5,8 +5,67 @@
         <link>http://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Tue, 08 Oct 2013 00:00:00 +0900</pubDate>
+        <pubDate>Fri, 01 Nov 2013 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html</guid>
+            <title><![CDATA[[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ]]></title>
+            <description><![CDATA[<div class="section" id="ubuntu-vnc-vps-vnc">
+<h1>[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</h1>
+<p>とにかくインスタントに VNC をはじめるための手順です。</p>
+<div class="section" id="id1">
+<h2>環境</h2>
+<ul class="simple">
+<li>さくらの VPS</li>
+<li>Ubuntu 12.0.4 amd64</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>手順</h2>
+<div class="section" id="id3">
+<h3>デスクトップ環境のインストール</h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install --no-install-recommends ubuntu-desktop
+</pre></div>
+</div>
+</div>
+<div class="section" id="vnc">
+<h3>VNC サーバのインストール</h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install vnc4server
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>VNC サーバを起動して初期設定</h3>
+<p>初回起動で、パスワードの設定を行ないます。とりあえず起動したらすぐ停止。同時に <cite>~/.vnc</cite> 以下に設定ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>vncserver :1
+<span class="nv">$ </span>vncserver -kill :1
+</pre></div>
+</div>
+<p>VPS 接続時に GNOME が起動するように下記の設定を追記。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;gnome-session --session=ubuntu-2d &amp;&quot;</span> &gt;&gt; ~/.vnc/xstartup
+</pre></div>
+</div>
+<p>設定ができたのでもう一回起動。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>vncserver :1
+</pre></div>
+</div>
+</div>
+<div class="section" id="mac-os-x-vnc">
+<h3>Mac OS X から VNC サーバへ接続</h3>
+<p>Mac OS X から接続してみましょう。デフォルトで VNC クライアントが入っているなんて Mac さん素敵。</p>
+<ol class="arabic simple">
+<li>Finder で ⌘+k を叩いて「サーバへ接続」を開く</li>
+<li>「サーバアドレス」に「vnc://user_name@ip_address:5901」を入力</li>
+<li>「接続」で「画面共有」が立ち上がり GNOME デスクトップを利用できるようになります。</li>
+</ol>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Fri, 01 Nov 2013 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://weblog.ymt2.net/blog/html/2013/10/08/oniguruma_with_emacs_24.html</link>
             <guid>http://weblog.ymt2.net/blog/html/2013/10/08/oniguruma_with_emacs_24.html</guid>
