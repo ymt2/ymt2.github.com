@@ -5,8 +5,66 @@
         <link>http://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Fri, 01 Nov 2013 00:00:00 +0900</pubDate>
+        <pubDate>Mon, 11 Nov 2013 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html</guid>
+            <title><![CDATA[[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現]]></title>
+            <description><![CDATA[<div class="section" id="shift-jis-jis-jis-x-0208-12">
+<h1>[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</h1>
+<p>PHP を使って、ある文字列中に JIS 基本漢字 (JIS X 0208) の第 1・2 水準漢字以外のものが含まれているかどうかの判定を実装したかったのですが、いろいろと苦労した &amp; 結局最悪の実装をしたのでその顛末と途中の成果物をここに記します。</p>
+<p>これらのウェブサイトがとても参考になりました。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://charset.7jp.net/jis0208.html">JIS X 0208 (1990) to Unicode 漢字コード表</a></li>
+<li><a class="reference external" href="http://www.shuiren.org/chuden/teach/code/main4.htm">JIS漢字コード：JIS第一・第二水準―文字コード入門―</a></li>
+</ul>
+<div class="section" id="unicode-jis">
+<h2>Unicode と JIS 基本漢字コードではその出現順が異なる</h2>
+<p><a class="reference external" href="http://charset.7jp.net/jis0208.html">JIS X 0208 (1990) to Unicode 漢字コード表</a> の 16 区以降を見るとわかる通り、 Unicode と SJIS のコード順は異なります。
+よって、UTF-8 の文章に対してよくみる <cite>[亜-椀]</cite> では、うまく第 1 水準漢字だけにマッチすることはできないのです。</p>
+<p>たとえば、 <cite>逢：E980A2 (UTF-8)</cite> は <cite>亜：E4BA9C (UTF-8) - 椀：E88595 (UTF-8)</cite> の間には収まらない、といった風に。</p>
+</div>
+<div class="section" id="unicode-sjis">
+<h2>Unicode で範囲マッチできないなら SJIS でやればいいじゃない</h2>
+<p>今回の目的を達成するには UTF-8 のまま扱うのはとてもしんどいので、マッチさせるときだけ SJIS にエンコードしてしまいましょう。</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c"># 第 1 水準漢字（16 - 47 区）にマッチ</span>
+<span class="n">regexp_for_JIS_16_TO_47</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r'\x88[\x9F-\xFC]|[\x89-\x97][\x40-\xFC]|\x98[\x40-\x9E]'</span><span class="p">)</span>
+
+<span class="c"># 第 2 水準漢字（48 - 84 区）にマッチ</span>
+<span class="n">regexp_for_JIS_48_TO_84</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r'\x98[\x9F-\xFC]|[\x99-\xE9][\x40-\xFC]|\xEA[\x40-\xA4]'</span><span class="p">)</span>
+
+<span class="c"># SJIS にエンコードしてマッチング</span>
+<span class="n">regexp_for_JIS_16_TO_47</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">u&quot;腕&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'sjis'</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="php-sjis">
+<h2>結局 PHP では SJIS コードを指定する正規表現が使えなかった</h2>
+<p><cite>PHP</cite> で正規表現を利用したマッチングといえば <a class="reference external" href="http://php.net/manual/ja/function.preg-match.php">preg_match</a> ですが、マルチバイトの文字列を対象とする場合は <cite>UTF-8</cite> しか受け付けないとのこと。これでは折角用意した正規表現が使えない…</p>
+<p>ならば <a class="reference external" href="http://php.net/manual/ja/function.ereg.php">ereg</a> を使えばよいかというと</p>
+<blockquote>
+<div>この関数は PHP 5.3.0 で 非推奨となりました。 この機能を使用しないことを強く推奨します。</div></blockquote>
+<p>とのこと。結局あきらめて、 <strong>第1・2水準漢字すべてを羅列した正規表現</strong> を用意したのでした。これは書くまでもないので割愛。というか思い出したくない。</p>
+<p>//sjis version const JIS_16_TO_47_REGEX_INNER = ‘((x88[x9F-xFC])|([x89-x97][x40-xFC])|(x98[x40-x9E]))’;
+//sjis version const JIS_48_TO_84_REGEX_INNER = ‘((x98[x9F-xFC])|([x99-xE9][x40-xFC])|(xEA[x40-xA4]))’;</p>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Mon, 11 Nov 2013 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html</link>
             <guid>http://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html</guid>

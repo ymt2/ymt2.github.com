@@ -82,6 +82,75 @@
             <li class="left"></li>
             <li class="right"><a href="page2.html">Older</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
+            <span>November 11, 2013</span>
+        </div>
+        <div class="section" id="shift-jis-jis-jis-x-0208-12">
+<h1><a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a></h1>
+<p>PHP を使って、ある文字列中に JIS 基本漢字 (JIS X 0208) の第 1・2 水準漢字以外のものが含まれているかどうかの判定を実装したかったのですが、いろいろと苦労した &amp; 結局最悪の実装をしたのでその顛末と途中の成果物をここに記します。</p>
+<p>これらのウェブサイトがとても参考になりました。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://charset.7jp.net/jis0208.html">JIS X 0208 (1990) to Unicode 漢字コード表</a></li>
+<li><a class="reference external" href="http://www.shuiren.org/chuden/teach/code/main4.htm">JIS漢字コード：JIS第一・第二水準―文字コード入門―</a></li>
+</ul>
+<div class="section" id="unicode-jis">
+<h2>Unicode と JIS 基本漢字コードではその出現順が異なる</h2>
+<p><a class="reference external" href="http://charset.7jp.net/jis0208.html">JIS X 0208 (1990) to Unicode 漢字コード表</a> の 16 区以降を見るとわかる通り、 Unicode と SJIS のコード順は異なります。
+よって、UTF-8 の文章に対してよくみる <cite>[亜-椀]</cite> では、うまく第 1 水準漢字だけにマッチすることはできないのです。</p>
+<p>たとえば、 <cite>逢：E980A2 (UTF-8)</cite> は <cite>亜：E4BA9C (UTF-8) - 椀：E88595 (UTF-8)</cite> の間には収まらない、といった風に。</p>
+</div>
+<div class="section" id="unicode-sjis">
+<h2>Unicode で範囲マッチできないなら SJIS でやればいいじゃない</h2>
+<p>今回の目的を達成するには UTF-8 のまま扱うのはとてもしんどいので、マッチさせるときだけ SJIS にエンコードしてしまいましょう。</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c"># 第 1 水準漢字（16 - 47 区）にマッチ</span>
+<span class="n">regexp_for_JIS_16_TO_47</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r'\x88[\x9F-\xFC]|[\x89-\x97][\x40-\xFC]|\x98[\x40-\x9E]'</span><span class="p">)</span>
+
+<span class="c"># 第 2 水準漢字（48 - 84 区）にマッチ</span>
+<span class="n">regexp_for_JIS_48_TO_84</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r'\x98[\x9F-\xFC]|[\x99-\xE9][\x40-\xFC]|\xEA[\x40-\xA4]'</span><span class="p">)</span>
+
+<span class="c"># SJIS にエンコードしてマッチング</span>
+<span class="n">regexp_for_JIS_16_TO_47</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">u&quot;腕&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'sjis'</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="php-sjis">
+<h2>結局 PHP では SJIS コードを指定する正規表現が使えなかった</h2>
+<p><cite>PHP</cite> で正規表現を利用したマッチングといえば <a class="reference external" href="http://php.net/manual/ja/function.preg-match.php">preg_match</a> ですが、マルチバイトの文字列を対象とする場合は <cite>UTF-8</cite> しか受け付けないとのこと。これでは折角用意した正規表現が使えない…</p>
+<p>ならば <a class="reference external" href="http://php.net/manual/ja/function.ereg.php">ereg</a> を使えばよいかというと</p>
+<blockquote>
+<div>この関数は PHP 5.3.0 で 非推奨となりました。 この機能を使用しないことを強く推奨します。</div></blockquote>
+<p>とのこと。結局あきらめて、 <strong>第1・2水準漢字すべてを羅列した正規表現</strong> を用意したのでした。これは書くまでもないので割愛。というか思い出したくない。</p>
+<p>//sjis version const JIS_16_TO_47_REGEX_INNER = ‘((x88[x9F-xFC])|([x89-x97][x40-xFC])|(x98[x40-x9E]))’;
+//sjis version const JIS_48_TO_84_REGEX_INNER = ‘((x98[x9F-xFC])|([x99-xE9][x40-xFC])|(xEA[x40-xA4]))’;</p>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/jis_x_0208.html">JIS X 0208</a>, <a href="tags/regular_expression.html">regular expression</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html#disqus_thread" data-disqus-identifier="2013/11/11/regular_expression_for_jis_x_0208">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 01, 2013</span>
         </div>
         <div class="section" id="ubuntu-vnc-vps-vnc">
@@ -658,37 +727,6 @@ QUERY:
         </div>
         <div class="comments">
             <a href="http://weblog.ymt2.net/blog/html/2012/12/13/chatwork_meets_fluid.html#disqus_thread" data-disqus-identifier="2012/12/13/chatwork_meets_fluid">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>December 27, 2012</span>
-        </div>
-        <div class="section" id="google-play">
-<h1><a href="2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a></h1>
-<p>Xperia S LT26iでいきなりGoogle Playストアが使えなくなって困ったので対処法をメモ。</p>
-<div class="section" id="id1">
-<h2>事象</h2>
-<p>充電が完全に切れた状態で放置していたXperia S LT26i（OSのバージョンは 2.3.7）を久々に起動し、Google Playストアを立ち上げたところ、真っ白な画面に「接続できません」の文字が。「再接続」ボタンを押しても一向に正常に動作する気配もなし。特に原因を示唆する文言もないためかなり困る。</p>
-</div>
-<div class="section" id="id2">
-<h2>対処法</h2>
-<p>内蔵時計がリセットされていたのが原因でした。設定から日付・時刻をしっかり合わせてからGoogle Playストアを立ち上げるとそこには元気なマーケットプレイスの姿が。</p>
-</div>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/android.html">android</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/android.html">android</a>, <a href="tags/google_play_store.html">google play store</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2012/12/27/cannot_connect_to_google_play_store.html#disqus_thread" data-disqus-identifier="2012/12/27/cannot_connect_to_google_play_store">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -697,6 +735,8 @@ QUERY:
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a>
+        </li><li>
             <a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a>
         </li><li>
             <a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
@@ -714,8 +754,6 @@ QUERY:
             <a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
         </li><li>
             <a href="2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
-        </li><li>
-            <a href="2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
@@ -726,9 +764,9 @@ QUERY:
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
-    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (8)</li></ul>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (9)</li></ul>
 </div></section><section><div class="widget">
-    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (3), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (3), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
