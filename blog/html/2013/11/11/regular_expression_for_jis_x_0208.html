@@ -100,7 +100,8 @@
 </div>
 <div class="section" id="unicode-sjis">
 <h2>Unicode で範囲マッチできないなら SJIS でやればいいじゃない</h2>
-<p>今回の目的を達成するには UTF-8 のまま扱うのはとてもしんどいので、マッチさせるときだけ SJIS にエンコードしてしまいましょう。</p>
+<p>今回の目的を達成するには UTF-8 のまま扱うのはとてもしんどいので、マッチさせるときだけ SJIS にエンコードしてしまいましょう。
+Python でやるならこんな感じ。</p>
 <div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -130,8 +131,6 @@
 <blockquote>
 <div>この関数は PHP 5.3.0 で 非推奨となりました。 この機能を使用しないことを強く推奨します。</div></blockquote>
 <p>とのこと。結局あきらめて、 <strong>第1・2水準漢字すべてを羅列した正規表現</strong> を用意したのでした。これは書くまでもないので割愛。というか思い出したくない。</p>
-<p>//sjis version const JIS_16_TO_47_REGEX_INNER = &#8216;((x88[x9F-xFC])|([x89-x97][x40-xFC])|(x98[x40-x9E]))&#8217;;
-//sjis version const JIS_48_TO_84_REGEX_INNER = &#8216;((x98[x9F-xFC])|([x99-xE9][x40-xFC])|(xEA[x40-xA4]))&#8217;;</p>
 </div>
 </div>
 
