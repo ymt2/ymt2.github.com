@@ -82,6 +82,114 @@
             <li class="left"></li>
             <li class="right"><a href="page2.html">Older</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
+            <span>November 23, 2013</span>
+        </div>
+        <div class="section" id="mysql-5-6-macports-mac-os-x-mavericks">
+<h1><a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a></h1>
+<p><cite>$ sudo port install mysql56-server</cite> でいけると思っていたらどうもビルドがこける。
+ぐぐるとパッチを当てて回避しているひとがいるみたいなので試してみた。
+<a class="reference external" href="http://bugs.mysql.com/bug.php?id=70542">http://bugs.mysql.com/bug.php?id=70542</a></p>
+<div class="section" id="id1">
+<h2>環境とか</h2>
+<ul class="simple">
+<li>Mac OS X 10.9 Mavericks<ul>
+<li>Command line tools インストール済み</li>
+</ul>
+</li>
+<li>MacPorts 2.2.1</li>
+<li>MySQL 5.6.13</li>
+</ul>
+</div>
+<div class="section" id="mysql">
+<h2>MySQL にパッチを当てる</h2>
+<p>上記ウェブサイトで <cite>fix-build-on-macosx-9.patch</cite> を検索するとリンクが見つかるので、そこからパッチを落とす。また、以下のコマンドでインストールせずに MySQL のソースだけを落とす。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>sudo port clean mysql56-server
+<span class="nv">$ </span>sudo port -f patch mysql56-server
+</pre></div>
+</div>
+<p>ソースのディレクトリに移動してパッチを当てる。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_tarballs_ports_databases_mysql56/mysql56/work/mysql-5.6.13/include
+<span class="nv">$ </span>sudo patch -p 0 &lt; ~/Downloads/fix-build-on-macosx-9.patch
+</pre></div>
+</div>
+<p>インストールを実行。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>sudo port -f install mysql56-server
+<span class="nv">$ </span>sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
+<span class="nv">$ </span>sudo port load mysql56-server
+<span class="nv">$ </span>/opt/local/lib/mysql56/bin/mysqladmin -u root password <span class="s1">'パスワード'</span>
+</pre></div>
+</div>
+<p>ログインできたら成功。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysql56 -uroot -p
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>補足</h2>
+<p><cite>mysqld_safe</cite> が動かなかったので修正した記録と記憶が残っていたのだけど、本当に必要な操作であったかを覚えていない…。念のため diff を貼っておく。</p>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gd">--- mysqld_safe.org     2013-11-20 22:35:24.000000000 +0900</span>
+<span class="gi">+++ /opt/local/lib/mysql56/bin/mysqld_safe      2013-11-20 22:36:11.000000000 +0900</span>
+<span class="gu">@@ -719,24 +719,22 @@</span>
+# Note: The switches to 'ps' may depend on your operating system
+if test -f &quot;$pid_file&quot;
+then
+<span class="gd">-  PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gd">-  if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
+<span class="gd">-  then</span>
+<span class="gd">-    #if</span>
+<span class="gd">-    #then    # The pid contains a mysqld process</span>
+<span class="gd">-    #  log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gd">-    #  exit 1</span>
+<span class="gd">-    #fi</span>
+<span class="gd">-  fi</span>
+<span class="gd">-  rm -f &quot;$pid_file&quot;</span>
+<span class="gd">-  if test -f &quot;$pid_file&quot;</span>
+<span class="gd">-  then</span>
+<span class="gd">-    log_error &quot;Fatal error: Can't remove the pid file:</span>
+<span class="gi">+    PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gi">+    if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
+<span class="gi">+    then</span>
+<span class="gi">+       # The pid contains a mysqld process</span>
+<span class="gi">+       log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gi">+       exit 1</span>
+<span class="gi">+    fi</span>
+<span class="gi">+    rm -f &quot;$pid_file&quot;</span>
+<span class="gi">+    if test -f &quot;$pid_file&quot;</span>
+<span class="gi">+    then</span>
+<span class="gi">+       log_error &quot;Fatal error: Can't remove the pid file:</span>
+        $pid_file
+        Please remove it manually and start $0 again;
+        mysqld daemon not started&quot;
+<span class="gd">-    exit 1</span>
+<span class="gd">-  fi</span>
+<span class="gi">+       exit 1</span>
+<span class="gi">+    fi</span>
+fi
+
+#
+</pre></div>
+</div>
+</div>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/mac_os_x.html">mac os x</a>, <a href="tags/mavericks.html">mavericks</a>, <a href="tags/mysql.html">mysql</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html#disqus_thread" data-disqus-identifier="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 11, 2013</span>
         </div>
         <div class="section" id="shift-jis-jis-jis-x-0208-12">
@@ -693,39 +801,6 @@ QUERY:
         </div>
         <div class="comments">
             <a href="http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html#disqus_thread" data-disqus-identifier="2013/08/23/install_migemo_to_emacs_24_3_1">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>December 13, 2012</span>
-        </div>
-        <div class="section" id="chatwork-fluid">
-<h1><a href="2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a></h1>
-<p><a class="reference external" href="http://www.simplegimmick.com/2012/02/fluidchatworkcom.html">Fluidで作ったchatwork.comアプリで未読表示</a></p>
-<p><a class="reference external" href="http://fluidapp.com">Fluid</a> でユーザスクリプトが使えることを知ってちょろっと探してみると上の記事が見つかったので。</p>
-<div class="section" id="fluid">
-<h2>Fluidって？</h2>
-<p>WebアプリのURLを食べさせるとMacOSのhoge.appを吐き出してくれるものです。ユーザスクリプトはPurchaseしないと利用できない模様。</p>
-</div>
-<div class="section" id="id1">
-<h2>元の記事と何が違うの？</h2>
-<p>未読件数の表示に加えて、Docのアイコンが跳ねます。changelogを見ると`window.fluid.requestUserAttention`ってAPIがあったのでこれや！と思って1行追加しただけです。
-<a class="reference external" href="http://fluidapp.com/developer">Fluid Developer</a> 見ても書いてなかったぞ。。。</p>
-<script src="https://gist.github.com/ymt2/4270013.js"> </script></div>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/tips.html">tips</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/fluid.html">fluid</a>, <a href="tags/chatwork.html">chatwork</a>, <a href="tags/javascript.html">javascript</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2012/12/13/chatwork_meets_fluid.html#disqus_thread" data-disqus-identifier="2012/12/13/chatwork_meets_fluid">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -734,6 +809,8 @@ QUERY:
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a>
+        </li><li>
             <a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a>
         </li><li>
             <a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a>
@@ -751,8 +828,6 @@ QUERY:
             <a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li><li>
             <a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a>
-        </li><li>
-            <a href="2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
@@ -763,9 +838,9 @@ QUERY:
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
-    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (9)</li></ul>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (10)</li></ul>
 </div></section><section><div class="widget">
-    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (3), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 

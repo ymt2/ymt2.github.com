@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks
    2013/11/11/regular_expression_for_jis_x_0208
    2013/11/01/vnc_with_sakura_vps
    2013/10/08/oniguruma_with_emacs_24

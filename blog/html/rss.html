@@ -5,8 +5,105 @@
         <link>http://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Mon, 11 Nov 2013 00:00:00 +0900</pubDate>
+        <pubDate>Sat, 23 Nov 2013 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html</guid>
+            <title><![CDATA[MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ]]></title>
+            <description><![CDATA[<div class="section" id="mysql-5-6-macports-mac-os-x-mavericks">
+<h1>MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</h1>
+<p><cite>$ sudo port install mysql56-server</cite> でいけると思っていたらどうもビルドがこける。
+ぐぐるとパッチを当てて回避しているひとがいるみたいなので試してみた。
+<a class="reference external" href="http://bugs.mysql.com/bug.php?id=70542">http://bugs.mysql.com/bug.php?id=70542</a></p>
+<div class="section" id="id1">
+<h2>環境とか</h2>
+<ul class="simple">
+<li>Mac OS X 10.9 Mavericks<ul>
+<li>Command line tools インストール済み</li>
+</ul>
+</li>
+<li>MacPorts 2.2.1</li>
+<li>MySQL 5.6.13</li>
+</ul>
+</div>
+<div class="section" id="mysql">
+<h2>MySQL にパッチを当てる</h2>
+<p>上記ウェブサイトで <cite>fix-build-on-macosx-9.patch</cite> を検索するとリンクが見つかるので、そこからパッチを落とす。また、以下のコマンドでインストールせずに MySQL のソースだけを落とす。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>sudo port clean mysql56-server
+<span class="nv">$ </span>sudo port -f patch mysql56-server
+</pre></div>
+</div>
+<p>ソースのディレクトリに移動してパッチを当てる。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_tarballs_ports_databases_mysql56/mysql56/work/mysql-5.6.13/include
+<span class="nv">$ </span>sudo patch -p 0 &lt; ~/Downloads/fix-build-on-macosx-9.patch
+</pre></div>
+</div>
+<p>インストールを実行。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~
+<span class="nv">$ </span>sudo port -f install mysql56-server
+<span class="nv">$ </span>sudo -u _mysql /opt/local/lib/mysql56/bin/mysql_install_db
+<span class="nv">$ </span>sudo port load mysql56-server
+<span class="nv">$ </span>/opt/local/lib/mysql56/bin/mysqladmin -u root password <span class="s1">'パスワード'</span>
+</pre></div>
+</div>
+<p>ログインできたら成功。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mysql56 -uroot -p
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>補足</h2>
+<p><cite>mysqld_safe</cite> が動かなかったので修正した記録と記憶が残っていたのだけど、本当に必要な操作であったかを覚えていない…。念のため diff を貼っておく。</p>
+<div class="highlight-diff"><div class="highlight"><pre><span class="gd">--- mysqld_safe.org     2013-11-20 22:35:24.000000000 +0900</span>
+<span class="gi">+++ /opt/local/lib/mysql56/bin/mysqld_safe      2013-11-20 22:36:11.000000000 +0900</span>
+<span class="gu">@@ -719,24 +719,22 @@</span>
+# Note: The switches to 'ps' may depend on your operating system
+if test -f &quot;$pid_file&quot;
+then
+<span class="gd">-  PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gd">-  if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
+<span class="gd">-  then</span>
+<span class="gd">-    #if</span>
+<span class="gd">-    #then    # The pid contains a mysqld process</span>
+<span class="gd">-    #  log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gd">-    #  exit 1</span>
+<span class="gd">-    #fi</span>
+<span class="gd">-  fi</span>
+<span class="gd">-  rm -f &quot;$pid_file&quot;</span>
+<span class="gd">-  if test -f &quot;$pid_file&quot;</span>
+<span class="gd">-  then</span>
+<span class="gd">-    log_error &quot;Fatal error: Can't remove the pid file:</span>
+<span class="gi">+    PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gi">+    if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
+<span class="gi">+    then</span>
+<span class="gi">+       # The pid contains a mysqld process</span>
+<span class="gi">+       log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gi">+       exit 1</span>
+<span class="gi">+    fi</span>
+<span class="gi">+    rm -f &quot;$pid_file&quot;</span>
+<span class="gi">+    if test -f &quot;$pid_file&quot;</span>
+<span class="gi">+    then</span>
+<span class="gi">+       log_error &quot;Fatal error: Can't remove the pid file:</span>
+        $pid_file
+        Please remove it manually and start $0 again;
+        mysqld daemon not started&quot;
+<span class="gd">-    exit 1</span>
+<span class="gd">-  fi</span>
+<span class="gi">+       exit 1</span>
+<span class="gi">+    fi</span>
+fi
+
+#
+</pre></div>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Sat, 23 Nov 2013 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html</link>
             <guid>http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html</guid>
