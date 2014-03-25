@@ -4,6 +4,8 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/03/26/replace_existing_git_repository_to_backlog
+   2014/01/21/replace_existing_git_repository_with_backlog
    2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks
    2013/11/11/regular_expression_for_jis_x_0208
    2013/11/01/vnc_with_sakura_vps

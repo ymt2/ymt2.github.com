@@ -5,8 +5,71 @@
         <link>http://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Sat, 23 Nov 2013 00:00:00 +0900</pubDate>
+        <pubDate>Wed, 26 Mar 2014 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html</guid>
+            <title><![CDATA[既存の git リポジトリを backlog に移行する]]></title>
+            <description><![CDATA[<div class="section" id="git-backlog">
+<h1>既存の git リポジトリを backlog に移行する</h1>
+<p>自前で管理していた共有の Git リモートリポジトリを <a class="reference external" href="http://www.backlog.jp">backlog</a> に移行したときのメモです。</p>
+<div class="section" id="id1">
+<h2>リポジトリの移行</h2>
+<p>リモートリポジトリをローカルに clone している前提です。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>ローカルリポジトリのルート<span class="o">}</span>
+<span class="nv">$ </span>git remote -v <span class="c"># リモートリポジトリの URL を確認</span>
+<span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>clone --mirror <span class="o">{</span>リモートリポジトリ<span class="o">}</span> repository_bare
+<span class="nv">$ </span><span class="nb">cd </span>repository_bare
+<span class="nv">$ </span>git push --mirror <span class="o">{</span>backlog のリモートリポジトリ URL<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>チームへの共有</h2>
+<p>チームには下記コマンドをローカルリポジトリのルートで叩いてもらいましょう。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git remote <span class="nb">set</span>-url origin <span class="o">{</span>backlog のリモートリポジトリ URL<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Wed, 26 Mar 2014 00:00:00 +0900</pubDate>
+        </item>
+    
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2014/01/21/replace_existing_git_repository_with_backlog.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2014/01/21/replace_existing_git_repository_with_backlog.html</guid>
+            <title><![CDATA[既存のリポジトリを backlog に移行する方法]]></title>
+            <description><![CDATA[<div class="section" id="backlog">
+<h1>既存のリポジトリを backlog に移行する方法</h1>
+<p># まず既存リポジトリを移行
+$ git remote -v
+$ cd ..
+$ git clone –mirror <a class="reference external" href="ssh://ohaco@54.249.93.113://home/ohaco/.karaoke.git">ssh://ohaco@54.249.93.113:/home/ohaco/.karaoke.git</a> karaoke_bare
+$ cd karaoke_bare
+$ git push –mirror <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
+<p># ローカルリポジトリの origin を変更
+$ cd karaoke
+$ git remote set-url origin <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
+<p># テストリポジトリの origin を変更
+$ git remote set-url origin <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
+<div class="section" id="id1">
+<h2>リポジトリを backlog と同期する</h2>
+<div class="highlight-shell"><pre>* * * * * for i in `seq 0 10 59`;do (sleep ${i} ; ~/bin/src/git_pull.sh) &amp; done; &gt;&gt; ~/logs/git_pull_$(date '+\%Y\%m').log 2&gt;&amp;1</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>チームのみんなにやってもらうこと</h2>
+<div class="highlight-shell"><pre>$ git remote set-url origin {your backlog repository url}</pre>
+</div>
+</div>
+</div>]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Tue, 21 Jan 2014 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html</link>
             <guid>http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html</guid>
