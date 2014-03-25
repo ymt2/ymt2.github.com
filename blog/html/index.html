@@ -124,49 +124,6 @@
         <div class="comments">
             <a href="http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html#disqus_thread" data-disqus-identifier="2014/03/26/replace_existing_git_repository_to_backlog">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>January 21, 2014</span>
-        </div>
-        <div class="section" id="backlog">
-<h1><a href="2014/01/21/replace_existing_git_repository_with_backlog.html">既存のリポジトリを backlog に移行する方法</a></h1>
-<p># まず既存リポジトリを移行
-$ git remote -v
-$ cd ..
-$ git clone –mirror <a class="reference external" href="ssh://ohaco@54.249.93.113://home/ohaco/.karaoke.git">ssh://ohaco@54.249.93.113:/home/ohaco/.karaoke.git</a> karaoke_bare
-$ cd karaoke_bare
-$ git push –mirror <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
-<p># ローカルリポジトリの origin を変更
-$ cd karaoke
-$ git remote set-url origin <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
-<p># テストリポジトリの origin を変更
-$ git remote set-url origin <a class="reference external" href="mailto:zawattinc%40zawattinc.git.backlog.jp">zawattinc<span>@</span>zawattinc<span>.</span>git<span>.</span>backlog<span>.</span>jp</a>:/SW/server.git</p>
-<div class="section" id="id1">
-<h2>リポジトリを backlog と同期する</h2>
-<div class="highlight-shell"><pre>* * * * * for i in `seq 0 10 59`;do (sleep ${i} ; ~/bin/src/git_pull.sh) &amp; done; &gt;&gt; ~/logs/git_pull_$(date '+\%Y\%m').log 2&gt;&amp;1</pre>
-</div>
-</div>
-<div class="section" id="id2">
-<h2>チームのみんなにやってもらうこと</h2>
-<div class="highlight-shell"><pre>$ git remote set-url origin {your backlog repository url}</pre>
-</div>
-</div>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/tips.html">tips</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/git.html">git</a>, <a href="tags/backlog.html">backlog</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2014/01/21/replace_existing_git_repository_with_backlog.html#disqus_thread" data-disqus-identifier="2014/01/21/replace_existing_git_repository_with_backlog">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 23, 2013</span>
         </div>
         <div class="section" id="mysql-5-6-macports-mac-os-x-mavericks">
@@ -782,6 +739,34 @@ hoge.exe tmp.dat
         </div>
         <div class="comments">
             <a href="http://weblog.ymt2.net/blog/html/2010/10/19/comment_out_on_batch.html#disqus_thread" data-disqus-identifier="2010/10/19/comment_out_on_batch">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>April 09, 2011</span>
+        </div>
+        <div class="section" id="facebook-events-ical">
+<h1><a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></h1>
+<p>FacebookのEventsページにあるExport Eventsから、iCalやGoogle CalenderからEventsを照会できるURLを入手することができます。このURLを利用して、iPhoneのカレンダーにEventsを同期することが可能です。べんり。</p>
+<ul class="simple">
+<li>Export Eventsダイアログに表示されたURLをiPhoneに送信</li>
+<li>「設定→メール/連絡先/カレンダー→アカウントを追加→その他→照会するカレンダーを追加」で先程のURLを入力。</li>
+</ul>
+<p>以上の手順でiPhoneのカレンダーより照会可能です。</p>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/facebook.html">Facebook</a>, <a href="tags/ical.html">iCal</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://weblog.ymt2.net/blog/html/2011/04/09/sync_facebook_events_to_ical.html#disqus_thread" data-disqus-identifier="2011/04/09/sync_facebook_events_to_ical">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -791,8 +776,6 @@ hoge.exe tmp.dat
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a>
-        </li><li>
-            <a href="2014/01/21/replace_existing_git_repository_with_backlog.html">既存のリポジトリを backlog に移行する方法</a>
         </li><li>
             <a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a>
         </li><li>
@@ -809,6 +792,8 @@ hoge.exe tmp.dat
             <a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a>
         </li><li>
             <a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a>
+        </li><li>
+            <a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
@@ -819,9 +804,9 @@ hoge.exe tmp.dat
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
-    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (12)</li></ul>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (11)</li></ul>
 </div></section><section><div class="widget">
-    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/backlog.html">backlog</a> (2), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/git.html">git</a> (2), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/backlog.html">backlog</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/git.html">git</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
