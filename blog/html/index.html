@@ -21,7 +21,7 @@
             <link rel="stylesheet" href="_static/main.css" type="text/css">
             <link rel="stylesheet" href="_static/modern5.css" type="text/css">
             <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-            <link rel="stylesheet" href="_static/webfont.css" type="text/css">
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
         <link rel="shortcut icon" href="_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
         <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -33,7 +33,7 @@
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.2.1',
+        VERSION:     '1.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -59,18 +59,18 @@
             }
         });
     </script></head>
-    <body>
+    <body role="document">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-      <div id="container"><header>
+      <div id="container"><header role="banner">
             <hgroup>
               <h1><a href="#">ymt2log</a></h1><h2>Yuru-fuwa Pythonista</h2></hgroup>
           </header>
-      <nav>
+      <nav role="navigation">
             <ul><li class="quicklink"><div class="rss">
-        <a href="rss.html" title="Subscribe via RSS"><span class="webfont">B</span></a>
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
     </div></li><li class="main-nav">
                   <a href="#">Home</a>
                 </li>
@@ -78,14 +78,13 @@
                   <a href="pages/notes.html">Notes</a>
                 </li>
               </ul>
-          </nav><div class="main-container"><div class="main wrapper clearfix"><article><ul class="related clearfix">
+          </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article role="article"><ul class="related clearfix">
             <li class="left"></li>
             <li class="right"><a href="page2.html">Older</a> &raquo; </li>
         </ul><div class="timestamp postmeta">
             <span>March 26, 2014</span>
         </div>
-        <div class="section" id="git-backlog">
-<h1><a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a></h1>
+        <h1><a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a></h1>
 <p>自前で管理していた共有の Git リモートリポジトリを <a class="reference external" href="http://www.backlog.jp">backlog</a> に移行したときのメモです。</p>
 <div class="section" id="id1">
 <h2>リポジトリの移行</h2>
@@ -106,7 +105,7 @@
 </pre></div>
 </div>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -126,8 +125,7 @@
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 23, 2013</span>
         </div>
-        <div class="section" id="mysql-5-6-macports-mac-os-x-mavericks">
-<h1><a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a></h1>
+        <h1><a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a></h1>
 <p><cite>$ sudo port install mysql56-server</cite> でいけると思っていたらどうもビルドがこける。
 ぐぐるとパッチを当てて回避しているひとがいるみたいなので試してみた。
 <a class="reference external" href="http://bugs.mysql.com/bug.php?id=70542">http://bugs.mysql.com/bug.php?id=70542</a></p>
@@ -152,7 +150,7 @@
 </div>
 <p>ソースのディレクトリに移動してパッチを当てる。</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_tarballs_ports_databases_mysql56/mysql56/work/mysql-5.6.13/include
-<span class="nv">$ </span>sudo patch -p 0 &lt; ~/Downloads/fix-build-on-macosx-9.patch
+<span class="nv">$ </span>sudo patch -p <span class="m">0</span> &lt; ~/Downloads/fix-build-on-macosx-9.patch
 </pre></div>
 </div>
 <p>インストールを実行。</p>
@@ -175,35 +173,35 @@
 <span class="gi">+++ /opt/local/lib/mysql56/bin/mysqld_safe      2013-11-20 22:36:11.000000000 +0900</span>
 <span class="gu">@@ -719,24 +719,22 @@</span>
 # Note: The switches to 'ps' may depend on your operating system
-if test -f &quot;$pid_file&quot;
+if test -f "$pid_file"
 then
-<span class="gd">-  PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gd">-  PID=`cat "$pid_file"`</span>
 <span class="gd">-  if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
 <span class="gd">-  then</span>
 <span class="gd">-    #if</span>
 <span class="gd">-    #then    # The pid contains a mysqld process</span>
-<span class="gd">-    #  log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gd">-    #  log_error "A mysqld process already exists"</span>
 <span class="gd">-    #  exit 1</span>
 <span class="gd">-    #fi</span>
 <span class="gd">-  fi</span>
-<span class="gd">-  rm -f &quot;$pid_file&quot;</span>
-<span class="gd">-  if test -f &quot;$pid_file&quot;</span>
+<span class="gd">-  rm -f "$pid_file"</span>
+<span class="gd">-  if test -f "$pid_file"</span>
 <span class="gd">-  then</span>
-<span class="gd">-    log_error &quot;Fatal error: Can't remove the pid file:</span>
-<span class="gi">+    PID=`cat &quot;$pid_file&quot;`</span>
+<span class="gd">-    log_error "Fatal error: Can't remove the pid file:</span>
+<span class="gi">+    PID=`cat "$pid_file"`</span>
 <span class="gi">+    if kill -0 $PID &gt; /dev/null 2&gt; /dev/null</span>
 <span class="gi">+    then</span>
 <span class="gi">+       # The pid contains a mysqld process</span>
-<span class="gi">+       log_error &quot;A mysqld process already exists&quot;</span>
+<span class="gi">+       log_error "A mysqld process already exists"</span>
 <span class="gi">+       exit 1</span>
 <span class="gi">+    fi</span>
-<span class="gi">+    rm -f &quot;$pid_file&quot;</span>
-<span class="gi">+    if test -f &quot;$pid_file&quot;</span>
+<span class="gi">+    rm -f "$pid_file"</span>
+<span class="gi">+    if test -f "$pid_file"</span>
 <span class="gi">+    then</span>
-<span class="gi">+       log_error &quot;Fatal error: Can't remove the pid file:</span>
+<span class="gi">+       log_error "Fatal error: Can't remove the pid file:</span>
         $pid_file
         Please remove it manually and start $0 again;
-        mysqld daemon not started&quot;
+        mysqld daemon not started"
 <span class="gd">-    exit 1</span>
 <span class="gd">-  fi</span>
 <span class="gi">+       exit 1</span>
@@ -214,7 +212,7 @@ fi
 </pre></div>
 </div>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -234,8 +232,7 @@ fi
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 11, 2013</span>
         </div>
-        <div class="section" id="shift-jis-jis-jis-x-0208-12">
-<h1><a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a></h1>
+        <h1><a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a></h1>
 <p>PHP を使って、ある文字列中に JIS 基本漢字 (JIS X 0208) の第 1・2 水準漢字以外のものが含まれているかどうかの判定を実装したかったのですが、いろいろと苦労した &amp; 結局最悪の実装をしたのでその顛末と途中の成果物をここに記します。</p>
 <p>これらのウェブサイトがとても参考になりました。</p>
 <ul class="simple">
@@ -270,7 +267,7 @@ Python でやるならこんな感じ。</p>
 <span class="n">regexp_for_JIS_48_TO_84</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r'\x98[\x9F-\xFC]|[\x99-\xE9][\x40-\xFC]|\xEA[\x40-\xA4]'</span><span class="p">)</span>
 
 <span class="c"># SJIS にエンコードしてマッチング</span>
-<span class="n">regexp_for_JIS_16_TO_47</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">u&quot;腕&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'sjis'</span><span class="p">))</span>
+<span class="n">regexp_for_JIS_16_TO_47</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">u"腕"</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'sjis'</span><span class="p">))</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -282,7 +279,7 @@ Python でやるならこんな感じ。</p>
 <div>この関数は PHP 5.3.0 で 非推奨となりました。 この機能を使用しないことを強く推奨します。</div></blockquote>
 <p>とのこと。結局あきらめて、 <strong>第1・2水準漢字すべてを羅列した正規表現</strong> を用意したのでした。これは書くまでもないので割愛。というか思い出したくない。</p>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -302,8 +299,7 @@ Python でやるならこんな感じ。</p>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 01, 2013</span>
         </div>
-        <div class="section" id="ubuntu-vnc-vps-vnc">
-<h1><a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a></h1>
+        <h1><a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a></h1>
 <p>とにかくインスタントに VNC をはじめるための手順です。</p>
 <div class="section" id="id1">
 <h2>環境</h2>
@@ -334,7 +330,7 @@ Python でやるならこんな感じ。</p>
 </pre></div>
 </div>
 <p>VPS 接続時に GNOME が起動するように下記の設定を追記。</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;gnome-session --session=ubuntu-2d &amp;&quot;</span> &gt;&gt; ~/.vnc/xstartup
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"gnome-session --session=ubuntu-2d &amp;"</span> &gt;&gt; ~/.vnc/xstartup
 </pre></div>
 </div>
 <p>設定ができたのでもう一回起動。</p>
@@ -352,7 +348,7 @@ Python でやるならこんな感じ。</p>
 </ol>
 </div>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -372,8 +368,7 @@ Python でやるならこんな感じ。</p>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>October 08, 2013</span>
         </div>
-        <div class="section" id="emacs-24-foreign-regexp">
-<h1><a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a></h1>
+        <h1><a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a></h1>
 <p><a class="reference external" href="http://www.emacswiki.org/emacs/RegularExpression">Emacs の正規表現</a> はほんとにつらい。 <cite>syntax_classes</cite> のブラケットにもバックスラッシュが必要だったりととにかくバックスラッシュ地獄で、リプレイスするのにわざわざ別のエディタ使うレベル。</p>
 <p><a class="reference external" href="https://github.com/k-talo/foreign-regexp.el">foreign-regexp</a> でラクしましょう。外部コマンドに <cite>Ruby</cite> を指定することで、 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">豊富な表現で再帰まで使える</a> 正規表現ライブラリ <a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">鬼車</a> をインクリメンタルサーチやリプレイスに利用できます。</p>
 <div class="section" id="id1">
@@ -421,7 +416,7 @@ Python でやるならこんな感じ。</p>
 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">回文や XML にマッチする鬼車の正規表現 - まめめも</a></p>
 </div>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -441,15 +436,14 @@ Python でやるならこんな感じ。</p>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 21, 2013</span>
         </div>
-        <div class="section" id="xcode5-0">
-<h1><a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></h1>
+        <h1><a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></h1>
 <div class="section" id="id1">
 <h2>ここにあります</h2>
 <p>Xcode を 5.0 にアップデートして一番困ったのがプロビジョニングプロファイルの追加。以前は Organizer を開いてすぐに見付かる場所にあったのが、メニューの中に移動されてしまったようです。</p>
 <p><em>Organizer を開いた状態で</em> メニューバーの <em>Editor -&gt; Provisioning Profiles -&gt; Import Profile...</em> でファイル選択ダイアログが開きます。</p>
 <a class="reference internal image-reference" href="_images/menubar.png"><img alt="../../../_images/menubar.png" src="_images/menubar.png" style="width: 500px;"/></a>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -469,8 +463,7 @@ Python でやるならこんな感じ。</p>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 11, 2013</span>
         </div>
-        <div class="section" id="mysql-n-sql">
-<h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
+        <h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
 <p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
 <p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
 <p>テーブルはこんな感じでした。</p>
@@ -523,16 +516,16 @@ Python でやるならこんな感じ。</p>
 </td></tr></table></div>
 <p>こんな感じの結果が返ってきます。</p>
 <div class="highlight-sh"><div class="highlight"><pre>+-------+-------+
-| class | count |
+<span class="p">|</span> class <span class="p">|</span> count <span class="p">|</span>
 +-------+-------+
-| F0    |   100 |
-| F1    |   200 |
-| F2    |   300 |
-| F3    |   400 |
-| M0    |   100 |
-| M1    |   200 |
-| M2    |   300 |
-| M3    |   400 |
+<span class="p">|</span> F0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
+<span class="p">|</span> F1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
+<span class="p">|</span> F2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
+<span class="p">|</span> F3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
+<span class="p">|</span> M0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
+<span class="p">|</span> M1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
+<span class="p">|</span> M2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
+<span class="p">|</span> M3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
 +-------+-------+
 </pre></div>
 </div>
@@ -585,7 +578,7 @@ Python でやるならこんな感じ。</p>
 </tr>
 </tbody>
 </table>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -605,8 +598,7 @@ Python でやるならこんな感じ。</p>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 05, 2013</span>
         </div>
-        <div class="section" id="db-flyway-fail">
-<h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
+        <h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
 <p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org">flyway</a> を導入しました。</p>
 <p>SQL ベースで DB の状態を管理していくので、特定の O/R マッパーに依存することもなく、プロジェクトが走り出してからさくっと導入するぶんには特に問題も起こりませんでした。</p>
 <p>そんななか <cite>migrate</cite> が <cite>fail</cite> したときに少々困ったのでメモ。</p>
@@ -655,11 +647,11 @@ Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
 
 Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.4
 Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5
-Successfully applied 1 migration to schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> <span class="o">(</span>execution <span class="nb">time </span>00:00.102s<span class="o">)</span>.
+Successfully applied <span class="m">1</span> migration to schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> <span class="o">(</span>execution <span class="nb">time </span>00:00.102s<span class="o">)</span>.
 </pre></div>
 </td></tr></table></div>
 </div>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -679,8 +671,7 @@ Successfully applied 1 migration to schema <span class="sb">`</span>HOGEDB<span 
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>October 19, 2010</span>
         </div>
-        <div class="section" id="windows">
-<h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
+        <h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
 <p>仕事で必要になったのでメモします。
 利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
 <p>手順としては単純です。</p>
@@ -705,12 +696,12 @@ Successfully applied 1 migration to schema <span class="sb">`</span>HOGEDB<span 
 14
 15</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
 
-<span class="k">if</span> <span class="s2">&quot;%‾1&quot;</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">goto</span> <span class="nl">usage</span>
+<span class="k">if</span> <span class="s2">"%‾1"</span> <span class="o">==</span> <span class="s2">""</span> <span class="k">goto</span> <span class="nl">usage</span>
 
 <span class="k">SET</span> <span class="nv">VALUE</span><span class="o">=</span><span class="nv">%1</span>
 
-<span class="c">rem &quot;^#&quot;とマッチする行を無視して中間ファイルを作成</span>
-type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">&quot;^#&quot;</span> &amp;gt; tmp.dat
+<span class="c">rem "^#"とマッチする行を無視して中間ファイルを作成</span>
+type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">"^#"</span> &amp;gt; tmp.dat
 hoge.exe tmp.dat
 
 <span class="k">pause</span>
@@ -722,7 +713,7 @@ hoge.exe tmp.dat
 </td></tr></table></div>
 <p>おまけに引数チェックも。</p>
 <p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -742,15 +733,14 @@ hoge.exe tmp.dat
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>April 09, 2011</span>
         </div>
-        <div class="section" id="facebook-events-ical">
-<h1><a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></h1>
+        <h1><a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></h1>
 <p>FacebookのEventsページにあるExport Eventsから、iCalやGoogle CalenderからEventsを照会できるURLを入手することができます。このURLを利用して、iPhoneのカレンダーにEventsを同期することが可能です。べんり。</p>
 <ul class="simple">
 <li>Export Eventsダイアログに表示されたURLをiPhoneに送信</li>
 <li>「設定→メール/連絡先/カレンダー→アカウントを追加→その他→照会するカレンダーを追加」で先程のURLを入力。</li>
 </ul>
 <p>以上の手順でiPhoneのカレンダーより照会可能です。</p>
-</div>
+
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -796,11 +786,11 @@ hoge.exe tmp.dat
             <a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a>
         </li></ul>
 </div>
-</section><section><div class="widget" id="searchbox">
+</section><section><div class="widget" id="searchbox" role="search">
     <h1>Search</h1>
     <form action="search.html" method="get">
         <input type="text" name="q" />
-        <button type="submit"><span class="webfont">L</span></button>
+        <button type="submit"><span class="fa fa-search"></span></button>
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
@@ -808,7 +798,7 @@ hoge.exe tmp.dat
 </div></section><section><div class="widget">
     <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/backlog.html">backlog</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/git.html">git</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
-        <div class="footer-container"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
       </div> <!--! end of #container --><script type="text/javascript">    var disqus_shortname = "ymt2log";    disqus_count();</script><!--[if lt IE 7 ]>
           <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
