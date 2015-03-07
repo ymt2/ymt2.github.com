@@ -36,7 +36,7 @@ disqus_shortname = 'ymt2log'
 html_favicon = 'tinkerer.ico'
 
 # Pick another Tinkerer theme or use your own
-html_theme = "modern5"
+html_theme = 'tinkerturquoise'
 
 # Theme-specific options, see docs
 html_theme_options = { }
@@ -56,7 +56,10 @@ posts_per_page = 10
 # **************************************************************
 
 # Add other Sphinx extensions here
-extensions = ['tinkerer.ext.blog', 'tinkerer.ext.disqus', 'sphinxcontrib.gist']
+extensions = ['tinkerer.ext.blog',
+              'tinkerer.ext.disqus',
+              'sphinxcontrib.gist',
+              'sphinxjp.themecore']
 
 # Add other template paths here
 templates_path = ['_templates']
