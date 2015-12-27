@@ -25,3 +25,4 @@ sphinxjp.themes.tinkerturquoise==0.2.21
 Tinkerer==1.4.2
 watchdog==0.6.0
 webcolors==1.4
+wheel==0.24.0
