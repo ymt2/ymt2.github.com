@@ -5,8 +5,36 @@
         <link>http://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Wed, 26 Mar 2014 00:00:00 +0900</pubDate>
+        <pubDate>Sun, 27 Dec 2015 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>http://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html</link>
+            <guid>http://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html</guid>
+            <title><![CDATA[[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること]]></title>
+            <description><![CDATA[<h1>[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</h1>
+<p><a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Amazon+EC2+Plugin">Amazon EC2 Plugin</a> を利用して分散ビルド的なことをしたかった際にいくつかつまづいたのでメモ。プラグインそのものが原因であることはそんなになかったかも。</p>
+<div class="section" id="ami-id">
+<h2>ラベルをまたいで同じ “AMI ID” を設定していないか</h2>
+<p>“Jenkins &gt; configuration” 内 “Cloud &gt; Amazon EC2 &gt; AMIs &gt; Labels” にてラベルを設定し、特定のジョブを実行するインスタンスを制限する、ということができる大変便利な機能がある。</p>
+<p>しかし “Instance Cap” と “ラベルをまたいで同じ AMI ID を設定” の条件を満たしている場合に、起動数のカウントがラベルをまたいで合算されてしまい “Instance Cap” にひっかかり、期待よりも少ない数のインスタンスしか起動しない、という挙動にぶつかってしまった。</p>
+<p>さしあたって AMI をコピーし、別の AMI ID を発行して難をのがれたがしばらく原因がわからず時間を浪費した。</p>
+<p><a class="reference external" href="https://issues.jenkins-ci.org/browse/JENKINS-19845">issue</a> としてリストされているようなので、いずれ解決されることに期待。</p>
+</div>
+<div class="section" id="id1">
+<h2>スレーブのローカルストレージの空きは十分か</h2>
+<p>“Jenkins &gt; nodes” から設定できるように、ローカルストレージの空きが閾値以下になると該当するノードでのタスク実行を行わなくする機能がある。</p>
+<p><a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Amazon+EC2+Plugin">Amazon EC2 Plugin</a> ではいちど起動した EC2 インスタンスを再利用するため、タスク実行の際に発生したデータをストレージに貯めてしまい、この閾値にひっかかることがあった。</p>
+</div>
+<div class="section" id="ec2">
+<h2>EC2 インスタンスの起動数上限に逹していないか</h2>
+<p><a class="reference external" href="http://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/ec2-resource-limits.html">Amazon EC2 サービスの制限</a> にあるとおり、起動できる EC2 インスタンスの数にはリージョンごとに制限がある。
+必要であれば制限緩和のリクエストを投げることができるので対応すること。</p>
+</div>
+]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Sun, 27 Dec 2015 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html</link>
             <guid>http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html</guid>

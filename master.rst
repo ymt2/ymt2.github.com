@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory
    2014/03/26/replace_existing_git_repository_to_backlog
    2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks
    2013/11/11/regular_expression_for_jis_x_0208
