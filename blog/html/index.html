@@ -31,16 +31,28 @@
         <script src="_static/plugins.js"></script>
         <script src="_static/main.js"></script>
         
-   <link rel="author" href="https://plus.google.com/100964621288433828323"/>
+  <link rel="author" href="https://plus.google.com/100964621288433828323"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.4.2',
+        VERSION:     '1.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script></head>
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script>
+  <script>
+  (function () {
+    var url = 'https://weblog.ymt2.net/blog/html/',
+        matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i),
+        host = matches && matches[1];
+
+    if ((host == window.location.host) && (window.location.protocol != "https:")) {
+      window.location.protocol = "https";
+    }
+  })();
+  </script>
+</head>
     <body role="document">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -65,10 +77,11 @@
           <a href="archive.html">Archives</a>
         </li>
     </ul>
-  </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+  </nav><div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
             <span>December 27, 2015</span>
         </div>
-        <h1><a href="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a></h1>
+        <div class="section">
+            <h1><a href="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a></h1>
 <p><a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Amazon+EC2+Plugin">Amazon EC2 Plugin</a> を利用して分散ビルド的なことをしたかった際にいくつかつまづいたのでメモ。プラグインそのものが原因であることはそんなになかったかも。</p>
 <div class="section" id="ami-id">
 <h2>ラベルをまたいで同じ “AMI ID” を設定していないか</h2>
@@ -88,6 +101,7 @@
 必要であれば制限緩和のリクエストを投げることができるので対応すること。</p>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -103,12 +117,13 @@
                 <a href="tags/jenkins.html">Jenkins</a>, <a href="tags/aws.html">AWS</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html#disqus_thread" data-disqus-identifier="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html#disqus_thread" data-disqus-identifier="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>March 26, 2014</span>
         </div>
-        <h1><a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a></h1>
-<p>自前で管理していた共有の Git リモートリポジトリを <a class="reference external" href="http://www.backlog.jp">backlog</a> に移行したときのメモです。</p>
+        <div class="section">
+            <h1><a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a></h1>
+<p>自前で管理していた共有の Git リモートリポジトリを <a class="reference external" href="http://www.backlog.jp/">backlog</a> に移行したときのメモです。</p>
 <div class="section" id="id1">
 <h2>リポジトリの移行</h2>
 <p>リモートリポジトリをローカルに clone している前提です。</p>
@@ -129,6 +144,7 @@
 </div>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -144,11 +160,12 @@
                 <a href="tags/git.html">git</a>, <a href="tags/backlog.html">backlog</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html#disqus_thread" data-disqus-identifier="2014/03/26/replace_existing_git_repository_to_backlog">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2014/03/26/replace_existing_git_repository_to_backlog.html#disqus_thread" data-disqus-identifier="2014/03/26/replace_existing_git_repository_to_backlog">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 23, 2013</span>
         </div>
-        <h1><a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a></h1>
+        <div class="section">
+            <h1><a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a></h1>
 <p><cite>$ sudo port install mysql56-server</cite> でいけると思っていたらどうもビルドがこける。
 ぐぐるとパッチを当てて回避しているひとがいるみたいなので試してみた。
 <a class="reference external" href="http://bugs.mysql.com/bug.php?id=70542">http://bugs.mysql.com/bug.php?id=70542</a></p>
@@ -236,6 +253,7 @@ fi
 </div>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -251,11 +269,12 @@ fi
                 <a href="tags/mac_os_x.html">mac os x</a>, <a href="tags/mavericks.html">mavericks</a>, <a href="tags/mysql.html">mysql</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html#disqus_thread" data-disqus-identifier="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html#disqus_thread" data-disqus-identifier="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 11, 2013</span>
         </div>
-        <h1><a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a></h1>
+        <div class="section">
+            <h1><a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a></h1>
 <p>PHP を使って、ある文字列中に JIS 基本漢字 (JIS X 0208) の第 1・2 水準漢字以外のものが含まれているかどうかの判定を実装したかったのですが、いろいろと苦労した &amp; 結局最悪の実装をしたのでその顛末と途中の成果物をここに記します。</p>
 <p>これらのウェブサイトがとても参考になりました。</p>
 <ul class="simple">
@@ -303,6 +322,7 @@ Python でやるならこんな感じ。</p>
 <p>とのこと。結局あきらめて、 <strong>第1・2水準漢字すべてを羅列した正規表現</strong> を用意したのでした。これは書くまでもないので割愛。というか思い出したくない。</p>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -318,11 +338,12 @@ Python でやるならこんな感じ。</p>
                 <a href="tags/jis_x_0208.html">JIS X 0208</a>, <a href="tags/regular_expression.html">regular expression</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html#disqus_thread" data-disqus-identifier="2013/11/11/regular_expression_for_jis_x_0208">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/11/11/regular_expression_for_jis_x_0208.html#disqus_thread" data-disqus-identifier="2013/11/11/regular_expression_for_jis_x_0208">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 01, 2013</span>
         </div>
-        <h1><a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a></h1>
+        <div class="section">
+            <h1><a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a></h1>
 <p>とにかくインスタントに VNC をはじめるための手順です。</p>
 <div class="section" id="id1">
 <h2>環境</h2>
@@ -372,6 +393,7 @@ Python でやるならこんな感じ。</p>
 </div>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -387,11 +409,12 @@ Python でやるならこんな感じ。</p>
                 <a href="tags/vps.html">vps</a>, <a href="tags/vnc.html">vnc</a>, <a href="tags/ubuntu.html">ubuntu</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html#disqus_thread" data-disqus-identifier="2013/11/01/vnc_with_sakura_vps">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/11/01/vnc_with_sakura_vps.html#disqus_thread" data-disqus-identifier="2013/11/01/vnc_with_sakura_vps">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>October 08, 2013</span>
         </div>
-        <h1><a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a></h1>
+        <div class="section">
+            <h1><a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a></h1>
 <p><a class="reference external" href="http://www.emacswiki.org/emacs/RegularExpression">Emacs の正規表現</a> はほんとにつらい。 <cite>syntax_classes</cite> のブラケットにもバックスラッシュが必要だったりととにかくバックスラッシュ地獄で、リプレイスするのにわざわざ別のエディタ使うレベル。</p>
 <p><a class="reference external" href="https://github.com/k-talo/foreign-regexp.el">foreign-regexp</a> でラクしましょう。外部コマンドに <cite>Ruby</cite> を指定することで、 <a class="reference external" href="http://d.hatena.ne.jp/ku-ma-me/20090409/p1">豊富な表現で再帰まで使える</a> 正規表現ライブラリ <a class="reference external" href="http://www.geocities.jp/kosako3/oniguruma/index_ja.html">鬼車</a> をインクリメンタルサーチやリプレイスに利用できます。</p>
 <div class="section" id="id1">
@@ -440,6 +463,7 @@ Python でやるならこんな感じ。</p>
 </div>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -455,11 +479,12 @@ Python でやるならこんな感じ。</p>
                 <a href="tags/emacs24.html">emacs24</a>, <a href="tags/regexp.html">regexp</a>, <a href="tags/oniguruma.html">oniguruma</a>, <a href="tags/ruby.html">ruby</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/10/08/oniguruma_with_emacs_24.html#disqus_thread" data-disqus-identifier="2013/10/08/oniguruma_with_emacs_24">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/10/08/oniguruma_with_emacs_24.html#disqus_thread" data-disqus-identifier="2013/10/08/oniguruma_with_emacs_24">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 21, 2013</span>
         </div>
-        <h1><a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></h1>
+        <div class="section">
+            <h1><a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a></h1>
 <div class="section" id="id1">
 <h2>ここにあります</h2>
 <p>Xcode を 5.0 にアップデートして一番困ったのがプロビジョニングプロファイルの追加。以前は Organizer を開いてすぐに見付かる場所にあったのが、メニューの中に移動されてしまったようです。</p>
@@ -467,6 +492,7 @@ Python でやるならこんな感じ。</p>
 <a class="reference internal image-reference" href="_images/menubar.png"><img alt="../../../_images/menubar.png" src="_images/menubar.png" style="width: 500px;"/></a>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -482,11 +508,12 @@ Python でやるならこんな感じ。</p>
                 <a href="tags/xcode.html">xcode</a>, <a href="tags/ios_development.html">ios development</a>, <a href="tags/objective_c.html">objective-c</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/09/21/where_is_provisioning_profiles_editor.html#disqus_thread" data-disqus-identifier="2013/09/21/where_is_provisioning_profiles_editor">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/09/21/where_is_provisioning_profiles_editor.html#disqus_thread" data-disqus-identifier="2013/09/21/where_is_provisioning_profiles_editor">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 11, 2013</span>
         </div>
-        <h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
+        <div class="section">
+            <h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
 <p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
 <p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
 <p>テーブルはこんな感じでした。</p>
@@ -602,6 +629,7 @@ Python でやるならこんな感じ。</p>
 </tbody>
 </table>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -617,12 +645,13 @@ Python でやるならこんな感じ。</p>
                 <a href="tags/marketing.html">marketing</a>, <a href="tags/mysql.html">mysql</a>, <a href="tags/sql.html">sql</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/09/11/classification_of_audience_with_mysql.html#disqus_thread" data-disqus-identifier="2013/09/11/classification_of_audience_with_mysql">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/09/11/classification_of_audience_with_mysql.html#disqus_thread" data-disqus-identifier="2013/09/11/classification_of_audience_with_mysql">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 05, 2013</span>
         </div>
-        <h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
-<p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org">flyway</a> を導入しました。</p>
+        <div class="section">
+            <h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
+<p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org/">flyway</a> を導入しました。</p>
 <p>SQL ベースで DB の状態を管理していくので、特定の O/R マッパーに依存することもなく、プロジェクトが走り出してからさくっと導入するぶんには特に問題も起こりませんでした。</p>
 <p>そんななか <cite>migrate</cite> が <cite>fail</cite> したときに少々困ったのでメモ。</p>
 <div class="section" id="fail">
@@ -675,6 +704,7 @@ Successfully applied <span class="m">1</span> migration to schema <span class="s
 </td></tr></table></div>
 </div>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -690,11 +720,12 @@ Successfully applied <span class="m">1</span> migration to schema <span class="s
                 <a href="tags/flyway.html">flyway</a>, <a href="tags/migration.html">migration</a>, <a href="tags/sql.html">sql</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2013/09/05/fail_migrate_on_flyway.html#disqus_thread" data-disqus-identifier="2013/09/05/fail_migrate_on_flyway">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2013/09/05/fail_migrate_on_flyway.html#disqus_thread" data-disqus-identifier="2013/09/05/fail_migrate_on_flyway">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>October 19, 2010</span>
         </div>
-        <h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
+        <div class="section">
+            <h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
 <p>仕事で必要になったのでメモします。
 利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
 <p>手順としては単純です。</p>
@@ -737,6 +768,7 @@ hoge.exe tmp.dat
 <p>おまけに引数チェックも。</p>
 <p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
 
+        </div>
         <div class="postmeta">
         <div class="author">
             <span>Posted by Tatsuya Yamamoto</span>
@@ -752,7 +784,7 @@ hoge.exe tmp.dat
                 <a href="tags/windows.html">windows</a>, <a href="tags/batch.html">batch</a></span>
         </div>
         <div class="comments">
-            <a href="http://weblog.ymt2.net/blog/html/2010/10/19/comment_out_on_batch.html#disqus_thread" data-disqus-identifier="2010/10/19/comment_out_on_batch">Leave a comment</a>
+            <a href="https://weblog.ymt2.net/blog/html/2010/10/19/comment_out_on_batch.html#disqus_thread" data-disqus-identifier="2010/10/19/comment_out_on_batch">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -783,7 +815,7 @@ hoge.exe tmp.dat
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
-    <h1>Search</h1>
+    <h1><a href="#searchbox">Search</a></h1>
     <form action="search.html" method="get">
         <input type="text" name="q" />
         <button type="submit"><span class="fa fa-search"></span></button>
