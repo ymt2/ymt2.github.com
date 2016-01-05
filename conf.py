@@ -59,7 +59,8 @@ posts_per_page = 10
 extensions = ['tinkerer.ext.blog',
               'tinkerer.ext.disqus',
               'sphinxcontrib.gist',
-              'sphinxjp.themecore']
+              'sphinxjp.themecore',
+              'sitemap', ]
 
 # Add other template paths here
 templates_path = ['_templates']
