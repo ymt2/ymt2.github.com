@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/06/21/touch_reload_event_listener_for_supervisor
    2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory
    2014/03/26/replace_existing_git_repository_to_backlog
    2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks
