@@ -40,9 +40,16 @@ Supervisor の conf ファイルに下記を記載して ``$ supervisorctl reloa
    events=PROCESS_STATE
 
 
+参考にしたもの
+--------------
+
+`superlance`_ の ``memmon.py`` を全力で参考にした。
+
+
 .. author:: default
 .. categories:: tips
 .. tags:: FreeBSD,FreeBSD jail,Supervisor
 .. comments::
 
 .. _`touch_reload_event_listener.py`: https://gist.github.com/ymt2/2139b413c601b9f94f0bfde14deadb19
+.. _`superlance` : https://github.com/Supervisor/superlance
