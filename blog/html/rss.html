@@ -5,8 +5,45 @@
         <link>https://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Sun, 27 Dec 2015 00:00:00 +0900</pubDate>
+        <pubDate>Tue, 21 Jun 2016 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</link>
+            <guid>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</guid>
+            <title><![CDATA[Supervisor で touch-reload する Eventlistener]]></title>
+            <description><![CDATA[<h1>Supervisor で touch-reload する Eventlistener</h1>
+<p>つくった。</p>
+<script src="https://gist.github.com/ymt2/2139b413c601b9f94f0bfde14deadb19.js">&amp;amp;amp;nbsp;</script><div class="section" id="id1">
+<h2>作った動機とか用途とか</h2>
+<p>Wercker で CI しつつデプロイする先がさくら VPS 上の FreeBSD jail という構成のアプリを
+デプロイのたびに再起動する方法を考えていて、uWSGI の touch-reload オプションみたいなのがあればできそうだなーと思いあたってそのまま実装した。</p>
+</div>
+<div class="section" id="id2">
+<h2>使いかた</h2>
+<div class="section" id="id3">
+<h3>動作環境やら事前準備やら</h3>
+<ul class="simple">
+<li>Python 2.7</li>
+<li>Supervisor, watchdog インストール済み</li>
+<li><a class="reference external" href="https://gist.github.com/ymt2/2139b413c601b9f94f0bfde14deadb19">touch_reload_event_listener.py</a> を適当な場所にダウンロード</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>設定</h3>
+<p>Supervisor の conf ファイルに下記を記載して <span class="docutils literal"><span class="pre">$</span> <span class="pre">supervisorctl</span> <span class="pre">reload</span></span> する。トリガーファイルを touch すると指定した program が再起動するはず。</p>
+<p>今回は jail 内の Supervisor を調整したいのでこんな <span class="docutils literal"><span class="pre">/usr/jails/{container}/home/{user}/{program}.reload</span></span> 感じのパスを touch すると無事再起動された。あとは SSH しつつ叩くだけ。</p>
+<div class="highlight-INI"><div class="highlight"><pre><span class="k">[eventlistener:touch_reload]</span>
+<span class="na">command</span><span class="o">=</span><span class="s">{Python 2.7} {touch_reload_event_listener.py のパス} -p {Supervisor 上の program_name} -f {トリガーファイルのパス}</span>
+<span class="na">events</span><span class="o">=</span><span class="s">PROCESS_STATE</span>
+</pre></div>
+</div>
+</div>
+</div>
+]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Tue, 21 Jun 2016 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>https://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html</link>
             <guid>https://weblog.ymt2.net/blog/html/2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html</guid>
