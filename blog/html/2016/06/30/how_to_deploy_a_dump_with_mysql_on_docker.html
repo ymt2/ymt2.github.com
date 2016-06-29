@@ -17,7 +17,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="This is an awesome blog">
         <meta name="viewport" content="width=device-width">
-        <title>Supervisor で touch-reload する Eventlistener &mdash; ymt2log</title>
+        <title>Docker 上の MySQL に dump を適用する &mdash; ymt2log</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -32,7 +32,7 @@
         <script src="../../../_static/main.js"></script>
         
   <link rel="author" href="https://plus.google.com/100964621288433828323"/>
-  <link rel="canonical" href="https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html"/>
+  <link rel="canonical" href="https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html"/>
 <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
@@ -79,41 +79,14 @@
         </li>
     </ul>
   </nav><div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
-            <span>June 21, 2016</span>
+            <span>June 30, 2016</span>
         </div>
-    <div class="section" id="supervisor-touch-reload-eventlistener">
-<h1>Supervisor で touch-reload する Eventlistener</h1>
-<p>つくった。</p>
-<script src="https://gist.github.com/ymt2/2139b413c601b9f94f0bfde14deadb19.js">&nbsp;</script><div class="section" id="id1">
-<h2>作った動機とか用途とか</h2>
-<p>Wercker で CI しつつデプロイする先がさくら VPS 上の FreeBSD jail という構成のアプリを
-デプロイのたびに再起動する方法を考えていて、uWSGI の touch-reload オプションみたいなのがあればできそうだなーと思いあたってそのまま実装した。</p>
-</div>
-<div class="section" id="id2">
-<h2>使いかた</h2>
-<div class="section" id="id3">
-<h3>動作環境やら事前準備やら</h3>
-<ul class="simple">
-<li>Python 2.7</li>
-<li>Supervisor, watchdog インストール済み</li>
-<li><a class="reference external" href="https://gist.github.com/ymt2/2139b413c601b9f94f0bfde14deadb19">touch_reload_event_listener.py</a> を適当な場所にダウンロード</li>
-</ul>
-</div>
-<div class="section" id="id4">
-<h3>設定</h3>
-<p>Supervisor の conf ファイルに下記を記載して <span class="docutils literal"><span class="pre">$</span> <span class="pre">supervisorctl</span> <span class="pre">reload</span></span> する。トリガーファイルを touch すると指定した program が再起動するはず。</p>
-<p>今回は jail 内の Supervisor を調整したいのでこんな <span class="docutils literal"><span class="pre">/usr/jails/{container}/home/{user}/{program}.reload</span></span> 感じのパスを touch すると無事再起動された。あとは SSH しつつ叩くだけ。</p>
-<div class="highlight-INI"><div class="highlight"><pre><span class="k">[eventlistener:touch_reload]</span>
-<span class="na">command</span><span class="o">=</span><span class="s">{Python 2.7} {touch_reload_event_listener.py のパス} -p {Supervisor 上の program_name} -f {トリガーファイルのパス}</span>
-<span class="na">events</span><span class="o">=</span><span class="s">PROCESS_STATE</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="id5">
-<h2>参考にしたもの</h2>
-<p><a class="reference external" href="https://github.com/Supervisor/superlance">superlance</a> の <span class="docutils literal"><span class="pre">memmon.py</span></span> を全力で参考にした。</p>
-</div>
+    <div class="section" id="docker-mysql-dump">
+<h1>Docker 上の MySQL に dump を適用する</h1>
+<p><a class="reference external" href="https://hub.docker.com/_/mysql/">hub.docker.com OFFICIAL REPOSITORY mysql</a> なんかを起動して dump ファイルを適用したいときは下記でいける。ポイントは <cite>-t</cite> オプションをつけないこと。</p>
+<p><span class="docutils literal"><span class="pre">`</span>
+<span class="pre">$</span> <span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-i</span> <span class="pre">{CONTAINER</span> <span class="pre">ID}</span> <span class="pre">mysql</span> <span class="pre">{CREDENTIALS}</span> <span class="pre">{DB}</span> <span class="pre">&lt;</span> <span class="pre">dump.sql</span>
+<span class="pre">`</span></span></p>
 </div>
 
     <div class="postmeta">
@@ -128,18 +101,18 @@
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/freebsd.html">FreeBSD</a>, <a href="../../../tags/freebsd_jail.html">FreeBSD jail</a>, <a href="../../../tags/supervisor.html">Supervisor</a></span>
+                <a href="../../../tags/mysql.html">MySQL</a>, <a href="../../../tags/docker.html">Docker</a></span>
         </div>
         </div>
-    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2016/06/21/touch_reload_event_listener_for_supervisor";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a></li>
-            <li class="right"><a href="../../../2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a> &raquo; </li>
+    <div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "ymt2log";    var disqus_identifier = "2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="../21/touch_reload_event_listener_for_supervisor.html">Supervisor で touch-reload する Eventlistener</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a>
+            <a href="#">Docker 上の MySQL に dump を適用する</a>
         </li><li>
-            <a href="#">Supervisor で touch-reload する Eventlistener</a>
+            <a href="../21/touch_reload_event_listener_for_supervisor.html">Supervisor で touch-reload する Eventlistener</a>
         </li><li>
             <a href="../../../2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a>
         </li><li>

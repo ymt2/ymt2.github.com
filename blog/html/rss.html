@@ -5,8 +5,22 @@
         <link>https://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Tue, 21 Jun 2016 00:00:00 +0900</pubDate>
+        <pubDate>Thu, 30 Jun 2016 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html</link>
+            <guid>https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html</guid>
+            <title><![CDATA[Docker 上の MySQL に dump を適用する]]></title>
+            <description><![CDATA[<h1>Docker 上の MySQL に dump を適用する</h1>
+<p><a class="reference external" href="https://hub.docker.com/_/mysql/">hub.docker.com OFFICIAL REPOSITORY mysql</a> なんかを起動して dump ファイルを適用したいときは下記でいける。ポイントは <cite>-t</cite> オプションをつけないこと。</p>
+<p><span class="docutils literal"><span class="pre">`</span>
+<span class="pre">$</span> <span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-i</span> <span class="pre">{CONTAINER</span> <span class="pre">ID}</span> <span class="pre">mysql</span> <span class="pre">{CREDENTIALS}</span> <span class="pre">{DB}</span> <span class="pre">&lt;</span> <span class="pre">dump.sql</span>
+<span class="pre">`</span></span></p>
+]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Thu, 30 Jun 2016 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</link>
             <guid>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</guid>
