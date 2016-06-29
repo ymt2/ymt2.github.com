@@ -84,9 +84,9 @@
         <div class="section">
             <h1><a href="2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a></h1>
 <p><a class="reference external" href="https://hub.docker.com/_/mysql/">hub.docker.com OFFICIAL REPOSITORY mysql</a> なんかを起動して dump ファイルを適用したいときは下記でいける。ポイントは <cite>-t</cite> オプションをつけないこと。</p>
-<p><span class="docutils literal"><span class="pre">`</span>
-<span class="pre">$</span> <span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-i</span> <span class="pre">{CONTAINER</span> <span class="pre">ID}</span> <span class="pre">mysql</span> <span class="pre">{CREDENTIALS}</span> <span class="pre">{DB}</span> <span class="pre">&lt;</span> <span class="pre">dump.sql</span>
-<span class="pre">`</span></span></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>docker <span class="nb">exec</span> -i <span class="o">{</span>CONTAINER ID<span class="o">}</span> mysql <span class="o">{</span>CREDENTIALS<span class="o">}</span> <span class="o">{</span>DB<span class="o">}</span> &lt; dump.sql
+</pre></div>
+</div>
 
         </div>
         <div class="postmeta">
