@@ -4,6 +4,8 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/09/01/camp_at_marumo
+   2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker
    2016/06/21/touch_reload_event_listener_for_supervisor
    2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory
    2014/03/26/replace_existing_git_repository_to_backlog

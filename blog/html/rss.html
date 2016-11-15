@@ -5,8 +5,44 @@
         <link>https://weblog.ymt2.net/blog/html/</link>
         <description>Yuru-fuwa Pythonista</description>
         <language>en-us</language>
-        <pubDate>Tue, 21 Jun 2016 00:00:00 +0900</pubDate>
+        <pubDate>Thu, 01 Sep 2016 00:00:00 +0900</pubDate>
         
+        <item>
+            <link>https://weblog.ymt2.net/blog/html/2016/09/01/camp_at_marumo.html</link>
+            <guid>https://weblog.ymt2.net/blog/html/2016/09/01/camp_at_marumo.html</guid>
+            <title><![CDATA[千葉・金谷で開発合宿やってきた]]></title>
+            <description><![CDATA[<h1>千葉・金谷で開発合宿やってきた</h1>
+<p>コミュニティースペース「まるも」さんにお世話になった。利用したのは <a class="reference external" href="http://marumo.net/gasshuku-plan001/">開発合宿プラン｜千葉県金谷のまるもで開発合宿しませんか？</a> で WiFi はもちろん、宿の手配までお願いできた。いたれりつくせりである。</p>
+<img alt="../../../_images/R0018407.jpg" src="https://weblog.ymt2.net/blog/html/_images/R0018407.jpg"/>
+<p>テラス的なのがあったり。</p>
+<img alt="../../../_images/R0018408.jpg" src="https://weblog.ymt2.net/blog/html/_images/R0018408.jpg"/>
+<p>お菓子やコーヒーまで用意してもらったり。</p>
+<img alt="../../../_images/R0018410.jpg" src="https://weblog.ymt2.net/blog/html/_images/R0018410.jpg"/>
+<p>貸切の作業スペースの広さは申し分なし。聞くところによると 15 名ほどでの作業も余裕とのこと。</p>
+<img alt="../../../_images/R0018422.jpg" src="https://weblog.ymt2.net/blog/html/_images/R0018422.jpg"/>
+<p>偶然、花火大会と日程がかぶっていたのでついでに。</p>
+<img alt="../../../_images/14114947_1082843295125132_8563333309871155127_o.jpg" src="https://weblog.ymt2.net/blog/html/_images/14114947_1082843295125132_8563333309871155127_o.jpg"/>
+<p>町の小さな花火大会だけど距離が近くてなかなかの迫力。</p>
+<img alt="../../../_images/14124519_1082843308458464_6082290351891439660_o.jpg" src="https://weblog.ymt2.net/blog/html/_images/14124519_1082843308458464_6082290351891439660_o.jpg"/>
+<p>海の側の町なので海産物がおいしいとのことだったが今回はあまり食べられず。次の機会を楽しみにしよう。おわり。</p>
+]]></description>
+             <pubDate>Thu, 01 Sep 2016 00:00:00 +0900</pubDate>
+        </item>
+    
+        <item>
+            <link>https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html</link>
+            <guid>https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html</guid>
+            <title><![CDATA[Docker 上の MySQL に dump を適用する]]></title>
+            <description><![CDATA[<h1>Docker 上の MySQL に dump を適用する</h1>
+<p><a class="reference external" href="https://hub.docker.com/_/mysql/">hub.docker.com OFFICIAL REPOSITORY mysql</a> なんかを起動して dump ファイルを適用したいときは下記でいける。ポイントは <cite>-t</cite> オプションをつけないこと。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>docker <span class="nb">exec</span> -i <span class="o">{</span>CONTAINER ID<span class="o">}</span> mysql <span class="o">{</span>CREDENTIALS<span class="o">}</span> <span class="o">{</span>DB<span class="o">}</span> &lt; dump.sql
+</pre></div>
+</div>
+]]></description>
+            <category><![CDATA[ tips ]]></category>
+             <pubDate>Thu, 30 Jun 2016 00:00:00 +0900</pubDate>
+        </item>
+    
         <item>
             <link>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</link>
             <guid>https://weblog.ymt2.net/blog/html/2016/06/21/touch_reload_event_listener_for_supervisor.html</guid>

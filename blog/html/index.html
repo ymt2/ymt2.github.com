@@ -79,6 +79,61 @@
         </li>
     </ul>
   </nav><div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>September 01, 2016</span>
+        </div>
+        <div class="section">
+            <h1><a href="2016/09/01/camp_at_marumo.html">千葉・金谷で開発合宿やってきた</a></h1>
+<p>コミュニティースペース「まるも」さんにお世話になった。利用したのは <a class="reference external" href="http://marumo.net/gasshuku-plan001/">開発合宿プラン｜千葉県金谷のまるもで開発合宿しませんか？</a> で WiFi はもちろん、宿の手配までお願いできた。いたれりつくせりである。</p>
+<img alt="../../../_images/R0018407.jpg" src="_images/R0018407.jpg"/>
+<p>テラス的なのがあったり。</p>
+<img alt="../../../_images/R0018408.jpg" src="_images/R0018408.jpg"/>
+<p>お菓子やコーヒーまで用意してもらったり。</p>
+<img alt="../../../_images/R0018410.jpg" src="_images/R0018410.jpg"/>
+<p>貸切の作業スペースの広さは申し分なし。聞くところによると 15 名ほどでの作業も余裕とのこと。</p>
+<img alt="../../../_images/R0018422.jpg" src="_images/R0018422.jpg"/>
+<p>偶然、花火大会と日程がかぶっていたのでついでに。</p>
+<img alt="../../../_images/14114947_1082843295125132_8563333309871155127_o.jpg" src="_images/14114947_1082843295125132_8563333309871155127_o.jpg"/>
+<p>町の小さな花火大会だけど距離が近くてなかなかの迫力。</p>
+<img alt="../../../_images/14124519_1082843308458464_6082290351891439660_o.jpg" src="_images/14124519_1082843308458464_6082290351891439660_o.jpg"/>
+<p>海の側の町なので海産物がおいしいとのことだったが今回はあまり食べられず。次の機会を楽しみにしよう。おわり。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        
+        
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2016/09/01/camp_at_marumo.html#disqus_thread" data-disqus-identifier="2016/09/01/camp_at_marumo">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>June 30, 2016</span>
+        </div>
+        <div class="section">
+            <h1><a href="2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a></h1>
+<p><a class="reference external" href="https://hub.docker.com/_/mysql/">hub.docker.com OFFICIAL REPOSITORY mysql</a> なんかを起動して dump ファイルを適用したいときは下記でいける。ポイントは <cite>-t</cite> オプションをつけないこと。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>docker <span class="nb">exec</span> -i <span class="o">{</span>CONTAINER ID<span class="o">}</span> mysql <span class="o">{</span>CREDENTIALS<span class="o">}</span> <span class="o">{</span>DB<span class="o">}</span> &lt; dump.sql
+</pre></div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/mysql.html">MySQL</a>, <a href="tags/docker.html">Docker</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html#disqus_thread" data-disqus-identifier="2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>June 21, 2016</span>
         </div>
         <div class="section">
@@ -564,218 +619,6 @@ Python でやるならこんな感じ。</p>
         </div>
         <div class="comments">
             <a href="https://weblog.ymt2.net/blog/html/2013/09/21/where_is_provisioning_profiles_editor.html#disqus_thread" data-disqus-identifier="2013/09/21/where_is_provisioning_profiles_editor">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>September 11, 2013</span>
-        </div>
-        <div class="section">
-            <h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
-<p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
-<p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
-<p>テーブルはこんな感じでした。</p>
-<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="k">user</span><span class="o">`</span> <span class="p">(</span>
-   <span class="o">`</span><span class="n">gender</span><span class="o">`</span> <span class="n">TINYINT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="c1">-- 0が男性, 1が女性</span>
-   <span class="o">`</span><span class="n">birthday</span><span class="o">`</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
-<span class="p">);</span>
-</pre></div>
-</td></tr></table></div>
-<p>で、分類する SQL は以下。もうちょいマシにならないものか。今回、子供を正確に分類する必要がなかったため [MF]0 層として計上しています。</p>
-<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">SELECT</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
-<span class="k">FROM</span> <span class="p">(</span>
-  <span class="k">SELECT</span> <span class="n">CONCAT</span><span class="p">(</span>
-    <span class="k">CASE</span> <span class="n">gender</span> <span class="k">WHEN</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="s1">'M'</span> <span class="k">ELSE</span> <span class="s1">'F'</span> <span class="k">END</span><span class="p">,</span>
-    <span class="k">CASE</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">THEN</span> <span class="s1">'0'</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">25</span>  <span class="k">THEN</span> <span class="s1">'1'</span>
-      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">35</span> <span class="k">THEN</span> <span class="s1">'2'</span>
-      <span class="k">ELSE</span> <span class="s1">'3'</span> <span class="k">END</span>
-    <span class="p">)</span> <span class="k">AS</span> <span class="k">class</span>
-  <span class="k">FROM</span> <span class="p">(</span>
-    <span class="k">SELECT</span>
-      <span class="p">(</span><span class="k">YEAR</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">)))</span>
-      <span class="o">-</span> <span class="p">(</span><span class="k">RIGHT</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="k">RIGHT</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">),</span><span class="mi">5</span><span class="p">))</span> <span class="k">AS</span> <span class="n">age</span>
-    <span class="k">FROM</span> <span class="k">user</span>
-  <span class="p">)</span> <span class="n">a</span>
-<span class="p">)</span> <span class="n">b</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span>
-</pre></div>
-</td></tr></table></div>
-<p>こんな感じの結果が返ってきます。</p>
-<div class="highlight-sh"><div class="highlight"><pre>+-------+-------+
-<span class="p">|</span> class <span class="p">|</span> count <span class="p">|</span>
-+-------+-------+
-<span class="p">|</span> F0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
-<span class="p">|</span> F1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
-<span class="p">|</span> F2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
-<span class="p">|</span> F3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
-<span class="p">|</span> M0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
-<span class="p">|</span> M1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
-<span class="p">|</span> M2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
-<span class="p">|</span> M3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
-+-------+-------+
-</pre></div>
-</div>
-<p>いちおう分類表も書いておきます(表組みの練習もかねて)。</p>
-<table border="1" class="docutils">
-<caption>ターゲットユーザの分類</caption>
-<colgroup>
-<col width="33%"/>
-<col width="33%"/>
-<col width="33%"/>
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">表記</th>
-<th class="head">性別</th>
-<th class="head">年齢層</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>M1</td>
-<td>男性</td>
-<td>20 - 34 歳</td>
-</tr>
-<tr class="row-odd"><td>M2</td>
-<td>男性</td>
-<td>35 - 49 歳</td>
-</tr>
-<tr class="row-even"><td>M3</td>
-<td>男性</td>
-<td>50 歳以上</td>
-</tr>
-<tr class="row-odd"><td>F1</td>
-<td>女性</td>
-<td>20 - 34 歳</td>
-</tr>
-<tr class="row-even"><td>F2</td>
-<td>女性</td>
-<td>35 - 49 歳</td>
-</tr>
-<tr class="row-odd"><td>F3</td>
-<td>女性</td>
-<td>50 歳以上</td>
-</tr>
-<tr class="row-even"><td>C</td>
-<td>男女</td>
-<td>4 - 12 歳</td>
-</tr>
-<tr class="row-odd"><td>T</td>
-<td>男女</td>
-<td>13 - 19 歳</td>
-</tr>
-</tbody>
-</table>
-
-        </div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/tips.html">tips</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/marketing.html">marketing</a>, <a href="tags/mysql.html">mysql</a>, <a href="tags/sql.html">sql</a></span>
-        </div>
-        <div class="comments">
-            <a href="https://weblog.ymt2.net/blog/html/2013/09/11/classification_of_audience_with_mysql.html#disqus_thread" data-disqus-identifier="2013/09/11/classification_of_audience_with_mysql">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>September 05, 2013</span>
-        </div>
-        <div class="section">
-            <h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
-<p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org/">flyway</a> を導入しました。</p>
-<p>SQL ベースで DB の状態を管理していくので、特定の O/R マッパーに依存することもなく、プロジェクトが走り出してからさくっと導入するぶんには特に問題も起こりませんでした。</p>
-<p>そんななか <cite>migrate</cite> が <cite>fail</cite> したときに少々困ったのでメモ。</p>
-<div class="section" id="fail">
-<h2><cite>fail</cite> するとどうなるか</h2>
-<p><cite>fail</cite> するとこんな感じでエラーメッセージが表示されて処理が停止します。</p>
-<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
-Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
-
-Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.1
-Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.2
-ERROR: com.googlecode.flyway.core.api.FlywayException: Migration of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5 failed! Please restore backups and roll back database and code!
-以下エラー文
-</pre></div>
-</td></tr></table></div>
-<p><cite>schema_version</cite> テーブルを見てみると、 <cite>version</cite> が <cite>0</cite> になっているレコードが挿入されていました。この状態ではいくら <cite>migrate</cite> コマンドを実行してもマイグレーションは行なわれません。</p>
-</div>
-<div class="section" id="repair">
-<h2><cite>repair</cite> してあげよう</h2>
-<p>以下のように <cite>repair</cite> コマンドを実行することで、 <cite>success</cite> が <cite>0</cite> なレコードが取り除かれ、 <cite>migrate</cite> コマンドを実行できるようになります。もちろん <cite>migrate</cite> コマンドを実行する前に DB や SQL に起こっている問題は解消しておきましょう。</p>
-<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh repair
-Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
-
-Metadata table <span class="sb">`</span>HOGEDB<span class="sb">`</span>.<span class="sb">`</span>schema_version<span class="sb">`</span> successfully repaired <span class="o">(</span>execution <span class="nb">time </span>00:00.001s<span class="o">)</span>.
-Manual cleanup of the remaining effects the failed migration may still be required.
-</pre></div>
-</td></tr></table></div>
-<p><cite>migrate</cite> できた。</p>
-<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
-Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
-
-Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.4
-Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5
-Successfully applied <span class="m">1</span> migration to schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> <span class="o">(</span>execution <span class="nb">time </span>00:00.102s<span class="o">)</span>.
-</pre></div>
-</td></tr></table></div>
-</div>
-
-        </div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Tatsuya Yamamoto</span>
-        </div>
-        <div class="categories">
-            <span>
-                Filed under:
-                <a href="categories/tips.html">tips</a></span>
-        </div>
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/flyway.html">flyway</a>, <a href="tags/migration.html">migration</a>, <a href="tags/sql.html">sql</a></span>
-        </div>
-        <div class="comments">
-            <a href="https://weblog.ymt2.net/blog/html/2013/09/05/fail_migrate_on_flyway.html#disqus_thread" data-disqus-identifier="2013/09/05/fail_migrate_on_flyway">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -784,6 +627,10 @@ Successfully applied <span class="m">1</span> migration to schema <span class="s
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2016/09/01/camp_at_marumo.html">千葉・金谷で開発合宿やってきた</a>
+        </li><li>
+            <a href="2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a>
+        </li><li>
             <a href="2016/06/21/touch_reload_event_listener_for_supervisor.html">Supervisor で touch-reload する Eventlistener</a>
         </li><li>
             <a href="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a>
@@ -799,10 +646,6 @@ Successfully applied <span class="m">1</span> migration to schema <span class="s
             <a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
         </li><li>
             <a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
-        </li><li>
-            <a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a>
-        </li><li>
-            <a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -813,9 +656,9 @@ Successfully applied <span class="m">1</span> migration to schema <span class="s
     </form>
 </div></section><section><div class="widget">
     <h1>Categories</h1>
-    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (13)</li></ul>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (14)</li></ul>
 </div></section><section><div class="widget">
-    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/aws.html">AWS</a> (1), <a href="tags/backlog.html">backlog</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/freebsd.html">FreeBSD</a> (1), <a href="tags/freebsd_jail.html">FreeBSD jail</a> (1), <a href="tags/git.html">git</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jenkins.html">Jenkins</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/supervisor.html">Supervisor</a> (1), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/aws.html">AWS</a> (1), <a href="tags/backlog.html">backlog</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/docker.html">Docker</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/freebsd.html">FreeBSD</a> (1), <a href="tags/freebsd_jail.html">FreeBSD jail</a> (1), <a href="tags/git.html">git</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jenkins.html">Jenkins</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/mysql.html">MySQL</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/supervisor.html">Supervisor</a> (1), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerturquoise" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer>
   <script type="text/javascript">
