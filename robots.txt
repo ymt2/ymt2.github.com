@@ -1,3 +1,0 @@
-User-agent: *
-
-Sitemap: https://weblog.ymt2.net/blog/html/sitemap.xml
