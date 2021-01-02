@@ -1,0 +1,7 @@
+baseURL = "weblog.ymt2.net"
+languageCode = "ja-JP"
+title = "ymt2log"
+theme = "hugo-bare-min-theme"
+
+[Params]
+  disable_debug = true
