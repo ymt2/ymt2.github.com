@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="This is an awesome blog">
+        <meta name="viewport" content="width=device-width">
+        <title>Page 2 &mdash; ymt2log</title>
+            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="_static/main.css" type="text/css">
+            <link rel="stylesheet" href="_static/tinkerturquoise.css" type="text/css">
+            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="_static/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="_static/media_query.css" type="text/css" /><link rel="shortcut icon" href="_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
+        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="_static/plugins.js"></script>
+        <script src="_static/main.js"></script>
+        
+  <link rel="author" href="https://plus.google.com/100964621288433828323"/>
+  <link rel="canonical" href="https://weblog.ymt2.net/blog/html/page2.html"/>
+<script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.5',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script><script type="text/javascript" src="_static/disqus.js"></script><script type="text/javascript" src="_static/google_analytics.js"></script>
+  <script>
+  (function () {
+    var url = 'https://weblog.ymt2.net/blog/html/',
+        matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i),
+        host = matches && matches[1];
+
+    if ((host == window.location.host) && (window.location.protocol != "https:")) {
+      window.location.protocol = "https";
+    }
+  })();
+  </script>
+</head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container">
+  <header role="banner">
+            <hgroup>
+              <h1><a href="index.html">ymt2log</a></h1><h2>Yuru-fuwa Pythonista</h2></hgroup>
+          </header>
+      
+  <nav>
+    <ul><li class="quicklink"><div class="rss">
+        <a href="rss.html" title="Subscribe via RSS"><span class="fa fa-lg fa-rss"></span></a>
+    </div></li><li class="main-nav">
+          <a href="index.html">Home</a>
+        </li>
+      <li class="main-nav">
+          <a href="pages/notes.html">Notes</a>
+        </li>
+      <li>
+          <a href="archive.html">Archives</a>
+        </li>
+    </ul>
+  </nav><div class="main-container" role="main"><div class="main wrapper body clearfix"><article><div class="timestamp postmeta">
+            <span>September 11, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/09/11/classification_of_audience_with_mysql.html">[MySQL][マーケティング] *n 層の分類をする SQL</a></h1>
+<p>性別、生年月日(8桁数値)のカラムを持つテーブルのデータをマーケティングでよくみる <cite>([MF][1-3]|C|T)</cite> 層に分類したところ、えらい残念な SQL ができたのでメモ。</p>
+<p>Fn層の分類についてはこの辺 ( <a class="reference external" href="http://kotobank.jp/word/F1%E5%B1%A4">F1層 とは - コトバンク</a> ) を参照のこと。</p>
+<p>テーブルはこんな感じでした。</p>
+<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="k">user</span><span class="o">`</span> <span class="p">(</span>
+   <span class="o">`</span><span class="n">gender</span><span class="o">`</span> <span class="n">TINYINT</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="c1">-- 0が男性, 1が女性</span>
+   <span class="o">`</span><span class="n">birthday</span><span class="o">`</span> <span class="nb">CHAR</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>で、分類する SQL は以下。もうちょいマシにならないものか。今回、子供を正確に分類する必要がなかったため [MF]0 層として計上しています。</p>
+<div class="highlight-sql"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">SELECT</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">,</span> <span class="k">COUNT</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="k">class</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
+<span class="k">FROM</span> <span class="p">(</span>
+  <span class="k">SELECT</span> <span class="n">CONCAT</span><span class="p">(</span>
+    <span class="k">CASE</span> <span class="n">gender</span> <span class="k">WHEN</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="s1">'M'</span> <span class="k">ELSE</span> <span class="s1">'F'</span> <span class="k">END</span><span class="p">,</span>
+    <span class="k">CASE</span>
+      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">THEN</span> <span class="s1">'0'</span>
+      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">25</span>  <span class="k">THEN</span> <span class="s1">'1'</span>
+      <span class="k">WHEN</span> <span class="n">a</span><span class="p">.</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">35</span> <span class="k">THEN</span> <span class="s1">'2'</span>
+      <span class="k">ELSE</span> <span class="s1">'3'</span> <span class="k">END</span>
+    <span class="p">)</span> <span class="k">AS</span> <span class="k">class</span>
+  <span class="k">FROM</span> <span class="p">(</span>
+    <span class="k">SELECT</span>
+      <span class="p">(</span><span class="k">YEAR</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">())</span> <span class="o">-</span> <span class="k">YEAR</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">)))</span>
+      <span class="o">-</span> <span class="p">(</span><span class="k">RIGHT</span><span class="p">(</span><span class="n">CURDATE</span><span class="p">(),</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;</span> <span class="k">RIGHT</span><span class="p">(</span><span class="n">date_format</span><span class="p">(</span><span class="n">birthday</span><span class="p">,</span><span class="s1">'%Y-%m-%d'</span><span class="p">),</span><span class="mi">5</span><span class="p">))</span> <span class="k">AS</span> <span class="n">age</span>
+    <span class="k">FROM</span> <span class="k">user</span>
+  <span class="p">)</span> <span class="n">a</span>
+<span class="p">)</span> <span class="n">b</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">b</span><span class="p">.</span><span class="k">class</span>
+</pre></div>
+</td></tr></table></div>
+<p>こんな感じの結果が返ってきます。</p>
+<div class="highlight-sh"><div class="highlight"><pre>+-------+-------+
+<span class="p">|</span> class <span class="p">|</span> count <span class="p">|</span>
++-------+-------+
+<span class="p">|</span> F0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
+<span class="p">|</span> F1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
+<span class="p">|</span> F2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
+<span class="p">|</span> F3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
+<span class="p">|</span> M0    <span class="p">|</span>   <span class="m">100</span> <span class="p">|</span>
+<span class="p">|</span> M1    <span class="p">|</span>   <span class="m">200</span> <span class="p">|</span>
+<span class="p">|</span> M2    <span class="p">|</span>   <span class="m">300</span> <span class="p">|</span>
+<span class="p">|</span> M3    <span class="p">|</span>   <span class="m">400</span> <span class="p">|</span>
++-------+-------+
+</pre></div>
+</div>
+<p>いちおう分類表も書いておきます(表組みの練習もかねて)。</p>
+<table border="1" class="docutils">
+<caption>ターゲットユーザの分類</caption>
+<colgroup>
+<col width="33%"/>
+<col width="33%"/>
+<col width="33%"/>
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">表記</th>
+<th class="head">性別</th>
+<th class="head">年齢層</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>M1</td>
+<td>男性</td>
+<td>20 - 34 歳</td>
+</tr>
+<tr class="row-odd"><td>M2</td>
+<td>男性</td>
+<td>35 - 49 歳</td>
+</tr>
+<tr class="row-even"><td>M3</td>
+<td>男性</td>
+<td>50 歳以上</td>
+</tr>
+<tr class="row-odd"><td>F1</td>
+<td>女性</td>
+<td>20 - 34 歳</td>
+</tr>
+<tr class="row-even"><td>F2</td>
+<td>女性</td>
+<td>35 - 49 歳</td>
+</tr>
+<tr class="row-odd"><td>F3</td>
+<td>女性</td>
+<td>50 歳以上</td>
+</tr>
+<tr class="row-even"><td>C</td>
+<td>男女</td>
+<td>4 - 12 歳</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>男女</td>
+<td>13 - 19 歳</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/marketing.html">marketing</a>, <a href="tags/mysql.html">mysql</a>, <a href="tags/sql.html">sql</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2013/09/11/classification_of_audience_with_mysql.html#disqus_thread" data-disqus-identifier="2013/09/11/classification_of_audience_with_mysql">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>September 05, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/09/05/fail_migrate_on_flyway.html">DB マイグレーションツール Flyway で fail したときのメモ</a></h1>
+<p>最近プロジェクトに DB マイグレーションツールであるところの、 <a class="reference external" href="http://flywaydb.org/">flyway</a> を導入しました。</p>
+<p>SQL ベースで DB の状態を管理していくので、特定の O/R マッパーに依存することもなく、プロジェクトが走り出してからさくっと導入するぶんには特に問題も起こりませんでした。</p>
+<p>そんななか <cite>migrate</cite> が <cite>fail</cite> したときに少々困ったのでメモ。</p>
+<div class="section" id="fail">
+<h2><cite>fail</cite> するとどうなるか</h2>
+<p><cite>fail</cite> するとこんな感じでエラーメッセージが表示されて処理が停止します。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.1
+Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.2
+ERROR: com.googlecode.flyway.core.api.FlywayException: Migration of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5 failed! Please restore backups and roll back database and code!
+以下エラー文
+</pre></div>
+</td></tr></table></div>
+<p><cite>schema_version</cite> テーブルを見てみると、 <cite>version</cite> が <cite>0</cite> になっているレコードが挿入されていました。この状態ではいくら <cite>migrate</cite> コマンドを実行してもマイグレーションは行なわれません。</p>
+</div>
+<div class="section" id="repair">
+<h2><cite>repair</cite> してあげよう</h2>
+<p>以下のように <cite>repair</cite> コマンドを実行することで、 <cite>success</cite> が <cite>0</cite> なレコードが取り除かれ、 <cite>migrate</cite> コマンドを実行できるようになります。もちろん <cite>migrate</cite> コマンドを実行する前に DB や SQL に起こっている問題は解消しておきましょう。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh repair
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Metadata table <span class="sb">`</span>HOGEDB<span class="sb">`</span>.<span class="sb">`</span>schema_version<span class="sb">`</span> successfully repaired <span class="o">(</span>execution <span class="nb">time </span>00:00.001s<span class="o">)</span>.
+Manual cleanup of the remaining effects the failed migration may still be required.
+</pre></div>
+</td></tr></table></div>
+<p><cite>migrate</cite> できた。</p>
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>./flyway.sh migrate
+Flyway <span class="o">(</span>Command-line Tool<span class="o">)</span> v.2.2.1
+
+Current version of schema <span class="sb">`</span>HOGEDB<span class="sb">`</span>: 3.4
+Migrating schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> to version 3.5
+Successfully applied <span class="m">1</span> migration to schema <span class="sb">`</span>HOGEDB<span class="sb">`</span> <span class="o">(</span>execution <span class="nb">time </span>00:00.102s<span class="o">)</span>.
+</pre></div>
+</td></tr></table></div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/flyway.html">flyway</a>, <a href="tags/migration.html">migration</a>, <a href="tags/sql.html">sql</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2013/09/05/fail_migrate_on_flyway.html#disqus_thread" data-disqus-identifier="2013/09/05/fail_migrate_on_flyway">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>October 19, 2010</span>
+        </div>
+        <div class="section">
+            <h1><a href="2010/10/19/comment_out_on_batch.html">[Windows]バッチファイルにて処理対象ファイル内でコメントアウトを扱う</a></h1>
+<p>仕事で必要になったのでメモします。
+利用したいコマンドが、大量データを扱うにもかかわらずファイル内のコメントをサポートしていなかったら、やっぱり寂しいですよね。そんな時に。</p>
+<p>手順としては単純です。</p>
+<ul class="simple">
+<li>FINDSTRで正規表現を用いて任意のパターンを含む行を無視してリダイレクト</li>
+<li>リダイレクトして作った中間ファイルを任意のコマンドに入力</li>
+</ul>
+<p>以上です。</p>
+<div class="highlight-bat"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">@</span><span class="k">echo</span> <span class="k">off</span>
+
+<span class="k">if</span> <span class="s2">"%‾1"</span> <span class="o">==</span> <span class="s2">""</span> <span class="k">goto</span> <span class="nl">usage</span>
+
+<span class="k">SET</span> <span class="nv">VALUE</span><span class="o">=</span><span class="nv">%1</span>
+
+<span class="c">rem "^#"とマッチする行を無視して中間ファイルを作成</span>
+type <span class="nv">%1</span> <span class="p">|</span> <span class="n">findstr</span> <span class="n">/v</span> <span class="s2">"^#"</span> &amp;gt; tmp.dat
+hoge.exe tmp.dat
+
+<span class="k">pause</span>
+<span class="k">goto</span> <span class="nl">:eof</span>
+
+<span class="nl">:usage</span>
+<span class="k">echo</span> Usage: fuga.bat piyo
+</pre></div>
+</td></tr></table></div>
+<p>おまけに引数チェックも。</p>
+<p>for文でどうやらコメントアウトが扱えるらしいと聞いたのは、もちろんfor文も書き込んで、ぐるぐると処理が回りきったあとのことでした。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/windows.html">windows</a>, <a href="tags/batch.html">batch</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2010/10/19/comment_out_on_batch.html#disqus_thread" data-disqus-identifier="2010/10/19/comment_out_on_batch">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>April 09, 2011</span>
+        </div>
+        <div class="section">
+            <h1><a href="2011/04/09/sync_facebook_events_to_ical.html">Facebook の Events を iCal に同期する</a></h1>
+<p>FacebookのEventsページにあるExport Eventsから、iCalやGoogle CalenderからEventsを照会できるURLを入手することができます。このURLを利用して、iPhoneのカレンダーにEventsを同期することが可能です。べんり。</p>
+<ul class="simple">
+<li>Export Eventsダイアログに表示されたURLをiPhoneに送信</li>
+<li>「設定→メール/連絡先/カレンダー→アカウントを追加→その他→照会するカレンダーを追加」で先程のURLを入力。</li>
+</ul>
+<p>以上の手順でiPhoneのカレンダーより照会可能です。</p>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/facebook.html">Facebook</a>, <a href="tags/ical.html">iCal</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2011/04/09/sync_facebook_events_to_ical.html#disqus_thread" data-disqus-identifier="2011/04/09/sync_facebook_events_to_ical">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>August 23, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/08/23/install_migemo_to_emacs_24_3_1.html">migemo を emacs 24.3.1 にインストールしたときのメモ, Mac OS X</a></h1>
+<div class="section" id="migemo">
+<h2>migemo とは</h2>
+<p><a class="reference external" href="http://0xcc.net/migemo/">migemo</a> とは、ローマ字を入力することで日本語文章をインクリメンタルサーチするためのソフトウェアです。emacs 拡張を利用すると、いつもの <cite>C-s</cite> がそのまま日本語に対応します。</p>
+<p>今回はC言語で実装された <cite>cmigemo</cite> をインストールします。</p>
+</div>
+<div class="section" id="cmigemo">
+<h2>cmigemo のインストール</h2>
+<p>github から <a class="reference external" href="https://github.com/koron/cmigemo">cmigemo</a> を入手してインストールします。オプションはデフォルトのままにしておきました。デフォルトでは <cite>/usr/local/</cite> 以下にインストールされます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/koron/cmigemo.git cmigemo
+<span class="nv">$ </span><span class="nb">cd </span>cmigemo
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make osx
+<span class="nv">$ </span>make osx-dict
+<span class="nv">$ </span>sudo make osx-install
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>cmigemo を試してみる</h2>
+<p>下記のコマンドを実行するとプロンプトが表示され、入力待ちの状態になります。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cmigemo -d /usr/local/share/migemo/utf-8/migemo-dict
+migemo_open<span class="o">(</span><span class="s2">"/usr/local/share/migemo/utf-8/migemo-dict"</span><span class="o">)=</span>0x7fb552c03990
+clock<span class="o">()=</span>0.120343
+QUERY:
+</pre></div>
+</div>
+<p><cite>QUERY</cite> 適当なローマ字を入力してみると、正規表現が生成されることがわかります。正規表現を入力の度に生成し、それを検索クエリとすることでインクリメンタルサーチを可能にするわけですね。</p>
+<div class="highlight-sh"><div class="highlight"><pre>QUERY: paison
+PATTERN: <span class="o">(</span>ﾊﾟｲｿ<span class="o">[</span>ﾝﾉﾈﾇﾆﾅ<span class="o">]</span><span class="p">|</span>パイソ<span class="o">[</span>ンノネヌニナ<span class="o">]</span><span class="p">|</span>ぱいそ<span class="o">[</span>んのねぬにな<span class="o">]</span><span class="p">|</span>ｐａｉｓｏｎ<span class="p">|</span>paison<span class="o">)</span>
+QUERY: toukyo
+PATTERN: <span class="o">(</span>ﾄｳｷｮ<span class="p">|</span>トウキョ<span class="p">|</span>等距離<span class="p">|</span>登極<span class="p">|</span>当<span class="o">(</span>局<span class="p">|</span>協会<span class="o">)</span><span class="p">|</span>東<span class="o">[</span>教京<span class="o">]</span><span class="p">|</span>とうきょ<span class="p">|</span>ｔｏｕｋｙｏ<span class="p">|</span>toukyo<span class="o">)</span>
+QUERY:
+</pre></div>
+</div>
+</div>
+<div class="section" id="migemo-el">
+<h2>migemo.el のインストール</h2>
+<p><cite>emacs</cite> 拡張の <cite>migemo.el</cite> は <cite>package.el</cite> を使うと簡単にインストールできます。 <cite>*scratch*</cite> バッファで <cite>(package-install ‘migemo)</cite> を評価でもしてやると入ります。</p>
+</div>
+<div class="section" id="id2">
+<h2>migemo.el の設定</h2>
+<p><cite>init.el</cite> にこんな感じの設定を追記。 <cite>C-s</cite> してミニバッファに <cite>[MIGEMO] I-search</cite>  と表示されれば日本語インクリメンタルサーチが可能になっているはずです。</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'migemo</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-command</span> <span class="s">"/usr/local/bin/cmigemo"</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-options</span> <span class="o">'</span><span class="p">(</span><span class="s">"-q"</span> <span class="s">"--emacs"</span><span class="p">))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-dictionary</span> <span class="s">"/usr/local/share/migemo/utf-8/migemo-dict"</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-user-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-coding-system</span> <span class="ss">'utf-8-unix</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">migemo-regex-dictionary</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">load-library</span> <span class="s">"migemo"</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">migemo-init</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/emacs.html">emacs</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/migemo.html">migemo</a>, <a href="tags/emacs.html">emacs</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html#disqus_thread" data-disqus-identifier="2013/08/23/install_migemo_to_emacs_24_3_1">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 13, 2012</span>
+        </div>
+        <div class="section">
+            <h1><a href="2012/12/13/chatwork_meets_fluid.html">ChatWork + Fluidで未読件数の表示をする</a></h1>
+<p><a class="reference external" href="http://www.simplegimmick.com/2012/02/fluidchatworkcom.html">Fluidで作ったchatwork.comアプリで未読表示</a></p>
+<p><a class="reference external" href="http://fluidapp.com/">Fluid</a> でユーザスクリプトが使えることを知ってちょろっと探してみると上の記事が見つかったので。</p>
+<div class="section" id="fluid">
+<h2>Fluidって？</h2>
+<p>WebアプリのURLを食べさせるとMacOSのhoge.appを吐き出してくれるものです。ユーザスクリプトはPurchaseしないと利用できない模様。</p>
+</div>
+<div class="section" id="id1">
+<h2>元の記事と何が違うの？</h2>
+<p>未読件数の表示に加えて、Docのアイコンが跳ねます。changelogを見ると`window.fluid.requestUserAttention`ってAPIがあったのでこれや！と思って1行追加しただけです。
+<a class="reference external" href="http://fluidapp.com/developer/">Fluid Developer</a> 見ても書いてなかったぞ。。。</p>
+<script src="https://gist.github.com/ymt2/4270013.js">&amp;amp;nbsp;</script></div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/tips.html">tips</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/fluid.html">fluid</a>, <a href="tags/chatwork.html">chatwork</a>, <a href="tags/javascript.html">javascript</a>, <a href="tags/mac_os_x.html">mac os x</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2012/12/13/chatwork_meets_fluid.html#disqus_thread" data-disqus-identifier="2012/12/13/chatwork_meets_fluid">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 27, 2012</span>
+        </div>
+        <div class="section">
+            <h1><a href="2012/12/27/cannot_connect_to_google_play_store.html">Google Playストアに接続できなくなったときの対処法</a></h1>
+<p>Xperia S LT26iでいきなりGoogle Playストアが使えなくなって困ったので対処法をメモ。</p>
+<div class="section" id="id1">
+<h2>事象</h2>
+<p>充電が完全に切れた状態で放置していたXperia S LT26i（OSのバージョンは 2.3.7）を久々に起動し、Google Playストアを立ち上げたところ、真っ白な画面に「接続できません」の文字が。「再接続」ボタンを押しても一向に正常に動作する気配もなし。特に原因を示唆する文言もないためかなり困る。</p>
+</div>
+<div class="section" id="id2">
+<h2>対処法</h2>
+<p>内蔵時計がリセットされていたのが原因でした。設定から日付・時刻をしっかり合わせてからGoogle Playストアを立ち上げるとそこには元気なマーケットプレイスの姿が。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/android.html">android</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/android.html">android</a>, <a href="tags/google_play_store.html">google play store</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2012/12/27/cannot_connect_to_google_play_store.html#disqus_thread" data-disqus-identifier="2012/12/27/cannot_connect_to_google_play_store">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>August 06, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/08/06/enable_google_analytics.html">Tinkerer で Google Analytics を有効化する</a></h1>
+<p>折角公開したので、 <a class="reference external" href="http://www.google.co.jp/intl/ja/analytics/">Google Analytics</a> をのせてみました。</p>
+<p>まぁ、Tinkerer の <a class="reference external" href="http://tinkerer.me/doc/more_tinkering.html">ドキュメント</a> を読めば書いてあることです。</p>
+<div class="section" id="id1">
+<h2>トラッキングコードを保存して</h2>
+<p><span class="docutils literal"><span class="pre">_static/google_analytics.js</span></span> にトラッキングコードをコピペ</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>Tinkerer のルートディレクトリ<span class="o">}</span>
+<span class="nv">$ </span>mkdir _static
+<span class="nv">$ </span>touch _static/google_analytics.js
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>テンプレートを作り</h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>touch _templates/page.html
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>テンプレートからトラッキングコードを読み込んで</h2>
+<p><span class="docutils literal"><span class="pre">_templates/page.html</span></span> を編集</p>
+<div class="highlight-html"><div class="highlight"><pre>{% extends "!page.html" %}
+
+{% set script_files = script_files + ["_static/google_analytics.js"] %}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>ビルドしておわり</h2>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -b
+</pre></div>
+</div>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/sphinx.html">sphinx</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/tinkerer.html">tinkerer</a>, <a href="tags/google_analytics.html">google analytics</a>, <a href="tags/sphinx.html">sphinx</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2013/08/06/enable_google_analytics.html#disqus_thread" data-disqus-identifier="2013/08/06/enable_google_analytics">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>August 02, 2013</span>
+        </div>
+        <div class="section">
+            <h1><a href="2013/08/02/blogging_with_sphinx.html">Tinkerer でブログをはじめてみました</a></h1>
+<p><a class="reference external" href="http://sphinx-doc.org/">Sphinx</a> を使ってブログが書ける <a class="reference external" href="http://tinkerer.me/">Tinkerer</a> を発見したのではじめてみました。
+ホスティングは <a class="reference external" href="https://github.com/">GitHub</a> を利用しています。</p>
+<div class="section" id="github">
+<h2>GitHub でブログを公開するまでにやったこと</h2>
+<div class="section" id="virtualenv">
+<h3>virtualenv で仮想環境を作る</h3>
+<p>Sphinx の拡張機能をいろいろ試したかったので仮想環境を用意しました。Github Pages に公開したかったので Git リポジトリも同時に作成。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>
+<span class="nv">$ </span>git init hoge
+<span class="nv">$ </span><span class="nb">cd </span>hoge
+<span class="nv">$ </span>mkvirtualenv hoge
+</pre></div>
+</div>
+<p>あと、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">workon</span> <span class="pre">hoge</span></span> とかやってすぐに書きはじめられるといいなーと思ったので <span class="docutils literal"><span class="pre">$VIRTUAL_ENV/bin/.postactivate</span></span> を以下のように編集。これで <span class="docutils literal"><span class="pre">workon</span></span> したときに Git リポジトリのあるディレクトリに移動してくれます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#!/opt/local/bin/zsh</span>
+<span class="c"># This hook is run after this virtualenv is activated.</span>
+
+<span class="nv">proj_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$VIRTUAL_ENV</span><span class="p">|</span>awk -F<span class="s1">'/'</span> <span class="s1">'{print $NF}'</span><span class="k">)</span>
+<span class="nb">cd</span> <span class="o">{</span>your_git_directory<span class="o">}</span>/hoge
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Tinkerer のインストールから記事を書くまで</h3>
+<div class="section" id="id2">
+<h4>Tinkerer インストール</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>pip install tinkerer
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h4>ブログを作る</h4>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -s
+</pre></div>
+</div>
+<p>カレントディレクトリに Sphinx のプロジェクトが展開されます。まずは <span class="docutils literal"><span class="pre">conf.py</span></span> をいじってブログタイトルなどを設定しましょう。 <span class="docutils literal"><span class="pre">TODO:</span></span> から始まるセクションを編集します。</p>
+</div>
+<div class="section" id="id4">
+<h4>記事を書く</h4>
+<p>以下のコマンドで rst ファイルが生成されるので編集しましょう。 <span class="docutils literal"><span class="pre">blog</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker -p title
+</pre></div>
+</div>
+<p>ちなみに、以下のコマンドで単一のページを作成することも可能です。こちらは <span class="docutils literal"><span class="pre">pages</span></span> ディレクトリ内に rst ファイルが配置されます。</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tinker --page title
+</pre></div>
+</div>
+<p>記事が書けたら、 <span class="docutils literal"><span class="pre">$</span> <span class="pre">tinker</span> <span class="pre">-b</span></span> とするとビルドが実行されます。 <span class="docutils literal"><span class="pre">index.html</span></span> が生成されるのでブラウザで開いて出来ばえを確認できます。</p>
+</div>
+</div>
+<div class="section" id="github-pages">
+<h3>GitHub Pages で公開</h3>
+<p><a class="reference external" href="http://tinkerer.me/doc/deploying.html#hosting-on-github">Hosting on GitHub</a> とか <a class="reference external" href="https://help.github.com/categories/20/articles">GitHub Help</a> を参考に設定。注意点としては、リポジトリのルートに <span class="docutils literal"><span class="pre">.nojekyll</span></span> ファイルを作っておくことと、ブログのデータをコミットするブランチを <span class="docutils literal"><span class="pre">gh-pages</span></span> としておくことが必要です。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>思ったこと</h2>
+<p>Sphinx で書けるので、当然 <a class="reference external" href="http://blockdiag.com/ja/blockdiag/">Blockdiag</a> なんかも使えます。
+うまいことテーマをいじって wiki とブログを組み合わせたような使い方ができないか考え中。</p>
+</div>
+
+        </div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Tatsuya Yamamoto</span>
+        </div>
+        <div class="categories">
+            <span>
+                Filed under:
+                <a href="categories/sphinx.html">sphinx</a></span>
+        </div>
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/sphinx.html">sphinx</a>, <a href="tags/python.html">python</a>, <a href="tags/tinkerer.html">tinkerer</a></span>
+        </div>
+        <div class="comments">
+            <a href="https://weblog.ymt2.net/blog/html/2013/08/02/blogging_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/08/02/blogging_with_sphinx">Leave a comment</a>
+        </div></div><div class="archive_link">
+        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
+    </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="index.html">Newer</a></li>
+            <li class="right"></li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="2016/09/01/camp_at_marumo.html">千葉・金谷で開発合宿やってきた</a>
+        </li><li>
+            <a href="2016/06/30/how_to_deploy_a_dump_with_mysql_on_docker.html">Docker 上の MySQL に dump を適用する</a>
+        </li><li>
+            <a href="2016/06/21/touch_reload_event_listener_for_supervisor.html">Supervisor で touch-reload する Eventlistener</a>
+        </li><li>
+            <a href="2015/12/27/jenkins_amazon_ec2_plugin_does_not_start_ec2_slaves_collectory.html">[Jenkins] Amazon EC2 Plugin でスレーブがうまく動作しないときに確認すること</a>
+        </li><li>
+            <a href="2014/03/26/replace_existing_git_repository_to_backlog.html">既存の git リポジトリを backlog に移行する</a>
+        </li><li>
+            <a href="2013/11/23/installing_mysql_56_on_mac_os_x_10_9_mavericks.html">MySQL 5.6 を MacPorts で Mac OS X Mavericks にインストールしたときのメモ</a>
+        </li><li>
+            <a href="2013/11/11/regular_expression_for_jis_x_0208.html">[Shift_JIS] JIS 基本漢字 (JIS X 0208) 第1・2水準漢字を表わす正規表現</a>
+        </li><li>
+            <a href="2013/11/01/vnc_with_sakura_vps.html">[Ubuntu][VNC]さくらの VPS で VNC をはじめるまでのメモ</a>
+        </li><li>
+            <a href="2013/10/08/oniguruma_with_emacs_24.html">[Emacs 24] ふつうの正規表現を使いたい foreign-regexp で 鬼車を使う</a>
+        </li><li>
+            <a href="2013/09/21/where_is_provisioning_profiles_editor.html">[Xcode5.0] プロビジョニングプロファイルの追加がわかりづらくて困った</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1><a href="#searchbox">Search</a></h1>
+    <form action="search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section><section><div class="widget">
+    <h1>Categories</h1>
+    <ul><li><a href="categories/android.html">android</a> (1)</li><li><a href="categories/emacs.html">emacs</a> (1)</li><li><a href="categories/sphinx.html">sphinx</a> (2)</li><li><a href="categories/tips.html">tips</a> (14)</li></ul>
+</div></section><section><div class="widget">
+    <h1>Tags</h1><a href="tags/android.html">android</a> (1), <a href="tags/aws.html">AWS</a> (1), <a href="tags/backlog.html">backlog</a> (1), <a href="tags/batch.html">batch</a> (1), <a href="tags/camp.html">camp</a> (1), <a href="tags/chatwork.html">chatwork</a> (1), <a href="tags/docker.html">Docker</a> (1), <a href="tags/emacs.html">emacs</a> (1), <a href="tags/emacs24.html">emacs24</a> (1), <a href="tags/facebook.html">Facebook</a> (1), <a href="tags/fluid.html">fluid</a> (1), <a href="tags/flyway.html">flyway</a> (1), <a href="tags/freebsd.html">FreeBSD</a> (1), <a href="tags/freebsd_jail.html">FreeBSD jail</a> (1), <a href="tags/git.html">git</a> (1), <a href="tags/google_analytics.html">google analytics</a> (1), <a href="tags/google_play_store.html">google play store</a> (1), <a href="tags/ical.html">iCal</a> (1), <a href="tags/ios_development.html">ios development</a> (1), <a href="tags/javascript.html">javascript</a> (1), <a href="tags/jenkins.html">Jenkins</a> (1), <a href="tags/jis_x_0208.html">JIS X 0208</a> (1), <a href="tags/mac_os_x.html">mac os x</a> (4), <a href="tags/marketing.html">marketing</a> (1), <a href="tags/mavericks.html">mavericks</a> (1), <a href="tags/migemo.html">migemo</a> (1), <a href="tags/migration.html">migration</a> (1), <a href="tags/mysql.html">mysql</a> (2), <a href="tags/mysql.html">MySQL</a> (1), <a href="tags/objective_c.html">objective-c</a> (1), <a href="tags/oniguruma.html">oniguruma</a> (1), <a href="tags/python.html">python</a> (1), <a href="tags/regexp.html">regexp</a> (1), <a href="tags/regular_expression.html">regular expression</a> (1), <a href="tags/ruby.html">ruby</a> (1), <a href="tags/sphinx.html">sphinx</a> (2), <a href="tags/sql.html">sql</a> (2), <a href="tags/supervisor.html">Supervisor</a> (1), <a href="tags/tinkerer.html">tinkerer</a> (2), <a href="tags/ubuntu.html">ubuntu</a> (1), <a href="tags/vnc.html">vnc</a> (1), <a href="tags/vps.html">vps</a> (1), <a href="tags/windows.html">windows</a> (1), <a href="tags/xcode.html">xcode</a> (1)</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2013, Tatsuya Yamamoto. Powered by <a href="http://www.tinkerer.me/" target="_blank">Tinkerer</a> and <a href="http://sphinx.pocoo.org/" target="_blank">Sphinx</a>. <a href="https://pypi.python.org/pypi/sphinxjp.themes.tinkerturquoise" target="_blank">This theme</a> is originally designed by <a href="http://naoiwata.github.com/" target="_blank">naoiwata</a>.</footer>
+  <script type="text/javascript">
+    var FixZoom,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    FixZoom = (function() {
+      var ua;
+      ua = window.navigator.userAgent.toLowerCase();
+
+      function FixZoom() {
+        this.on_resize = __bind(this.on_resize, this);
+        this.dom_id = 'wrap';
+        this.max_width = 640;
+        this.device_width = null;
+        this.device_height = null;
+        this.window_width = window.innerWidth;
+        this.window_height = window.innerHeight;
+        this.iphone = ua.indexOf('iphone') > -1;
+        this.ipod = ua.indexOf('ipod') > -1;
+        this.ipad = ua.indexOf('ipad') > -1;
+        this.android = ua.indexOf('android') > -1;
+      }
+
+      FixZoom.prototype.init = function(dom_id, max) {
+        var _this = this;
+        this.dom_id = dom_id;
+        if (max > 0) {
+          this.max_width = max;
+        }
+        setTimeout(function() {
+          window.scrollTo(0, 1);
+          return _this.on_resize();
+        }, 100);
+        this.set_ua();
+        this.on_resize();
+        window.addEventListener('resize', this.on_resize);
+      };
+
+      FixZoom.prototype.on_resize = function() {
+        var wrapper;
+        if (!this.iphone && !this.ipod && !this.android) {
+          return;
+        }
+        this.window_width = window.innerWidth;
+        wrapper = document.getElementById(this.dom_id);
+        if (this.window_width >= this.max_width) {
+          wrapper.style.width = this.max_width + 'px';
+          wrapper.style.margin = '0 auto';
+        } else {
+          wrapper.style.zoom = this.window_width / this.max_width;
+        }
+      };
+
+      FixZoom.prototype.set_ua = function() {
+        if (this.iphone || this.android || this.ipad || this.ipod) {
+          document.body.className += ' sp';
+        } else {
+          document.body.className += ' pc';
+        }
+      };
+
+      return FixZoom;
+
+    })();
+
+    window.fix_zoom = new FixZoom();
+    $('head').append('<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport" />');
+    fix_zoom.init('container', 640);
+  </script></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><script type="text/javascript">    var disqus_shortname = "ymt2log";    disqus_count();</script><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

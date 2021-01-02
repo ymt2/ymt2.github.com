@@ -1,0 +1,33 @@
+@media screen and (max-width: 979px) {
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  #container {
+    width: 100%
+  }
+
+  #container nav {
+    padding: 5px 20px 0 20px;
+  }
+
+  .main-container {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .main-container article {
+    width: 100%;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .main-container sidebar {
+    width: 100%;
+  }
+}
