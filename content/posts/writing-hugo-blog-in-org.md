@@ -1,10 +1,11 @@
 +++
 title = "Writing Hugo blog in Org"
 author = ["ymt2"]
-lastmod = 2021-01-03T05:58:36+09:00
+date = 2021-01-03T06:20:00+09:00
+lastmod = 2021-01-03T06:21:06+09:00
 tags = ["hugo", "org"]
 categories = ["emacs"]
-draft = true
+draft = false
 weight = 2001
 +++
 
