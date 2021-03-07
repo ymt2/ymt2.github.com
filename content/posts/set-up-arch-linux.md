@@ -2,7 +2,7 @@
 title = "Set up Arch Linux"
 author = ["ymt2"]
 date = 2021-03-08T00:18:00+09:00
-lastmod = 2021-03-08T00:24:04+09:00
+lastmod = 2021-03-08T00:49:32+09:00
 tags = ["arch-linux", "linux"]
 categories = ["environment"]
 draft = false
@@ -12,6 +12,32 @@ weight = 2002
 お仕事用メイン機として久しぶりに[Arch Linux](https://wiki.archlinux.org/index.php/installation%5Fguide) をセットアップしたので記録しておく。
 なお、常に最新の情報源として[Installation guide - ArchWiki](https://wiki.archlinux.org/index.php/installation%5Fguide)を参照するべきことが
 前提。
+
+<div class="ox-hugo-toc toc">
+<div></div>
+
+<div class="heading">Table of Contents</div>
+
+- [構成](#構成)
+- [事前準備](#事前準備)
+    - [インストールメディアの作成](#インストールメディアの作成)
+- [セットアップ](#セットアップ)
+- [パッケージマネージャ](#パッケージマネージャ)
+- [デスクトップ環境](#デスクトップ環境)
+    - [Display manager](#display-manager)
+    - [Window manager](#window-manager)
+    - [スクリーンショット](#スクリーンショット)
+    - [IME](#ime)
+- [サウンド](#サウンド)
+- [ターミナルエミュレータ](#ターミナルエミュレータ)
+- [ビデオ会議](#ビデオ会議)
+    - [カメラ周辺の設定](#カメラ周辺の設定)
+    - [仮想カメラ設定](#仮想カメラ設定)
+    - [スクリーンキャプチャ](#スクリーンキャプチャ)
+- [パスワードマネージャ](#パスワードマネージャ)
+
+</div>
+<!--endtoc-->
 
 
 ## 構成 {#構成}
