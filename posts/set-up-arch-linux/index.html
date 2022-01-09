@@ -1,40 +1,208 @@
-<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en-us lang=en-us><head><link href=https://gmpg.org/xfn/11 rel=profile><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=referrer content="no-referrer"><title>Set up Arch Linux ❚ ymt2log</title><style>body{margin:40px auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0 10px}h1,h2,h3{line-height:1.2}.masthead-title{font-size:40px;font-weight:700}.masthead-title a{text-decoration:none}.masthead-body{font-size:.8em}figcaption,.src-block-caption,.table-caption{font-style:italic;text-align:center}dt{font-weight:700}dd{margin-bottom:.5rem}ul.task-list{list-style-type:none}</style><meta property="og:title" content="Set up Arch Linux"><meta property="og:description" content><meta property="og:type" content="article"><meta property="og:url" content="/posts/set-up-arch-linux/"><meta property="article:published_time" content="2021-03-08T00:18:00+09:00"><meta property="article:modified_time" content="2021-03-08T00:49:32+09:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Set up Arch Linux"><meta name=twitter:description content><script src=js/mathjax-config.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><link rel=stylesheet href=/css/github_chroma.css type=text/css></head><body lang=en><div style=float:left><small><span style=font-variant:small-caps>.Kind</span> (<strong>page</strong>):
+<!doctype html><html xmlns=http://www.w3.org/1999/xhtml xml:lang=en-us lang=en-us>
+<head>
+<link href=https://gmpg.org/xfn/11 rel=profile>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name=referrer content="no-referrer">
+<title>
+Set up Arch Linux ❚ ymt2log
+</title>
+<style>body{margin:40px auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0 10px}h1,h2,h3{line-height:1.2}.masthead-title{font-size:40px;font-weight:700}.masthead-title a{text-decoration:none}.masthead-body{font-size:.8em}figcaption,.src-block-caption,.table-caption{font-style:italic;text-align:center}dt{font-weight:700}dd{margin-bottom:.5rem}ul.task-list{list-style-type:none}</style>
+<meta property="og:title" content="Set up Arch Linux">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="/posts/set-up-arch-linux/">
+<meta property="article:published_time" content="2021-03-08T00:18:00+09:00">
+<meta property="article:modified_time" content="2021-03-08T00:49:32+09:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Set up Arch Linux">
+<meta name=twitter:description content>
+<script src=js/mathjax-config.js></script>
+<script type=text/javascript src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script>
+<link rel=stylesheet href=/css/github_chroma.css type=text/css>
+</head>
+<body lang=en>
+<div style=float:left>
+<small>
+<span style=font-variant:small-caps>.Kind</span> (<strong>page</strong>):
 <span style=font-variant:small-caps>.Type</span> (<strong>posts</strong>) /
-<span style=font-variant:small-caps>.Layout</span> (<strong></strong>)<br><span style=font-variant:small-caps>Bundle</span>: <strong>n/a (regular page)</strong></small></div><div style=float:right>[
+<span style=font-variant:small-caps>.Layout</span> (<strong></strong>)
+<br>
+<span style=font-variant:small-caps>Bundle</span>: <strong>n/a (regular page)</strong>
+</small>
+</div>
+<div style=float:right>
+[
 <a href=/categories/>categories</a>
 | <a href=/tags/>tags</a>
-]</div><div style=clear:both></div><div class=masthead-title><a href=/>ymt2log</a></div><div class=masthead-body><hr></div><div class=post><h1 class=post-title>Set up Arch Linux</h1><p><span style=font-variant:small-caps>categories</span>:
-<a href=/categories/environment>environment</a></p><p><span style=font-variant:small-caps>tags</span>:
+]
+</div>
+<div style=clear:both></div>
+<div class=masthead-title><a href=/>ymt2log</a></div>
+<div class=masthead-body>
+<hr>
+</div>
+<div class=post>
+<h1 class=post-title>Set up Arch Linux</h1>
+<p>
+<span style=font-variant:small-caps>categories</span>:
+<a href=/categories/environment>environment</a>
+</p>
+<p>
+<span style=font-variant:small-caps>tags</span>:
 <a href=/tags/arch-linux>arch-linux</a>
-<a href=/tags/linux>linux</a></p><p></p><hr><h3>Description/Summary</h3><p>お仕事用メイン機として久しぶりにArch Linux をセットアップしたので記録しておく。 なお、常に最新の情報源としてInstallation guide - ArchWikiを参照するべきことが 前提。
-構成 事前準備 インストールメディアの作成 セットアップ パッケージマネージャ デスクトップ環境 Display manager Window manager スクリーンショット IME サウンド ターミナルエミュレータ ビデオ会議 カメラ周辺の設定 仮想カメラ設定 スクリーンキャプチャ パスワードマネージャ 構成 Board ASRock X570 Phantom Gaming 4 CPU AMD Ryzen 7 3700X VGA ZOTAC GAMING GeForce RTX 2070 SUPER AMP Extreme RAM DDR4-3200 16GB x 2 Storage nvme0: Windows, nvme1: TARGET, ssd0: Data for Windows 事前準備 インストールメディアの作成 セットアップ対象のマシンは既に Windows マシンとして構成していたため Rufus を利用して USB インストールメディアを作成した。</p><hr><h3>Content</h3><p>お仕事用メイン機として久しぶりに<a href=https://wiki.archlinux.org/index.php/installation%5Fguide>Arch Linux</a> をセットアップしたので記録しておく。
+<a href=/tags/linux>linux</a>
+</p>
+<p>
+</p>
+<hr>
+<h3>Description/Summary</h3>
+<p>お仕事用メイン機として久しぶりにArch Linux をセットアップしたので記録しておく。 なお、常に最新の情報源としてInstallation guide - ArchWikiを参照するべきことが 前提。
+構成 事前準備 インストールメディアの作成 セットアップ パッケージマネージャ デスクトップ環境 Display manager Window manager スクリーンショット IME サウンド ターミナルエミュレータ ビデオ会議 カメラ周辺の設定 仮想カメラ設定 スクリーンキャプチャ パスワードマネージャ 構成 Board ASRock X570 Phantom Gaming 4 CPU AMD Ryzen 7 3700X VGA ZOTAC GAMING GeForce RTX 2070 SUPER AMP Extreme RAM DDR4-3200 16GB x 2 Storage nvme0: Windows, nvme1: TARGET, ssd0: Data for Windows 事前準備 インストールメディアの作成 セットアップ対象のマシンは既に Windows マシンとして構成していたため Rufus を利用して USB インストールメディアを作成した。</p>
+<hr>
+<h3>Content</h3>
+<p>お仕事用メイン機として久しぶりに<a href=https://wiki.archlinux.org/index.php/installation%5Fguide>Arch Linux</a> をセットアップしたので記録しておく。
 なお、常に最新の情報源として<a href=https://wiki.archlinux.org/index.php/installation%5Fguide>Installation guide - ArchWiki</a>を参照するべきことが
-前提。</p><ul><li><a href=#%E6%A7%8B%E6%88%90>構成</a></li><li><a href=#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99>事前準備</a><ul><li><a href=#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE%E4%BD%9C%E6%88%90>インストールメディアの作成</a></li></ul></li><li><a href=#%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97>セットアップ</a></li><li><a href=#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3>パッケージマネージャ</a></li><li><a href=#%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83>デスクトップ環境</a><ul><li><a href=#display-manager>Display manager</a></li><li><a href=#window-manager>Window manager</a></li><li><a href=#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88>スクリーンショット</a></li><li><a href=#ime>IME</a></li></ul></li><li><a href=#%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89>サウンド</a></li><li><a href=#%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF>ターミナルエミュレータ</a></li><li><a href=#%E3%83%93%E3%83%87%E3%82%AA%E4%BC%9A%E8%AD%B0>ビデオ会議</a><ul><li><a href=#%E3%82%AB%E3%83%A1%E3%83%A9%E5%91%A8%E8%BE%BA%E3%81%AE%E8%A8%AD%E5%AE%9A>カメラ周辺の設定</a></li><li><a href=#%E4%BB%AE%E6%83%B3%E3%82%AB%E3%83%A1%E3%83%A9%E8%A8%AD%E5%AE%9A>仮想カメラ設定</a></li><li><a href=#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3>スクリーンキャプチャ</a></li></ul></li><li><a href=#%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3>パスワードマネージャ</a></li></ul><h2 id=構成>構成</h2><table><thead><tr><th>Board</th><th>ASRock X570 Phantom Gaming 4</th></tr></thead><tbody><tr><td>CPU</td><td>AMD Ryzen 7 3700X</td></tr><tr><td>VGA</td><td>ZOTAC GAMING GeForce RTX 2070 SUPER AMP Extreme</td></tr><tr><td>RAM</td><td>DDR4-3200 16GB x 2</td></tr><tr><td>Storage</td><td>nvme0: Windows, nvme1: TARGET, ssd0: Data for Windows</td></tr></tbody></table><h2 id=事前準備>事前準備</h2><h3 id=インストールメディアの作成>インストールメディアの作成</h3><p>セットアップ対象のマシンは既に Windows マシンとして構成していたため <a href=https://rufus.ie/>Rufus</a>
-を利用して USB インストールメディアを作成した。</p><p><a href=https://wiki.archlinux.org/index.php/USB%5Fflash%5Finstallation%5Fmedium#Using%5FRufus>USB flash installation medium - ArchWiki</a> には以下のように書かれているが、こ
+前提。</p>
+<ul>
+<li><a href=#%E6%A7%8B%E6%88%90>構成</a></li>
+<li><a href=#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99>事前準備</a>
+<ul>
+<li><a href=#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E3%81%AE%E4%BD%9C%E6%88%90>インストールメディアの作成</a></li>
+</ul>
+</li>
+<li><a href=#%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97>セットアップ</a></li>
+<li><a href=#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3>パッケージマネージャ</a></li>
+<li><a href=#%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97%E7%92%B0%E5%A2%83>デスクトップ環境</a>
+<ul>
+<li><a href=#display-manager>Display manager</a></li>
+<li><a href=#window-manager>Window manager</a></li>
+<li><a href=#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88>スクリーンショット</a></li>
+<li><a href=#ime>IME</a></li>
+</ul>
+</li>
+<li><a href=#%E3%82%B5%E3%82%A6%E3%83%B3%E3%83%89>サウンド</a></li>
+<li><a href=#%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF>ターミナルエミュレータ</a></li>
+<li><a href=#%E3%83%93%E3%83%87%E3%82%AA%E4%BC%9A%E8%AD%B0>ビデオ会議</a>
+<ul>
+<li><a href=#%E3%82%AB%E3%83%A1%E3%83%A9%E5%91%A8%E8%BE%BA%E3%81%AE%E8%A8%AD%E5%AE%9A>カメラ周辺の設定</a></li>
+<li><a href=#%E4%BB%AE%E6%83%B3%E3%82%AB%E3%83%A1%E3%83%A9%E8%A8%AD%E5%AE%9A>仮想カメラ設定</a></li>
+<li><a href=#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3>スクリーンキャプチャ</a></li>
+</ul>
+</li>
+<li><a href=#%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3>パスワードマネージャ</a></li>
+</ul>
+<h2 id=構成>構成</h2>
+<table>
+<thead>
+<tr>
+<th>Board</th>
+<th>ASRock X570 Phantom Gaming 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>AMD Ryzen 7 3700X</td>
+</tr>
+<tr>
+<td>VGA</td>
+<td>ZOTAC GAMING GeForce RTX 2070 SUPER AMP Extreme</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>DDR4-3200 16GB x 2</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>nvme0: Windows, nvme1: TARGET, ssd0: Data for Windows</td>
+</tr>
+</tbody>
+</table>
+<h2 id=事前準備>事前準備</h2>
+<h3 id=インストールメディアの作成>インストールメディアの作成</h3>
+<p>セットアップ対象のマシンは既に Windows マシンとして構成していたため <a href=https://rufus.ie/>Rufus</a>
+を利用して USB インストールメディアを作成した。</p>
+<p><a href=https://wiki.archlinux.org/index.php/USB%5Fflash%5Finstallation%5Fmedium#Using%5FRufus>USB flash installation medium - ArchWiki</a> には以下のように書かれているが、こ
 のオプションは「スタート」を押して実際に書き込む直前でないと表示されないこ
-とに戸惑った。</p><blockquote><p>Note: If the USB drive does not boot properly using the default ISO Image mode, DD Image mode should be used instead. To switch this mode on, select GPT from the Partition scheme drop-down menu. After clicking START you will get the mode selection dialog, select DD Image mode.</p></blockquote><h2 id=セットアップ>セットアップ</h2><p>ひたすら<a href=https://wiki.archlinux.org/index.php/installation%5Fguide>Installation guide - ArchWiki</a>を参照してやる。</p><p>設定はできるだけ <a href=https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>XDG Base Directory Specification</a> に沿っているほうが
-git 管理しやすいので<a href=https://wiki.archlinux.org/index.php/XDG%5FBase%5FDirectory>XDG Base Directory - ArchWiki</a> を横目に諸々行なった。</p><h2 id=パッケージマネージャ>パッケージマネージャ</h2><p>AUR helper <a href=https://github.com/morganamilo/paru>paru</a> を利用することにした。</p><h2 id=デスクトップ環境>デスクトップ環境</h2><h3 id=display-manager>Display manager</h3><p><a href=https://github.com/canonical/lightdm>LightDM</a> を利用することにした。
-<a href=https://wiki.archlinux.org/index.php/LightDM>LightDM - ArchWiki</a> を参照すればセットアップに迷うことはなさそう。</p><p>ログイン画面には <a href="https://archlinux.org/packages/?name=lightdm-webkit2-greeter">lightdm-webkit2-greeter</a> を採用。</p><h3 id=window-manager>Window manager</h3><p><a href=https://xmonad.org/>xmonad</a> を使用することにした。
-<a href=https://github.com/ymt2/dots/blob/master/dot.config/xmonad/xmonad.hs>xmonad.hs</a> は git 管理している。</p><p>KDE や GNOME のようなデスクトップ環境と比較して xmonad はウィンドウマネージャ
+とに戸惑った。</p>
+<blockquote>
+<p>Note: If the USB drive does not boot properly using the default ISO Image mode, DD Image mode should be used instead. To switch this mode on, select GPT from the Partition scheme drop-down menu. After clicking START you will get the mode selection dialog, select DD Image mode.</p>
+</blockquote>
+<h2 id=セットアップ>セットアップ</h2>
+<p>ひたすら<a href=https://wiki.archlinux.org/index.php/installation%5Fguide>Installation guide - ArchWiki</a>を参照してやる。</p>
+<p>設定はできるだけ <a href=https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>XDG Base Directory Specification</a> に沿っているほうが
+git 管理しやすいので<a href=https://wiki.archlinux.org/index.php/XDG%5FBase%5FDirectory>XDG Base Directory - ArchWiki</a> を横目に諸々行なった。</p>
+<h2 id=パッケージマネージャ>パッケージマネージャ</h2>
+<p>AUR helper <a href=https://github.com/morganamilo/paru>paru</a> を利用することにした。</p>
+<h2 id=デスクトップ環境>デスクトップ環境</h2>
+<h3 id=display-manager>Display manager</h3>
+<p><a href=https://github.com/canonical/lightdm>LightDM</a> を利用することにした。
+<a href=https://wiki.archlinux.org/index.php/LightDM>LightDM - ArchWiki</a> を参照すればセットアップに迷うことはなさそう。</p>
+<p>ログイン画面には <a href="https://archlinux.org/packages/?name=lightdm-webkit2-greeter">lightdm-webkit2-greeter</a> を採用。</p>
+<h3 id=window-manager>Window manager</h3>
+<p><a href=https://xmonad.org/>xmonad</a> を使用することにした。
+<a href=https://github.com/ymt2/dots/blob/master/dot.config/xmonad/xmonad.hs>xmonad.hs</a> は git 管理している。</p>
+<p>KDE や GNOME のようなデスクトップ環境と比較して xmonad はウィンドウマネージャ
 としての機能に特化したもので機能の不足を感じたため他の手段で補填することに
-した。</p><p>具体的には以下のような <a href=https://www.xfce.org/>Xfce</a> のモジュールを部分的に採用した。
-インストールは <code>$ paru -S xfce4-goodies</code> でやった気がする。</p><h4 id=デスクトップ通知>デスクトップ通知</h4><p>チャットツールなどによる通知は仕事でのやりとり上あったほうがよいので <a href=https://docs.xfce.org/apps/notifyd/start>Xfce
-Notification Daemon</a> を D-Bus 経由で動作させることにした。</p><p><code>~/.local/share/dbus-1/services/org.freedesktop.Notifications.service</code> に
-以下のような設定を書く程度で動作する。</p><pre><code class=language-nil data-lang=nil>[D-BUS Service]
+した。</p>
+<p>具体的には以下のような <a href=https://www.xfce.org/>Xfce</a> のモジュールを部分的に採用した。
+インストールは <code>$ paru -S xfce4-goodies</code> でやった気がする。</p>
+<h4 id=デスクトップ通知>デスクトップ通知</h4>
+<p>チャットツールなどによる通知は仕事でのやりとり上あったほうがよいので <a href=https://docs.xfce.org/apps/notifyd/start>Xfce
+Notification Daemon</a> を D-Bus 経由で動作させることにした。</p>
+<p><code>~/.local/share/dbus-1/services/org.freedesktop.Notifications.service</code> に
+以下のような設定を書く程度で動作する。</p>
+<pre tabindex=0><code class=language-nil data-lang=nil>[D-BUS Service]
 Name=org.freedesktop.Notifications
 Exec=/usr/lib/xfce4/notifyd/xfce4-notifyd
-</code></pre><p>動作チェックには <code>$ notifyd-send MESSAGE</code> とかやればよい。</p><h3 id=スクリーンショット>スクリーンショット</h3><p>xfce4-screenshooter を <code>&lt;Print></code> (フルスクリーン) or <code>C-&lt;Print></code> (範囲選択モード) で起動するようにした。</p><p><a href=https://docs.xfce.org/panel-plugins/xfce4-clipman-plugin>xfce4-clipman</a> をバックグラウンドで動作させておくとキャプチャしたものを
+</code></pre><p>動作チェックには <code>$ notifyd-send MESSAGE</code> とかやればよい。</p>
+<h3 id=スクリーンショット>スクリーンショット</h3>
+<p>xfce4-screenshooter を <code>&lt;Print></code> (フルスクリーン) or <code>C-&lt;Print></code> (範囲選択モード) で起動するようにした。</p>
+<p><a href=https://docs.xfce.org/panel-plugins/xfce4-clipman-plugin>xfce4-clipman</a> をバックグラウンドで動作させておくとキャプチャしたものを
 直接クリップボードに載せて、そのままブラウザにペーストして GitHub Issue に
-貼るなどができ便利。</p><h3 id=ime>IME</h3><p>TBU <code>ibus-skk</code></p><h2 id=サウンド>サウンド</h2><p>alsa-utils と pulseaudio-alsa を入れている。
-基本的に alsamixer で事足りている。</p><h2 id=ターミナルエミュレータ>ターミナルエミュレータ</h2><p>TBU <code>urxvt</code></p><h2 id=ビデオ会議>ビデオ会議</h2><p>仕事のやりとりで Google Meet などビデオ会議ツールを多用するため動作するよう
-設定する必要があった。</p><p>Zoom, Slack, discord のデスクトップクライアントやブラウザ上で Google Meet,
-Whereby の動作を確認済み。</p><h3 id=カメラ周辺の設定>カメラ周辺の設定</h3><p><a href=https://www.logicool.co.jp/ja-jp/product/c922n-pro-stream-webcam>Logicool C922n Pro Stream Webcam</a> は USB 接続するだけで動作した。
-<a href=https://obsproject.com/>OBS Studio</a> を間にはさんでビデオ会議ソフトウェアに接続している。</p><h3 id=仮想カメラ設定>仮想カメラ設定</h3><p>OBS Studio の <code>Start Virtual Camera</code> ボタンを有効にするため設定が必要。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ paru -S v4l2loopback-dkms
+貼るなどができ便利。</p>
+<h3 id=ime>IME</h3>
+<p>TBU <code>ibus-skk</code></p>
+<h2 id=サウンド>サウンド</h2>
+<p>alsa-utils と pulseaudio-alsa を入れている。
+基本的に alsamixer で事足りている。</p>
+<h2 id=ターミナルエミュレータ>ターミナルエミュレータ</h2>
+<p>TBU <code>urxvt</code></p>
+<h2 id=ビデオ会議>ビデオ会議</h2>
+<p>仕事のやりとりで Google Meet などビデオ会議ツールを多用するため動作するよう
+設定する必要があった。</p>
+<p>Zoom, Slack, discord のデスクトップクライアントやブラウザ上で Google Meet,
+Whereby の動作を確認済み。</p>
+<h3 id=カメラ周辺の設定>カメラ周辺の設定</h3>
+<p><a href=https://www.logicool.co.jp/ja-jp/product/c922n-pro-stream-webcam>Logicool C922n Pro Stream Webcam</a> は USB 接続するだけで動作した。
+<a href=https://obsproject.com/>OBS Studio</a> を間にはさんでビデオ会議ソフトウェアに接続している。</p>
+<h3 id=仮想カメラ設定>仮想カメラ設定</h3>
+<p>OBS Studio の <code>Start Virtual Camera</code> ボタンを有効にするため設定が必要。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ paru -S v4l2loopback-dkms
 $ modprobe v4l2loopback-dkms <span style=color:#75715e># 動作チェック。事前に再起動が必要だった気がする</span>
 </code></pre></div><p>動作チェック時に以下のようなメッセージが出るようなら
-<code>$ paru -S linux-headers</code> する。</p><blockquote><p>modprobe: FATAL: Module v4l2loopback-dkms not found in directory /lib/modules/5.10.15-arch1-1</p></blockquote><p>動作チェックできたら設定を永続化するために以下をやる。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ echo v4l2loopback | sudo tee -a /etc/modules-load.d/v4l2loopback.conf
+<code>$ paru -S linux-headers</code> する。</p>
+<blockquote>
+<p>modprobe: FATAL: Module v4l2loopback-dkms not found in directory /lib/modules/5.10.15-arch1-1</p>
+</blockquote>
+<p>動作チェックできたら設定を永続化するために以下をやる。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>$ echo v4l2loopback | sudo tee -a /etc/modules-load.d/v4l2loopback.conf
 $ echo <span style=color:#e6db74>&#39;options v4l2loopback exclusive_caps=1&#39;</span> | sudo tee -a /etc/modprobe.d/v4l2loopback.conf
-</code></pre></div><h3 id=スクリーンキャプチャ>スクリーンキャプチャ</h3><p>OBS Studio の <code>Window Capture (Xcomposite)</code> を動作させるために以下のような
-設定を行なった。</p><ul><li><code>Xmonad.Hooks.EwmhDesktops</code> を xmonad.hs でインポート</li><li>xmonad オブジェクト初期化時に <code>ewmh defaultConfig</code> をはさむ</li></ul><h2 id=パスワードマネージャ>パスワードマネージャ</h2><p>TBU <code>keepassxc</code></p></div><hr><small>This site is generated using the
-<a href=https://github.com/kaushalmodi/hugo-bare-min-theme><code>hugo-bare-min-theme</code></a> + Hugo <b>0.81.0</b>
-.</small></body></html>
+</code></pre></div><h3 id=スクリーンキャプチャ>スクリーンキャプチャ</h3>
+<p>OBS Studio の <code>Window Capture (Xcomposite)</code> を動作させるために以下のような
+設定を行なった。</p>
+<ul>
+<li><code>Xmonad.Hooks.EwmhDesktops</code> を xmonad.hs でインポート</li>
+<li>xmonad オブジェクト初期化時に <code>ewmh defaultConfig</code> をはさむ</li>
+</ul>
+<h2 id=パスワードマネージャ>パスワードマネージャ</h2>
+<p>TBU <code>keepassxc</code></p>
+</div>
+<hr>
+<small>This site is generated using the
+<a href=https://github.com/kaushalmodi/hugo-bare-min-theme><code>hugo-bare-min-theme</code></a> + Hugo <b>0.91.2</b>
+.
+</small>
+</body>
+</html>
